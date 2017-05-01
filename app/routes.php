@@ -69,6 +69,9 @@ Route::group(["before" => "auth"], function() {
         Route::get('inicio', function () {
             return View::make('admin.main');
         });
+        Route::get('admin.mantenimiento.usuarios', function () {
+            return View::make('admin.mantenimiento.users');
+        });
 
         //esto tiene que ser dinamico
         Route::get('/{uri}', function ($uri) {

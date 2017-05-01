@@ -1,8 +1,45 @@
 <?php
+use  Illuminate\Support\Facades\Paginator;
+
 class UserController extends Controller
 {
     use CaptchaTrait;
+    public function postAll(){
+        return User::all();
+    }
+    public function postAllPaginate(){
 
+        $data = Input::all();
+        $data =[
+            'page'=>(Input::get('start')+Input::get('length'))/Input::get('length'),
+            'per_page'=>Input::get('length')
+        ];
+        //Input::replace($data);  
+        Input::merge($data);  
+        //dd(Input::all());
+
+       
+        if (Input::has('sort')) {
+            list($sortCol, $sortDir) = explode('|', Input::get('sort'));
+            $query = User::orderBy($sortCol, $sortDir);
+        } else {
+            $query = User::orderBy('id', 'asc');
+        }
+
+        if (Input::has('filter')) {
+            $filter=Input::get('filter');
+            $query->where(function($q) use($filter) {
+                $value = "%{$filter}%";
+                $q->where('apellidos', 'like', $value)
+                    ->orWhere('nombres', 'like', $value)
+                    ->orWhere('dni', 'like', $value);
+            });
+        }
+
+        $perPage = Input::has('length') ? (int) Input::get('length') : null;
+        return Response::json($query->paginate($perPage));
+        //return User::paginate();
+    }
     /**
      * view register
      */
