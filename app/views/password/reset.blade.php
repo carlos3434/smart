@@ -1,5 +1,4 @@
-@extends("layout")
-@section("content")
+
     <form action="/password/reset" method="POST">
         @if (Session::get("error"))
           {{ Session::get("error") }}<br />
@@ -13,4 +12,3 @@
         <input type="password" name="password_confirmation">
         <input type="submit" value="Reset Password">
     </form>
-@stop

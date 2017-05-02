@@ -55,7 +55,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'puedesencontrar1973@gmail.com', 'name' => 'juan carlos'),
+	'from' => array('address' => 'puedesencontrar1973@gmail.com', 'name' => 'jose'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -94,7 +94,7 @@ return array(
 	|
 	*/
 
-	'password' => '1973sklt',
+	'password' => '123456781',
 
 	/*
 	|--------------------------------------------------------------------------

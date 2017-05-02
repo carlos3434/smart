@@ -124,8 +124,8 @@
                           <th>Phone</th>
                           <th data-hide="phone">Company</th>
                           <th data-hide="phone,tablet">Zip</th>
-                          <th data-hide="phone,tablet">City</th>
-                          <th data-hide="phone,tablet">Date</th>
+                          <th data-hide="phone,tablet">[]</th>
+                          <th data-hide="phone,tablet">Estado</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -158,7 +158,7 @@
 @stop
 
 @section('formulario')
-    {{-- @include( 'admin.mantenimiento.form.persona' )  --}}
+    @include( 'admin.mantenimiento.user.nuevo' )
 @stop
 
 @push('scripts_custom')
