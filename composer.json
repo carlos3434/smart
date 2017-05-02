@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"itsgoingd/clockwork": "1.*",
-		"google/recaptcha": "~1.1"
+		"google/recaptcha": "~1.1",
+		"zizaco/entrust": "1.2.*@dev"
 	},
 	"autoload": {
 		"classmap": [
