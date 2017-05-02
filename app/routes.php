@@ -46,6 +46,15 @@ Route::any('/', function()
     return View::make('user/login');
 });
 
+Route::get('entrust',['before' => ['create-users'], function()
+{
+    $user = Auth::user();//obtenemos el usuario logueado
+    return "";
+    if ($user->hasRole(‘admin’))
+    {
+    return 'usuario tiene rol admin!';
+    }
+}]);
 Route::get('password/remind', function()
 {
     return View::make('password/remind');

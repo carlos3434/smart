@@ -68,7 +68,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             $user->token = str_random(30);
         });
     }
+    //establecemos las relaciones con el modelo Role, ya que un usuario puede tener varios roles
+    //y un rol lo pueden tener varios usuarios
+    public function roles(){
+        return $this->belongsToMany('Role');
+    }
 
+    public function modulos(){
+        return $this->belongsToMany('Modulo');
+    }
     /**
      * Set the password attribute.
      *
