@@ -102,8 +102,6 @@ class UserController extends Controller
             $credentials = $this->getCredentials();
 
             if ($this->signIn()) {
-                //crear sesion
-                Session::set('user', Auth::id());
                 return Redirect::to('inicio');
             }
 
@@ -155,7 +153,6 @@ class UserController extends Controller
 
     public function getLogout()
     {
-        Session::flush();
         Auth::logout();
         return Redirect::to('/');
 

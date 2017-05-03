@@ -123,6 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Clockwork\Support\Laravel\ClockworkServiceProvider',
 		'Zizaco\Entrust\EntrustServiceProvider',
+		'EventServiceProvider',
 	),
 
 	/*

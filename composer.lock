@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+    "hash": "457d07c42a9e870a5385b9c366add95d",
     "content-hash": "9834d6059941c3bf420b39d01732c0db",
     "packages": [
         {
@@ -51,27 +52,29 @@
                 "class",
                 "preload"
             ],
-            "time": "2014-03-12T00:05:31+00:00"
+            "time": "2014-03-12 00:05:31"
         },
         {
             "name": "d11wtq/boris",
-            "version": "v1.0.10",
+            "version": "v1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/borisrepl/boris.git",
-                "reference": "31055b15e2d3fe47f31f6aa8e277f8f3fc7eb483"
+                "reference": "125dd4e5752639af7678a22ea597115646d89c6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/borisrepl/boris/zipball/31055b15e2d3fe47f31f6aa8e277f8f3fc7eb483",
-                "reference": "31055b15e2d3fe47f31f6aa8e277f8f3fc7eb483",
+                "url": "https://api.github.com/repos/borisrepl/boris/zipball/125dd4e5752639af7678a22ea597115646d89c6e",
+                "reference": "125dd4e5752639af7678a22ea597115646d89c6e",
                 "shasum": ""
             },
             "require": {
+                "php": ">=5.3.0"
+            },
+            "suggest": {
                 "ext-pcntl": "*",
                 "ext-posix": "*",
-                "ext-readline": "*",
-                "php": ">=5.3.0"
+                "ext-readline": "*"
             },
             "bin": [
                 "bin/boris"
@@ -83,11 +86,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A tiny, but robust REPL (Read-Evaluate-Print-Loop) for PHP.",
-            "time": "2015-03-01T08:05:19+00:00"
+            "time": "2014-01-17 12:21:18"
         },
         {
             "name": "filp/whoops",
@@ -145,7 +144,7 @@
                 "whoops",
                 "zf2"
             ],
-            "time": "2015-06-29T05:42:04+00:00"
+            "time": "2015-06-29 05:42:04"
         },
         {
             "name": "google/recaptcha",
@@ -190,7 +189,7 @@
                 "recaptcha",
                 "spam"
             ],
-            "time": "2017-03-09T18:44:34+00:00"
+            "time": "2017-03-09 18:44:34"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -232,7 +231,7 @@
                 "hashing",
                 "password"
             ],
-            "time": "2014-11-20T16:49:30+00:00"
+            "time": "2014-11-20 16:49:30"
         },
         {
             "name": "itsgoingd/clockwork",
@@ -277,7 +276,7 @@
                 "logging",
                 "profiling"
             ],
-            "time": "2017-01-25T13:47:29+00:00"
+            "time": "2017-01-25 13:47:29"
         },
         {
             "name": "jeremeamia/SuperClosure",
@@ -325,7 +324,7 @@
                 "serialize",
                 "tokenizer"
             ],
-            "time": "2015-01-10T01:09:28+00:00"
+            "time": "2015-01-10 01:09:28"
         },
         {
             "name": "laravel/framework",
@@ -440,7 +439,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-11-12T01:41:37+00:00"
+            "time": "2016-11-12 01:41:37"
         },
         {
             "name": "laravelbook/ardent",
@@ -493,7 +492,7 @@
                 "sql",
                 "validation"
             ],
-            "time": "2015-09-07T17:00:50+00:00"
+            "time": "2015-09-07 17:00:50"
         },
         {
             "name": "monolog/monolog",
@@ -571,7 +570,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2017-03-13T07:08:03+00:00"
+            "time": "2017-03-13 07:08:03"
         },
         {
             "name": "nesbot/carbon",
@@ -624,7 +623,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2017-01-16T07:55:07+00:00"
+            "time": "2017-01-16 07:55:07"
         },
         {
             "name": "nikic/php-parser",
@@ -669,7 +668,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2014-07-23T18:24:17+00:00"
+            "time": "2014-07-23 18:24:17"
         },
         {
             "name": "paragonie/random_compat",
@@ -717,7 +716,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2017-03-13T16:22:52+00:00"
+            "time": "2017-03-13 16:22:52"
         },
         {
             "name": "patchwork/utf8",
@@ -776,7 +775,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2016-05-18T13:57:10+00:00"
+            "time": "2016-05-18 13:57:10"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -874,7 +873,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2015-01-28T21:50:33+00:00"
+            "time": "2015-01-28 21:50:33"
         },
         {
             "name": "predis/predis",
@@ -924,7 +923,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2014-08-01T09:43:10+00:00"
+            "time": "2014-08-01 09:43:10"
         },
         {
             "name": "psr/log",
@@ -971,7 +970,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10T12:19:37+00:00"
+            "time": "2016-10-10 12:19:37"
         },
         {
             "name": "stack/builder",
@@ -1020,7 +1019,7 @@
             "keywords": [
                 "stack"
             ],
-            "time": "2016-06-02T06:58:42+00:00"
+            "time": "2016-06-02 06:58:42"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1074,7 +1073,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2017-04-20T17:32:18+00:00"
+            "time": "2017-04-20 17:32:18"
         },
         {
             "name": "symfony/browser-kit",
@@ -1131,7 +1130,7 @@
             ],
             "description": "Symfony BrowserKit Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-12T07:39:27+00:00"
+            "time": "2017-04-12 07:39:27"
         },
         {
             "name": "symfony/console",
@@ -1191,7 +1190,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-25T14:03:21+00:00"
+            "time": "2017-04-25 14:03:21"
         },
         {
             "name": "symfony/css-selector",
@@ -1244,7 +1243,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-29T15:58:46+00:00"
+            "time": "2017-04-29 15:58:46"
         },
         {
             "name": "symfony/debug",
@@ -1301,7 +1300,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-13T20:03:51+00:00"
+            "time": "2017-04-13 20:03:51"
         },
         {
             "name": "symfony/dom-crawler",
@@ -1356,7 +1355,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-12T07:39:27+00:00"
+            "time": "2017-04-12 07:39:27"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1416,7 +1415,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-26T16:56:54+00:00"
+            "time": "2017-04-26 16:56:54"
         },
         {
             "name": "symfony/filesystem",
@@ -1465,7 +1464,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-12T14:07:15+00:00"
+            "time": "2017-04-12 14:07:15"
         },
         {
             "name": "symfony/finder",
@@ -1514,7 +1513,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-12T07:39:27+00:00"
+            "time": "2017-04-12 07:39:27"
         },
         {
             "name": "symfony/http-foundation",
@@ -1570,7 +1569,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-29T15:58:46+00:00"
+            "time": "2017-04-29 15:58:46"
         },
         {
             "name": "symfony/http-kernel",
@@ -1652,7 +1651,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2017-05-01T16:01:24+00:00"
+            "time": "2017-05-01 16:01:24"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1711,7 +1710,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14T01:06:16+00:00"
+            "time": "2016-11-14 01:06:16"
         },
         {
             "name": "symfony/process",
@@ -1760,7 +1759,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-12T07:39:27+00:00"
+            "time": "2017-04-12 07:39:27"
         },
         {
             "name": "symfony/routing",
@@ -1834,7 +1833,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2017-04-12T07:39:27+00:00"
+            "time": "2017-04-12 07:39:27"
         },
         {
             "name": "symfony/security-core",
@@ -1899,7 +1898,7 @@
             ],
             "description": "Symfony Security Component - Core Library",
             "homepage": "https://symfony.com",
-            "time": "2017-04-12T19:20:43+00:00"
+            "time": "2017-04-12 19:20:43"
         },
         {
             "name": "symfony/translation",
@@ -1962,7 +1961,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-04-12T07:39:27+00:00"
+            "time": "2017-04-12 07:39:27"
         },
         {
             "name": "zizaco/entrust",
@@ -2027,7 +2026,7 @@
                 "laravel",
                 "roles"
             ],
-            "time": "2014-09-24T02:20:26+00:00"
+            "time": "2014-09-24 02:20:26"
         }
     ],
     "packages-dev": [],

@@ -50,10 +50,12 @@
             </h1>
           </div>
           <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
-              <button type="button" class="btn btn-success" Onclick="AgregarArea();">
-                <i class="fa fa-plus fa-sm"></i>
-                &nbsp;Nuevo
-              </button>
+              @if ($user->can('create-users'))
+                <button type="button" class="btn btn-success" Onclick="AgregarArea();">
+                  <i class="fa fa-plus fa-sm"></i>
+                  &nbsp;Nuevo
+                </button>
+              @endif
           </div>
         </div>
         
