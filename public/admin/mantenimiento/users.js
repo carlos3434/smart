@@ -130,49 +130,56 @@ $(document).ready(function() {
             format: 'YYYY-MM-DD',
             singleDatePicker: true,
             showDropdowns: true
-        });*/
-
+        });
+*/
         var button = $(event.relatedTarget); // captura al boton
         var titulo = button.data('titulo'); // extrae del atributo data-
-        var id = button.data('id'); //extrae el id del atributo data
+        
 
-        var user = users[id]._aData;
+        
         // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
         // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
         var modal = $(this); //captura el modal
-        modal.find('.modal-title').text(titulo+' Persona');
-        //$('#form_personas_modal [data-toggle="tooltip"]').css("display","none");
-        //$("#form_personas_modal input[type='hidden']").remove();
+        modal.find('.modal-title').text(titulo+' Usuario');
+        $('#form_user [data-toggle="tooltip"]').css("display","none");
+        $("#form_user input[type='hidden']").remove();
         //slctGlobal.listarSlct('cargo','slct_cargos','simple');
         
         if(titulo=='Nuevo'){
             
             modal.find('.modal-footer .btn-primary').text('Guardar');
             modal.find('.modal-footer .btn-primary').attr('onClick','Agregar();');
-            //$('#form_personas_modal #txt_nombre').focus();
+            $('#form_user #txt_nombre').focus();
             //var datos={estado:1};
             //slctGlobal.listarSlct('area','slct_area','simple',null,datos);
             //slctGlobal.listarSlct('rol','slct_rol','simple',null,datos);
-        }
-        else{
-
+        } else {
+            var id = button.data('id'); //extrae el id del atributo data
+            var user = users[id]._aData;
 
             //Persona.CargarAreas(PersonasG.id); //no es multiselect
             modal.find('.modal-footer .btn-primary').text('Actualizar');
             modal.find('.modal-footer .btn-primary').attr('onClick','Editar();');
             //PersonasG
-            //$('#form_personas_modal #txt_paterno').val( PersonasG.paterno );
-            //$('#form_personas_modal #txt_materno').val( PersonasG.materno );
-            //$('#form_personas_modal #txt_nombre').val( PersonasG.nombre );
-            //$('#form_personas_modal #txt_dni').val( PersonasG.dni );
-            //$('#form_personas_modal #slct_sexo').val( PersonasG.sexo );
-            //$('#form_personas_modal #txt_email').val( PersonasG.email );
-            //$('#form_personas_modal #txt_fecha_nacimiento').val( PersonasG.fecha_nacimiento );
-            //$('#form_personas_modal #txt_password').val( '' );
-            
-
-            //$('#form_personas_modal #slct_estado').val( PersonasG.estado );
-            //$("#form_personas_modal").append("<input type='hidden' value='"+PersonasG.id+"' name='id'>");
+            $('#form_user #txt_nombres').val( user.nombres );
+            $('#form_user #txt_apellidos').val( user.apellidos );
+            $('#form_user #txt_dni').val( user.dni );
+            $('#form_user #txt_direccion').val( user.direccion );
+            $('#form_user #txt_numero_telefono').val( user.numero_telefono );
+            $('#form_user #txt_fecha_nacimiento').val( user.fecha_nacimiento );
+            $('#form_user #txt_password').val( user.password );
+            $('#form_user #txt_email').val( user.email );
+            $('#form_user #slct_genero').val( user.genero );
+            $('#form_user #txt_username').val( user.username );
+            //$('#form_user #txt_email').val( PersonasG.email );
+            //$('#form_user #txt_fecha_nacimiento').val( PersonasG.fecha_nacimiento );
+            //$('#form_user #txt_password').val( '' );
+            var estado = 0;
+            if (user.deleted_at===null) {
+                estado = 1;
+            }
+            $('#form_user #slct_estado').val( estado );
+            //$("#form_user").append("<input type='hidden' value='"+PersonasG.id+"' name='id'>");
 
             //var datos={estado:1};
             //var idsarea=[]; idsarea.push(PersonasG.area_id);
@@ -186,9 +193,9 @@ $(document).ready(function() {
             //slctGlobal.listarSlctFijo('rol','slct_rol',PersonasG.rol);
         }
         /*
-        $( "#form_personas_modal #slct_estado" ).trigger('change');
-        $( "#form_personas_modal #slct_estado" ).change(function() {
-            if ($( "#form_personas_modal #slct_estado" ).val()==1) {
+        $( "#form_user #slct_estado" ).trigger('change');
+        $( "#form_user #slct_estado" ).change(function() {
+            if ($( "#form_user #slct_estado" ).val()==1) {
                 $('#f_areas_cargo').removeAttr('disabled');
             }
             else {

@@ -51,10 +51,9 @@
           </div>
           <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
               @if ($user->can('create-users'))
-                <button type="button" class="btn btn-success" Onclick="AgregarArea();">
-                  <i class="fa fa-plus fa-sm"></i>
-                  &nbsp;Nuevo
-                </button>
+                <a class="btn btn-primary" data-toggle="modal" data-target="#userModal" data-titulo="Nuevo">
+                    <i class="fa fa-plus fa-lg"></i>&nbsp;Nuevo
+                </a>
               @endif
           </div>
         </div>

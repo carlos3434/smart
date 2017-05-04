@@ -27,7 +27,7 @@ trait DataViewer {
                 }
                 array_push($columns,$elem['name']);
             });
-            $query->select($columns);
+            //$query->select($columns);
 
             $filter=$request->get('filter');
 
