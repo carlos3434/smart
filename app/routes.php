@@ -66,7 +66,7 @@ Route::get('register/confirm/{token}', 'UserController@confirmEmail');
 //});
 
 Route::group(["before" => "auth"], function() {
-    Route::group(["before" => "session"], function() {*/
+    Route::group(["before" => "session"], function() {
 
         Route::get('inicio', function () {
             return View::make('admin.main');

@@ -1,6 +1,7 @@
 <?php namespace Clockwork\Support\Laravel;
 
 use Clockwork\Clockwork;
+use Clockwork\Helpers\ServerTiming;
 use Clockwork\Storage\FileStorage;
 use Clockwork\Storage\SqlStorage;
 
@@ -113,6 +114,8 @@ class ClockworkSupport
 			$response->headers->set('X-Clockwork-Header-' . $header_name, $header_value);
 		}
 
+		$this->appendServerTimingHeader($response, $this->app['clockwork']->getRequest());
+
 		return $response;
 	}
 
@@ -135,5 +138,12 @@ class ClockworkSupport
 	public function isCollectingDatabaseQueries()
 	{
 		return $this->app['config']->get('database.default') && !in_array('databaseQueries', $this->getFilter());
+	}
+
+	protected function appendServerTimingHeader($response, $request)
+	{
+		if (($eventsCount = $this->getConfig('server_timing', 10)) !== false) {
+			$response->headers->set('Server-Timing', ServerTiming::fromRequest($request, $eventsCount)->value());
+		}
 	}
 }

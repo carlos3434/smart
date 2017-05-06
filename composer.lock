@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2ec69d69792cfdadb08bb72e4297a501",
+    "hash": "f26ef761958276b189e98535fcf434f0",
     "content-hash": "a10bc99208f45b9c58fe76723e35b074",
     "packages": [
         {
@@ -235,16 +235,16 @@
         },
         {
             "name": "itsgoingd/clockwork",
-            "version": "v1.13.1",
+            "version": "v1.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itsgoingd/clockwork.git",
-                "reference": "9864bad522eba9f486e79c0cb7bc953967b64cf7"
+                "reference": "5b96f724537ba3e402e024eaa34ebcfd7881b6af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itsgoingd/clockwork/zipball/9864bad522eba9f486e79c0cb7bc953967b64cf7",
-                "reference": "9864bad522eba9f486e79c0cb7bc953967b64cf7",
+                "url": "https://api.github.com/repos/itsgoingd/clockwork/zipball/5b96f724537ba3e402e024eaa34ebcfd7881b6af",
+                "reference": "5b96f724537ba3e402e024eaa34ebcfd7881b6af",
                 "shasum": ""
             },
             "require": {
@@ -276,7 +276,7 @@
                 "logging",
                 "profiling"
             ],
-            "time": "2017-01-25 13:47:29"
+            "time": "2017-05-03 22:27:31"
         },
         {
             "name": "jeremeamia/SuperClosure",

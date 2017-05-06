@@ -15,10 +15,8 @@
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
-			"app/libraries",
 			"app/traits",
-			"app/tests/TestCase.php",
-			"app/events"
+			"app/tests/TestCase.php"
 		]
 	},
 	"scripts": {

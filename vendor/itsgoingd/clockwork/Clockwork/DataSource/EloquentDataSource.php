@@ -70,7 +70,7 @@ class EloquentDataSource extends DataSource
 	 */
 	public function registerQuery($event)
 	{
-		$caller = StackTrace::get()->firstNonVendor([ 'itsgoingd', 'laravel', 'illuminate' ]);
+		$caller = StackTrace::get()->firstNonVendor(array('itsgoingd', 'laravel', 'illuminate'));
 
 		$this->queries[] = array(
 			'query'      => $event->sql,
@@ -117,7 +117,10 @@ class EloquentDataSource extends DataSource
 		$bindings = $this->databaseManager->connection($connection)->prepareBindings($bindings);
 
 		foreach ($bindings as $binding) {
-			$binding = $this->databaseManager->connection($connection)->getPdo()->quote($binding);
+			$binding = $this->quoteBinding($binding, $connection);
+
+			# escape backslashes in the binding (preg_replace requires to do so)
+			$binding = str_replace('\\', '\\\\', $binding);
 
 			$query = preg_replace('/\?/', $binding, $query, 1);
 		}
@@ -131,6 +134,21 @@ class EloquentDataSource extends DataSource
 		}, $query);
 
 		return $query;
+	}
+
+	/**
+	 * Takes a query binding and a connection name, returns a quoted binding value
+	 */
+	protected function quoteBinding($binding, $connection)
+	{
+		$connection = $this->databaseManager->connection($connection);
+
+		if ($connection->getConfig('odbc') === true) {
+			// PDO_ODBC driver doesn't support the quote method, apply simple MSSQL style quoting instead
+			return "'" . str_replace("'", "''", $binding) . "'";
+		}
+
+		return $connection->getPdo()->quote($binding);
 	}
 
 	/**
