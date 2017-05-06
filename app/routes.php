@@ -59,18 +59,23 @@ Route::get('register/confirm/{token}', 'UserController@confirmEmail');
 //Route::group(["before" => "csrf"], function() {
     Route::controller('password', 'RemindersController');
     Route::controller("user", "UserController");
+    Route::controller("mesa", "MesaController");
+    Route::controller("plato", "PlatoController");
     Route::post("login", "UserController@postLogin");
     //Route::controller('login', 'LoginController');
 //});
 
 Route::group(["before" => "auth"], function() {
-    Route::group(["before" => "session"], function() {
+    Route::group(["before" => "session"], function() {*/
 
         Route::get('inicio', function () {
             return View::make('admin.main');
         });
         Route::get('admin.mantenimiento.usuarios', function () {
             return View::make('admin.mantenimiento.users');
+        });
+        Route::get('admin.orders.order', function () {
+            return View::make('admin.orders.orders');
         });
 
         //esto tiene que ser dinamico
@@ -79,10 +84,10 @@ Route::group(["before" => "auth"], function() {
             return view('admin.'.$modulo.'.'.$submodulo.'.index');
         });
 
-    });
+   });
     //filtro token csrf
-    //Route::group(["before" => "csrf"], function() {
-        //Route::controller('user', 'UserController');
+    Route::group(["before" => "csrf"], function() {
+        Route::controller('user', 'UserController');
 
-    //});
+    });
 });

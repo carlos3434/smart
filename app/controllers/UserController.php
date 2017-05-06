@@ -191,4 +191,22 @@ class UserController extends Controller
         return Redirect::to('/');
 
     }
+
+    public function postListar()
+    {
+        if ( Request::ajax() ) {
+            $listar = DB::table('users')
+                    ->select('id','nombres as nombre')
+                    ->where('verified',1)
+                    ->get();
+
+            return Response::json(
+                array(
+                    'rst'   => 1,
+                    'datos' => $listar
+                )
+            );
+        }
+    }
+
 }
