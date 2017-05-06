@@ -13,11 +13,11 @@ class UserSeeder
         "direccion" => "lima",
         "numero_telefono" => "964142677",
         "username" => "carlos3434",
-        "password" => Hash::make("123456"),
+        "password" => "123456",
         "genero" => 'M',
         "group_id" => 1,
         "verified" => 1,
-        "email"    => "chris@example.com"
+        "email"    => "carlos34343434@gmail.com"
       ]
     ];
   

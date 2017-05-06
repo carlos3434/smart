@@ -1,5 +1,4 @@
 <?php
-use  Illuminate\Support\Facades\Paginator;
 
 class UserController extends Controller
 {
@@ -8,37 +7,7 @@ class UserController extends Controller
         return User::all();
     }
     public function postAllPaginate(){
-
-        $data = Input::all();
-        $data =[
-            'page'=>(Input::get('start')+Input::get('length'))/Input::get('length'),
-            'per_page'=>Input::get('length')
-        ];
-        //Input::replace($data);  
-        Input::merge($data);  
-        //dd(Input::all());
-
-       
-        if (Input::has('sort')) {
-            list($sortCol, $sortDir) = explode('|', Input::get('sort'));
-            $query = User::orderBy($sortCol, $sortDir);
-        } else {
-            $query = User::orderBy('id', 'asc');
-        }
-
-        if (Input::has('filter')) {
-            $filter=Input::get('filter');
-            $query->where(function($q) use($filter) {
-                $value = "%{$filter}%";
-                $q->where('apellidos', 'like', $value)
-                    ->orWhere('nombres', 'like', $value)
-                    ->orWhere('dni', 'like', $value);
-            });
-        }
-
-        $perPage = Input::has('length') ? (int) Input::get('length') : null;
-        return Response::json($query->paginate($perPage));
-        //return User::paginate();
+        return Response::json(User::searchPaginateAndOrder());
     }
     /**
      * view register
@@ -133,8 +102,6 @@ class UserController extends Controller
             $credentials = $this->getCredentials();
 
             if ($this->signIn()) {
-                //crear sesion
-                Session::set('user', Auth::id());
                 return Redirect::to('inicio');
             }
 
@@ -186,7 +153,6 @@ class UserController extends Controller
 
     public function getLogout()
     {
-        Session::flush();
         Auth::logout();
         return Redirect::to('/');
 

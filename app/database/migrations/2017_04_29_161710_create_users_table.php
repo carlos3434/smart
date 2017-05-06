@@ -25,9 +25,9 @@ class CreateUsersTable extends Migration {
             $table->char('genero');
             $table->integer('group_id')->unsigned();
 	        $table->string("email")->unique();
-	        $table->boolean("verified");
-	        $table->string("token")->nullable();//cuando se registra
-	        $table->string("remember_token")->nullable();
+	        $table->boolean("verified");//verifico al momento de registrarse
+	        $table->string("token")->nullable();//recuperacion de password email
+	        $table->string("remember_token")->nullable();//token de login
 	        $table->timestamps();
             $table->softDeletes();
 	    });

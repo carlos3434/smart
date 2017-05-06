@@ -4,10 +4,11 @@ use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Zizaco\Entrust\HasRole;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
-	use UserTrait, RemindableTrait;
+	use UserTrait, RemindableTrait, DataViewer, HasRole;
 
 	/**
 	 * The database table used by the model.
@@ -67,7 +68,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             $user->token = str_random(30);
         });
     }
+    //establecemos las relaciones con el modelo Role, ya que un usuario puede tener varios roles
+    //y un rol lo pueden tener varios usuarios
+    public function roles(){
+        return $this->belongsToMany('Role');
+    }
 
+    public function modulos(){
+        return $this->belongsToMany('Modulo');
+    }
     /**
      * Set the password attribute.
      *

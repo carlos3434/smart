@@ -109,3 +109,8 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });*/
+Route::filter('create-users',function(){
+    if (!Entrust::can('create-users')) {
+        return Redirect::guest('/');
+    }
+});

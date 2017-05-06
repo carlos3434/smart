@@ -16,6 +16,10 @@ class ComposerStaticInit908322e26330d49a5e404666d4f137e3
     );
 
     public static $prefixLengthsPsr4 = array (
+        'Z' => 
+        array (
+            'Zizaco\\Entrust\\' => 15,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -55,6 +59,10 @@ class ComposerStaticInit908322e26330d49a5e404666d4f137e3
     );
 
     public static $prefixDirsPsr4 = array (
+        'Zizaco\\Entrust\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust',
+        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
@@ -185,6 +193,13 @@ class ComposerStaticInit908322e26330d49a5e404666d4f137e3
                 0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
             ),
         ),
+        'L' => 
+        array (
+            'LaravelBook\\Ardent' => 
+            array (
+                0 => __DIR__ . '/..' . '/laravelbook/ardent/src',
+            ),
+        ),
         'J' => 
         array (
             'Jeremeamia\\SuperClosure' => 
@@ -298,7 +313,9 @@ class ComposerStaticInit908322e26330d49a5e404666d4f137e3
         'Clockwork\\Support\\Slim\\ClockworkLogWriter' => __DIR__ . '/..' . '/itsgoingd/clockwork/Clockwork/Support/Slim/ClockworkLogWriter.php',
         'Clockwork\\Support\\Slim\\ClockworkMiddleware' => __DIR__ . '/..' . '/itsgoingd/clockwork/Clockwork/Support/Slim/ClockworkMiddleware.php',
         'Clockwork\\Support\\Swift\\SwiftPluginClockworkTimeline' => __DIR__ . '/..' . '/itsgoingd/clockwork/Clockwork/Support/Swift/SwiftPluginClockworkTimeline.php',
+        'CreateModulosTable' => __DIR__ . '/../..' . '/app/database/migrations/2017_04_30_211710_create_modulos_table.php',
         'CreatePasswordRemindersTable' => __DIR__ . '/../..' . '/app/database/migrations/2017_04_29_162459_create_password_reminders_table.php',
+        'CreatePedidosTable' => __DIR__ . '/../..' . '/app/database/migrations/2017_04_30_231710_create_pedidos_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/app/database/migrations/2017_04_29_161710_create_users_table.php',
         'Crypt_AES' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/AES.php',
         'Crypt_Base' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/Base.php',
@@ -311,7 +328,11 @@ class ComposerStaticInit908322e26330d49a5e404666d4f137e3
         'Crypt_Rijndael' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/Rijndael.php',
         'Crypt_TripleDES' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/TripleDES.php',
         'Crypt_Twofish' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/Twofish.php',
+        'DataViewer' => __DIR__ . '/../..' . '/app/traits/DataViewer.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/app/database/seeds/DatabaseSeeder.php',
+        'EntrustSeeder' => __DIR__ . '/../..' . '/app/database/seeds/EntrustSeeder.php',
+        'EntrustSetupTables' => __DIR__ . '/../..' . '/app/database/migrations/2017_04_30_221710_entrust_setup_tables.php',
+        'EventServiceProvider' => __DIR__ . '/../..' . '/app/events/EventServiceProvider.php',
         'File_ANSI' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/File/ANSI.php',
         'File_ASN1' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/File/ASN1.php',
         'File_ASN1_Element' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/File/ASN1.php',
@@ -693,6 +714,11 @@ class ComposerStaticInit908322e26330d49a5e404666d4f137e3
         'Jeremeamia\\SuperClosure\\SerializableClosure' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/SerializableClosure.php',
         'Jeremeamia\\SuperClosure\\Visitor\\ClosureFinderVisitor' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/Visitor/ClosureFinderVisitor.php',
         'Jeremeamia\\SuperClosure\\Visitor\\MagicConstantVisitor' => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src/Jeremeamia/SuperClosure/Visitor/MagicConstantVisitor.php',
+        'LaravelBook\\Ardent\\Ardent' => __DIR__ . '/..' . '/laravelbook/ardent/src/LaravelBook/Ardent/Ardent.php',
+        'LaravelBook\\Ardent\\Builder' => __DIR__ . '/..' . '/laravelbook/ardent/src/LaravelBook/Ardent/Builder.php',
+        'LaravelBook\\Ardent\\Facades\\Ardent' => __DIR__ . '/..' . '/laravelbook/ardent/src/LaravelBook/Ardent/Facades/Ardent.php',
+        'LaravelBook\\Ardent\\InvalidModelException' => __DIR__ . '/..' . '/laravelbook/ardent/src/LaravelBook/Ardent/InvalidModelException.php',
+        'LaravelBook\\Ardent\\Providers\\ArdentServiceProvider' => __DIR__ . '/..' . '/laravelbook/ardent/src/LaravelBook/Ardent/Providers/ArdentServiceProvider.php',
         'Math_BigInteger' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Math/BigInteger.php',
         'MesaController' => __DIR__ . '/../..' . '/app/controllers/MesaController.php',
         'Monolog\\ErrorHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/ErrorHandler.php',
@@ -975,6 +1001,7 @@ class ComposerStaticInit908322e26330d49a5e404666d4f137e3
         'Patchwork\\Utf8\\BestFit' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/Utf8/BestFit.php',
         'Patchwork\\Utf8\\Bootup' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/Utf8/Bootup.php',
         'Patchwork\\Utf8\\WindowsStreamWrapper' => __DIR__ . '/..' . '/patchwork/utf8/src/Patchwork/Utf8/WindowsStreamWrapper.php',
+        'Permission' => __DIR__ . '/../..' . '/app/models/Permission.php',
         'PlatoController' => __DIR__ . '/../..' . '/app/controllers/PlatoController.php',
         'Predis\\Autoloader' => __DIR__ . '/..' . '/predis/predis/lib/Predis/Autoloader.php',
         'Predis\\BasicClientInterface' => __DIR__ . '/..' . '/predis/predis/lib/Predis/BasicClientInterface.php',
@@ -1261,6 +1288,7 @@ class ComposerStaticInit908322e26330d49a5e404666d4f137e3
         'ReCaptcha\\RequestParameters' => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha/RequestParameters.php',
         'ReCaptcha\\Response' => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha/Response.php',
         'RemindersController' => __DIR__ . '/../..' . '/app/controllers/RemindersController.php',
+        'Role' => __DIR__ . '/../..' . '/app/models/Role.php',
         'SessionHandlerInterface' => __DIR__ . '/..' . '/symfony/http-foundation/Resources/stubs/SessionHandlerInterface.php',
         'Stack\\Builder' => __DIR__ . '/..' . '/stack/builder/src/Stack/Builder.php',
         'Stack\\StackedHttpKernel' => __DIR__ . '/..' . '/stack/builder/src/Stack/StackedHttpKernel.php',
@@ -1862,6 +1890,7 @@ class ComposerStaticInit908322e26330d49a5e404666d4f137e3
         'TestCase' => __DIR__ . '/../..' . '/app/tests/TestCase.php',
         'User' => __DIR__ . '/../..' . '/app/models/User.php',
         'UserController' => __DIR__ . '/../..' . '/app/controllers/UserController.php',
+        'UserEventHandler' => __DIR__ . '/../..' . '/app/events/UserEventHandler.php',
         'UserSeeder' => __DIR__ . '/../..' . '/app/database/seeds/UserSeeder.php',
         'Whoops\\Exception\\ErrorException' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/ErrorException.php',
         'Whoops\\Exception\\Formatter' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/Formatter.php',
@@ -1884,6 +1913,13 @@ class ComposerStaticInit908322e26330d49a5e404666d4f137e3
         'Whoops\\Run' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Run.php',
         'Whoops\\Util\\Misc' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/Misc.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
+        'Zizaco\\Entrust\\Entrust' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Entrust.php',
+        'Zizaco\\Entrust\\EntrustFacade' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/EntrustFacade.php',
+        'Zizaco\\Entrust\\EntrustPermission' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/EntrustPermission.php',
+        'Zizaco\\Entrust\\EntrustRole' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/EntrustRole.php',
+        'Zizaco\\Entrust\\EntrustServiceProvider' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/EntrustServiceProvider.php',
+        'Zizaco\\Entrust\\HasRole' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/HasRole.php',
+        'Zizaco\\Entrust\\MigrationCommand' => __DIR__ . '/..' . '/zizaco/entrust/src/commands/MigrationCommand.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
