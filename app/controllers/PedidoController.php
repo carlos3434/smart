@@ -1,6 +1,6 @@
 <?php
 
-class MesaController extends \BaseController {
+class PedidoController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -28,7 +28,7 @@ class MesaController extends \BaseController {
 
 	public function index()
 	{
-		//
+		return Pedido::all();
 	}
 
 
@@ -62,7 +62,16 @@ class MesaController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$sql = "
+			SELECT p.id, ep.nombre, pl.nombre, epp.nombre
+			FROM pedidos  p 
+			JOIN estado_pedidos  ep  ON p.estado_pedidos_id = ep.id
+			JOIN (SELECT MAX(id) AS id FROM pedidos WHERE mesa_id=? ) p2 ON p.id=p2.id
+			LEFT JOIN pedido_plato  pp  ON  p.id=pp.pedido_id
+			LEFT JOIN platos pl ON  pp.plato_id = pl.id
+			LEFT JOIN  estado_pedido_plato  epp  ON  pp.estado_pedido_plato_id = epp.id
+			WHERE mesa_id = ?";
+		return DB::select($sql, [$id,$id]);
 	}
 
 

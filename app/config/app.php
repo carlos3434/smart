@@ -122,7 +122,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Zizaco\Entrust\EntrustServiceProvider',
-		'Illuminate\Events\EventServiceProvider'
+		'EventServiceProvider',
 	),
 
 	/*

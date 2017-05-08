@@ -23,6 +23,9 @@ var slctGlobal={
             cache       : false,
             dataType    : 'json',
             data        : data,
+            headers: {
+                "token":document.querySelector('#token').getAttribute('value')
+            },
             beforeSend : function() {
                 //$("body").append('<div class="overlay"></div><div class="loading-img"></div>');
             },

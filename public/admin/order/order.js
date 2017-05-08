@@ -1,9 +1,19 @@
 var tabla='datatable_tabletools';
+$(".btn-mesa").click(function(){
+    id = $(this).data("id");
+    Pedido.get(id);
+    
+    //$(this).attr("data-mesa", JSON.stringify(data));
+    //$("#modal-pedido .modal-title").html("<b>PEDIDO : <b>"+data.nombre);
+    $("#modal-pedido").modal("show");
+});
+
 $(document).ready(function() {
+
     var platos_seleccionados = [];
     var data={'estado':1};
 
-
+    Pedido.all(mesas);
     $('#nuevoPedido').on('show.bs.modal', function (event) {
         slctGlobal.listarSlct('mesa','slct_mesa','simple',null,data); 
         slctGlobal.listarSlct('user','slct_users','simple',null,data);
@@ -39,7 +49,9 @@ $(document).ready(function() {
     activarTabla();
     //Users.all(dataUsers);
 });
+mesas=function(){
 
+};
 activarTabla=function(){
     /* BASIC ;*/
     var responsiveHelper_datatable_tabletools = undefined;

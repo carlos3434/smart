@@ -11,15 +11,15 @@ class PlatoController extends \BaseController {
 	public function postListar()
     {
         if ( Request::ajax() ) {
-        	$listar = DB::table('platos')
+        	/*$listar = DB::table('platos')
         			->select('id','name as nombre')
                     ->where('estado',1)
-                    ->get();
-
+                    ->get();*/
+            $platos = Plato::where('estado',1)->get();
             return Response::json(
                 array(
                     'rst'   => 1,
-                    'datos' => $listar
+                    'datos' => $platos
                 )
             );
         }

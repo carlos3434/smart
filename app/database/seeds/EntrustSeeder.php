@@ -20,7 +20,6 @@ class EntrustSeeder extends Seeder {
         $this->permissionsAllSeeder();
         $this->rolesSeeder();
         $this->addPermissionRoleSeeder();
-        //$this->usersSeeder();
         $this->roleUserSeeder();
         $this->modulosSeeder();
         $this->moduloUserSeeder();
@@ -29,33 +28,33 @@ class EntrustSeeder extends Seeder {
     private function permissionsUserSeeder(){
 
         DB::table('permissions')->insert(array(
-            'name' => 'create-users',
-            'display_name' => 'Create Users',
-            'description' => 'Create users',
+            'nombre' => 'create-users',
+            'nombre_mostrar' => 'Create Users',
+            'descripcion' => 'Create users',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
 
         DB::table('permissions')->insert(array(
-            'name' => 'read-users',
-            'display_name' => 'Read Users',
-            'description' => 'List Users',
+            'nombre' => 'read-users',
+            'nombre_mostrar' => 'Read Users',
+            'descripcion' => 'List Users',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
 
         DB::table('permissions')->insert(array(
-            'name' => 'update-users',
-            'display_name' => 'Update Users',
-            'description' => 'Update Users',
+            'nombre' => 'update-users',
+            'nombre_mostrar' => 'Update Users',
+            'descripcion' => 'Update Users',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
 
         DB::table('permissions')->insert(array(
-            'name' => 'delete-users',
-            'display_name' => 'Delete Users',
-            'description' => 'Delete Users',
+            'nombre' => 'delete-users',
+            'nombre_mostrar' => 'Delete Users',
+            'descripcion' => 'Delete Users',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
@@ -64,33 +63,33 @@ class EntrustSeeder extends Seeder {
     private function permissionsRoleSeeder(){
 
         DB::table('permissions')->insert(array(
-            'name' => 'create-roles',
-            'display_name' => 'Create Roles',
-            'description' => 'Create Roles',
+            'nombre' => 'create-roles',
+            'nombre_mostrar' => 'Create Roles',
+            'descripcion' => 'Create Roles',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
 
         DB::table('permissions')->insert(array(
-            'name' => 'read-roles',
-            'display_name' => 'Read Roles',
-            'description' => 'List Roles',
+            'nombre' => 'read-roles',
+            'nombre_mostrar' => 'Read Roles',
+            'descripcion' => 'List Roles',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
 
         DB::table('permissions')->insert(array(
-            'name' => 'update-roles',
-            'display_name' => 'Update Roles',
-            'description' => 'Update Roles',
+            'nombre' => 'update-roles',
+            'nombre_mostrar' => 'Update Roles',
+            'descripcion' => 'Update Roles',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
 
         DB::table('permissions')->insert(array(
-            'name' => 'delete-roles',
-            'display_name' => 'Delete Roles',
-            'description' => 'Delete Roles',
+            'nombre' => 'delete-roles',
+            'nombre_mostrar' => 'Delete Roles',
+            'descripcion' => 'Delete Roles',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
@@ -99,33 +98,33 @@ class EntrustSeeder extends Seeder {
     private function permissionsSeeder(){
 
         DB::table('permissions')->insert(array(
-            'name' => 'create-permissions',
-            'display_name' => 'Create Permissions',
-            'description' => 'Create Permissions',
+            'nombre' => 'create-permissions',
+            'nombre_mostrar' => 'Create Permissions',
+            'descripcion' => 'Create Permissions',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
 
         DB::table('permissions')->insert(array(
-            'name' => 'read-permissions',
-            'display_name' => 'Read Permissions',
-            'description' => 'List Permissions',
+            'nombre' => 'read-permissions',
+            'nombre_mostrar' => 'Read Permissions',
+            'descripcion' => 'List Permissions',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
 
         DB::table('permissions')->insert(array(
-            'name' => 'update-permissions',
-            'display_name' => 'Update Permissions',
-            'description' => 'Update Permissions',
+            'nombre' => 'update-permissions',
+            'nombre_mostrar' => 'Update Permissions',
+            'descripcion' => 'Update Permissions',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
 
         DB::table('permissions')->insert(array(
-            'name' => 'delete-permissions',
-            'display_name' => 'Delete Permissions',
-            'description' => 'Delete Permissions',
+            'nombre' => 'delete-permissions',
+            'nombre_mostrar' => 'Delete Permissions',
+            'descripcion' => 'Delete Permissions',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
@@ -142,33 +141,33 @@ class EntrustSeeder extends Seeder {
             if(($value->$name != 'users') && ($value->$name != 'migrations') &&
                 ($value->$name != 'roles') && ($value->$name != 'permissions')) {
                 DB::table('permissions')->insert(array(
-                    'name' => 'create-'.$value->$name,
-                    'display_name' => 'Create '.ucwords($value->$name),
-                    'description' => 'Create '.ucwords($value->$name),
+                    'nombre' => 'create-'.$value->$name,
+                    'nombre_mostrar' => 'Create '.ucwords($value->$name),
+                    'descripcion' => 'Create '.ucwords($value->$name),
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ));
 
                 DB::table('permissions')->insert(array(
-                    'name' => 'read-'.$value->$name,
-                    'display_name' => 'Read '.ucwords($value->$name),
-                    'description' => 'List '.ucwords($value->$name),
+                    'nombre' => 'read-'.$value->$name,
+                    'nombre_mostrar' => 'Read '.ucwords($value->$name),
+                    'descripcion' => 'List '.ucwords($value->$name),
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ));
 
                 DB::table('permissions')->insert(array(
-                    'name' => 'update-'.$value->$name,
-                    'display_name' => 'Update '.ucwords($value->$name),
-                    'description' => 'Update '.ucwords($value->$name),
+                    'nombre' => 'update-'.$value->$name,
+                    'nombre_mostrar' => 'Update '.ucwords($value->$name),
+                    'descripcion' => 'Update '.ucwords($value->$name),
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ));
 
                 DB::table('permissions')->insert(array(
-                    'name' => 'delete-'.$value->$name,
-                    'display_name' => 'Delete '.ucwords($value->$name),
-                    'description' => 'Delete '.ucwords($value->$name),
+                    'nombre' => 'delete-'.$value->$name,
+                    'nombre_mostrar' => 'Delete '.ucwords($value->$name),
+                    'descripcion' => 'Delete '.ucwords($value->$name),
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),
                 ));
@@ -179,25 +178,25 @@ class EntrustSeeder extends Seeder {
     private function rolesSeeder(){
 
         DB::table('roles')->insert(array(
-            'name' => 'admin',
-            'display_name' => 'Administrador',
-            'description' => 'Administra los módulos de usuarios',
+            'nombre' => 'admin',
+            'nombre_mostrar' => 'Administrador',
+            'descripcion' => 'Administra los módulos de usuarios',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
 
         DB::table('roles')->insert(array(
-            'name' => 'cocina',
-            'display_name' => 'Cocinero',
-            'description' => 'Cocinero',
+            'nombre' => 'cocina',
+            'nombre_mostrar' => 'Cocinero',
+            'descripcion' => 'Cocinero',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
 
         DB::table('roles')->insert(array(
-            'name' => 'mozo',
-            'display_name' => 'Mozo',
-            'description' => 'Mozo',
+            'nombre' => 'mozo',
+            'nombre_mostrar' => 'Mozo',
+            'descripcion' => 'Mozo',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ));
@@ -213,25 +212,6 @@ class EntrustSeeder extends Seeder {
         }
     }
 
-    private function usersSeeder(){
-
-        DB::table('users')->insert(array(
-            'name' => 'John',
-            'nickname' => 'Doe',
-            'address' => 'lima',
-            'phone_number' => 964142677,
-            'email' => 'carlos3434@hotmail.com',
-            'password' => 'carlos3434',
-            'created_at' => Carbon::now(),
-            'remember_token' => str_random(10),
-            'birthdate' => Carbon::now(),
-            'gender' => 'M',
-            'group_id' => 1
-        ));
-        factory( User::class, 4)->create();
-
-    }
-
     private function roleUserSeeder(){
 
         DB::table('role_user')->insert(array(
@@ -243,17 +223,17 @@ class EntrustSeeder extends Seeder {
     private function modulosSeeder(){
 
         DB::table('modulos')->insert(array(
-            'name' => 'Mantenimiento',
+            'nombre' => 'Mantenimiento',
             'url'  => 'mantenimiento',
             'icon' => 'fa-map-marker',
         ));
         DB::table('modulos')->insert(array(
-            'name' => 'Procesos',
+            'nombre' => 'Procesos',
             'url'  => 'procesos',
             'icon' => 'fa-map-marker',
         ));
         DB::table('modulos')->insert(array(
-            'name' => 'Configuracion',
+            'nombre' => 'Configuracion',
             'url'  => 'Configuracion',
             'icon' => 'fa-map-marker',
         ));

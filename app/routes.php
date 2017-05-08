@@ -85,19 +85,23 @@ Route::get('register/confirm/{token}', 'UserController@confirmEmail');
             return View::make('admin.mantenimiento.users')->with('user',$user);
         });
         Route::get('admin.orders.order', function () {
-            return View::make('admin.orders.orders');
+            $mesas = Mesa::all();
+            
+            $data=['mesas'=>$mesas];
+            return View::make('admin.orders.orders')->with($data);
         });
 
         //esto tiene que ser dinamico
-        Route::get('/{uri}', function ($uri) {
+        /*Route::get('/{uri}', function ($uri) {
             list($modulo,$submodulo) = explode('.', $uri);
             return view('admin.'.$modulo.'.'.$submodulo.'.index');
-        });
+        });*/
 
 /*   });*/
     //filtro token csrf
     Route::group(["before" => "csrf"], function() {
         Route::controller('user', 'UserController');
+        Route::resource('pedido', 'PedidoController');
 
     });
 /*});

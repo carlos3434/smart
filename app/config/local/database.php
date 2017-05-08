@@ -22,10 +22,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'menus',
+			'host'      => '127.0.0.1',
+			'database'  => 'smart',
 			'username'  => 'root',
-			'password'  => '1234',
+			'password'  => 'carlos3434',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

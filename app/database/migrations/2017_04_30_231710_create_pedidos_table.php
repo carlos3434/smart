@@ -14,21 +14,22 @@ class CreatePedidosTable extends Migration
     {
         Schema::create('sedes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',50);
+            $table->string('nombre',50);
             $table->timestamps();
             $table->softDeletes();
         });
         //bloques de mesa
         Schema::create('grupos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',50);
+            $table->string('nombre',50);
             $table->timestamps();
             $table->softDeletes();
         });
         Schema::create('mesas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',50);
+            $table->string('nombre',50);
             $table->string('numero',3);
+            $table->integer('estado')->default(1)->nullable();
             //grupo
 
             $table->integer('grupo_id')->unsigned();
@@ -41,25 +42,25 @@ class CreatePedidosTable extends Migration
         //
         Schema::create('estado_pedido_plato', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',50);
+            $table->string('nombre',50);
             $table->timestamps();
             $table->softDeletes();
         });
         //
-        Schema::create('tipo_plato', function (Blueprint $table) {
+        Schema::create('tipo_platos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',50);
+            $table->string('nombre',50);
             $table->timestamps();
             $table->softDeletes();
         });
 
         Schema::create('platos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',50);
+            $table->string('nombre',50);
             $table->integer('estado')->default(1)->nullable();
 
-            $table->integer('tipo_plato_id')->unsigned();
-            $table->foreign('tipo_plato_id')->references('id')->on('tipo_plato')
+            $table->integer('tipo_platos_id')->unsigned();
+            $table->foreign('tipo_platos_id')->references('id')->on('tipo_platos')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
@@ -91,36 +92,20 @@ class CreatePedidosTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('estado_pedido', function (Blueprint $table) {
+        Schema::create('estado_pedidos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',50);
+            $table->string('nombre',50);
+            $table->string('color',50);
             $table->timestamps();
             $table->softDeletes();
         });
-/*
-        Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('nickname');
-            $table->string('address');
-            $table->string('phone_number')->nullable();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->date('birthdate');
-            $table->char('gender');
-            $table->integer('group_id')->unsigned();
-            $table->timestamp('last_login')->nullable();
-            $table->rememberToken();
-            $table->timestamps();
-            $table->softDeletes();
-        });*/
 
         Schema::create('pedidos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',50);
+            $table->string('nombre',50);
 
-            $table->integer('estado_pedido_id')->unsigned();
-            $table->foreign('estado_pedido_id')->references('id')->on('estado_pedido')
+            $table->integer('estado_pedidos_id')->unsigned();
+            $table->foreign('estado_pedidos_id')->references('id')->on('estado_pedidos')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->integer('mesa_id')->unsigned();
@@ -135,9 +120,9 @@ class CreatePedidosTable extends Migration
             $table->softDeletes();
         });
         //niño, adulto mayo,etc
-        Schema::create('tipo_cliente', function (Blueprint $table) {
+        Schema::create('tipo_clientes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',50);
+            $table->string('nombre',50);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -158,8 +143,8 @@ class CreatePedidosTable extends Migration
             $table->foreign('estado_pedido_plato_id')->references('id')->on('estado_pedido_plato')
                 ->onUpdate('cascade')->onDelete('cascade');
 
-            $table->integer('tipo_cliente_id')->unsigned();
-            $table->foreign('tipo_cliente_id')->references('id')->on('tipo_cliente')
+            $table->integer('tipo_clientes_id')->unsigned();
+            $table->foreign('tipo_clientes_id')->references('id')->on('tipo_clientes')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             //$table->primary(['pedido_id', 'plato_id']);
@@ -211,7 +196,7 @@ class CreatePedidosTable extends Migration
         //cliente
         Schema::create('clientes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('fullname',150);
+            $table->string('nombre',150);
             $table->string('dni',10);
             $table->string('email',50);
             $table->string('facebook',50);
@@ -248,14 +233,14 @@ class CreatePedidosTable extends Migration
         Schema::drop('grupo_user');
         Schema::drop('sede_user');
         Schema::drop('pedido_plato');
-        Schema::drop('tipo_cliente');
+        Schema::drop('tipo_clientes');
         Schema::drop('pedidos');
         //Schema::drop('users');
-        Schema::drop('estado_pedido');
+        Schema::drop('estado_pedidos');
         Schema::drop('calendario_plato');
         Schema::drop('calendarios');
         Schema::drop('platos');
-        Schema::drop('tipo_plato');
+        Schema::drop('tipo_platos');
         Schema::drop('estado_pedido_plato');
         Schema::drop('mesas');
         Schema::drop('grupos');

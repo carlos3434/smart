@@ -1,5 +1,5 @@
 <!-- /.modal -->
-<div class="modal fade" id="nuevoPedido" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modal-pedido" tabindex="-1" role="dialog" aria-hidden="true">
 <!-- <div class="modal fade" id="areaModal" tabindex="-1" role="dialog" aria-hidden="true"> -->
   <div class="modal-dialog modal-md">
     <div class="modal-content">
