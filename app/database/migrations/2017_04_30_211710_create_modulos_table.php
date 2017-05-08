@@ -45,7 +45,7 @@ class CreateModulosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('modulo_user');
-        Schema::drop('modulos');
+        Schema::dropIfExists('modulo_user');
+        Schema::dropIfExists('modulos');
     }
 }

@@ -12,7 +12,6 @@ class PedidoSeeder extends DatabaseSeeder
         EstadoPedido::create(['nombre'=>'Suspendido','color'=>'#ABFFBC']);
         EstadoPedido::create(['nombre'=>'Eliminado','color'=>'#']);
         $pedido= [
-            'nombre' => '',
             'estado_pedidos_id' => 1,
             'mesa_id' => 1,
             'user_id' => 1

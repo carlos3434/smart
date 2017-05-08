@@ -86,8 +86,25 @@ Route::get('register/confirm/{token}', 'UserController@confirmEmail');
         });
         Route::get('admin.orders.order', function () {
             $mesas = Mesa::all();
-            
-            $data=['mesas'=>$mesas];
+            $sql = "SELECT p.id, p.nombre, cp.stock, cp.precio, tp.nombre as tipo
+                    FROM calendario_platos cp
+                    JOIN calendarios  c  ON cp.calendario_id = c.id
+                    JOIN platos  p  ON cp.plato_id = p.id
+                    JOIN tipo_platos  tp ON p.tipo_platos_id  =  tp.id
+                    WHERE fecha='2017-05-08' AND p.categoria_platos_id=1";
+            $menu = DB::select($sql);
+            $sql = "SELECT p.id, p.nombre, cp.stock, cp.precio, tp.nombre as tipo
+                    FROM calendario_platos cp
+                    JOIN calendarios  c  ON cp.calendario_id = c.id
+                    JOIN platos  p  ON cp.plato_id = p.id
+                    JOIN tipo_platos  tp ON p.tipo_platos_id  =  tp.id
+                    WHERE fecha='2017-05-08' AND p.categoria_platos_id=2";
+            $carta = DB::select($sql);
+            $data=[
+                'mesas' => $mesas,
+                'menu'  => $menu,
+                'carta' => $carta
+            ];
             return View::make('admin.orders.orders')->with($data);
         });
 
@@ -100,7 +117,7 @@ Route::get('register/confirm/{token}', 'UserController@confirmEmail');
 /*   });*/
     //filtro token csrf
     Route::group(["before" => "csrf"], function() {
-        Route::controller('user', 'UserController');
+        //Route::controller('user', 'UserController');
         Route::resource('pedido', 'PedidoController');
 
     });
