@@ -10,10 +10,13 @@ class MesaSeeder extends DatabaseSeeder
         $grupoId = Grupo::create($grupo)->id;
         
         for ($i=1; $i < 10 ; $i++) {
+
+            $estado = $i % 2;
             $mesa = [
-                'nombre' => 'Meza: '.$i,
-                'numero' => $i,
-                'grupo_id' => $grupoId
+                'nombre'    => 'Meza: '.$i,
+                'capacidad' => '10',
+                'estado'    => $estado,
+                'grupo_id'  => $grupoId
             ];
             Mesa::create($mesa);
         }

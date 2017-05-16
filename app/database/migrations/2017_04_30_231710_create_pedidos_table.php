@@ -28,8 +28,8 @@ class CreatePedidosTable extends Migration
         Schema::create('mesas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre',50);
-            $table->string('numero',3);
-            $table->integer('estado')->default(1)->nullable();
+            $table->string('capacidad',2);
+            $table->integer('estado')->default(1)->nullable();//disponible o no
             //grupo
 
             $table->integer('grupo_id')->unsigned();
@@ -53,14 +53,25 @@ class CreatePedidosTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        //menu o carta
+        Schema::create('categoria_platos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nombre',50);
+            $table->timestamps();
+            $table->softDeletes();
+        });
 
         Schema::create('platos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre',50);
-            $table->integer('estado')->default(1)->nullable();
+            //$table->integer('estado')->default(1)->nullable();
 
             $table->integer('tipo_platos_id')->unsigned();
             $table->foreign('tipo_platos_id')->references('id')->on('tipo_platos')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->integer('categoria_platos_id')->unsigned();
+            $table->foreign('categoria_platos_id')->references('id')->on('categoria_platos')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
@@ -76,7 +87,8 @@ class CreatePedidosTable extends Migration
         });
 
         // Create table for associating calendarios to platos (Many-to-Many)
-        Schema::create('calendario_plato', function (Blueprint $table) {
+
+        Schema::create('calendario_platos', function (Blueprint $table) {
             $table->integer('calendario_id')->unsigned();
             $table->integer('plato_id')->unsigned();
             $table->integer('stock');
@@ -89,6 +101,7 @@ class CreatePedidosTable extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->primary(['calendario_id', 'plato_id']);
+            $table->timestamps();
             $table->softDeletes();
         });
 
@@ -102,7 +115,7 @@ class CreatePedidosTable extends Migration
 
         Schema::create('pedidos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre',50);
+            //$table->string('nombre',50);
 
             $table->integer('estado_pedidos_id')->unsigned();
             $table->foreign('estado_pedidos_id')->references('id')->on('estado_pedidos')
@@ -227,23 +240,25 @@ class CreatePedidosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('venta_detalle');
-        Schema::drop('clientes');
-        Schema::drop('ventas');
-        Schema::drop('grupo_user');
-        Schema::drop('sede_user');
-        Schema::drop('pedido_plato');
-        Schema::drop('tipo_clientes');
-        Schema::drop('pedidos');
-        //Schema::drop('users');
-        Schema::drop('estado_pedidos');
-        Schema::drop('calendario_plato');
-        Schema::drop('calendarios');
-        Schema::drop('platos');
-        Schema::drop('tipo_platos');
-        Schema::drop('estado_pedido_plato');
-        Schema::drop('mesas');
-        Schema::drop('grupos');
-        Schema::drop('sedes');
+        Schema::dropIfExists('venta_detalle');
+        Schema::dropIfExists('clientes');
+        Schema::dropIfExists('ventas');
+        Schema::dropIfExists('grupo_user');
+        Schema::dropIfExists('sede_user');
+        Schema::dropIfExists('pedido_plato');
+        Schema::dropIfExists('tipo_clientes');
+        Schema::dropIfExists('pedidos');
+        //Schema::dropIfExists('users');
+        Schema::dropIfExists('estado_pedidos');
+        Schema::dropIfExists('calendario_platos');
+        Schema::dropIfExists('calendarios');
+        Schema::dropIfExists('platos');
+        Schema::dropIfExists('tipo_platos');
+        Schema::dropIfExists('categoria_platos');
+        Schema::dropIfExists('estado_pedido_plato');
+        Schema::dropIfExists('mesas');
+        Schema::dropIfExists('grupos');
+        Schema::dropIfExists('sedes');
+        
     }
 }
