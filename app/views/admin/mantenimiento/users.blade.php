@@ -118,8 +118,7 @@
                     </table>
         
                   </div>
-                  <!-- end widget content -->
-        
+                  
                 </div>
                 <!-- end widget div -->
         
@@ -153,7 +152,6 @@
     <script src="js/plugin/datatables/dataTables.tableTools.min.js"></script>
     <script src="js/plugin/datatables/dataTables.bootstrap.min.js"></script>
     <script src="js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
-
 
     <script src="/admin/mantenimiento/users_ajax.js"></script>
     <script src="/admin/mantenimiento/users.js"></script>

@@ -120,11 +120,11 @@ Route::get('register/confirm/{token}', 'UserController@confirmEmail');
 
 /*   });*/
     //filtro token csrf
-    Route::group(["before" => "csrf"], function() {
+    //Route::group(["before" => "csrf"], function() {
 
-        Route::controller('user', 'UserController');
+        Route::resource('user', 'ApiUserController');
         Route::resource('pedido', 'PedidoController');
 
-    });
+    //});
 /*});
 */

@@ -13,9 +13,10 @@ trait DataViewer {
             $sortCol = $request->get('columns')[$col]['name'];
             $sortDir = $request->get('order')[0]['dir'];
             
-            $query = User::orderBy($sortCol, $sortDir);
+            $query = $query->remember(5)->orderBy($sortCol, $sortDir);
+
         } else {
-            $query = User::orderBy('id', 'asc');
+            $query = $query->remember(5)->orderBy('id', 'asc');
         }
 
         if ($request->has('filter')) {

@@ -5,10 +5,11 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Zizaco\Entrust\HasRole;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
-	use UserTrait, RemindableTrait, DataViewer, HasRole;
+	use UserTrait, RemindableTrait, DataViewer, HasRole, SoftDeletingTrait;
 
 	/**
 	 * The database table used by the model.
@@ -16,13 +17,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 	protected $table = 'users';
-	protected $guarded = array('password_confirmation','area_id','recaptcha');
+    protected $dates = ['created_at','updated_at','deleted_at'];
+	protected $guarded = ['password_confirmation','recaptcha','deleted_at'];
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
 	 * @var array
 	 */
-	protected $hidden = array('password', 'remember_token');
+	protected $hidden = ['password', 'remember_token'];
 	public static $rules = [
                 'apellidos'=>'required|regex:/^([a-zA-Z .,ñÑÁÉÍÓÚáéíóú]{2,60})$/i',
                 'nombres' =>'required|regex:/^([a-zA-Z .,ñÑÁÉÍÓÚáéíóú]{2,60})$/i',

@@ -1,4 +1,5 @@
 var tabla='datatable_tabletools';
+var user;
 var users;
 /* BASIC ;*/
 var responsiveHelper_datatable_tabletools = undefined;
@@ -7,6 +8,23 @@ var breakpointDefinition = {
     tablet : 1024,
     phone : 480
 };
+jQuery.each( [ "put", "delete" ], function( i, method ) {
+  jQuery[ method ] = function( url, data, callback, type ) {
+    if ( jQuery.isFunction( data ) ) {
+      type = type || callback;
+      callback = data;
+      data = undefined;
+    }
+
+    return jQuery.ajax({
+      url: url,
+      type: method,
+      dataType: type,
+      data: data,
+      success: callback
+    });
+  };
+});
 var columnDefs=[
     {
         "targets": 0,
@@ -41,8 +59,7 @@ var columnDefs=[
         "name": "verified",
         "searchable":false,
         "data": function ( row, type, val, meta ) {
-            //console.log(meta);
-            return '<td><a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#userModal" data-id="'+meta.row+'" data-titulo="Editar"><i class="fa fa-edit fa-lg"></i> </a></td>';
+            return '<td><a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#userModal" data-id="'+row.id+'" data-titulo="Editar"><i class="fa fa-edit fa-lg"></i> </a></td>';
         },
         "defaultContent": '',
     },
@@ -74,8 +91,8 @@ var dataTable={
         $(".overlay,.loading-img").remove();
     },
     "ajax": {
-        "url": "user/all-paginate",
-        "type": "POST",
+        "url": "user",
+        "type": "GET",
         "data": function(d){
             d.per_page=d.length;
             d.page=(d.start+d.length)/d.length;
@@ -118,12 +135,13 @@ var dataTable={
         responsiveHelper_datatable_tabletools.createExpandIcon(nRow);
     },
     "drawCallback" : function(oSettings) {
-        users = oSettings.aoData;
+        //users = oSettings.aoData;
         responsiveHelper_datatable_tabletools.respond();
     }
 };
 $(document).ready(function() {
     pageSetUp();
+
     $('#userModal').on('show.bs.modal', function (event) {
         /*
         $('#txt_fecha_nacimiento').daterangepicker({
@@ -150,58 +168,15 @@ $(document).ready(function() {
             modal.find('.modal-footer .btn-primary').text('Guardar');
             modal.find('.modal-footer .btn-primary').attr('onClick','Agregar();');
             $('#form_user #txt_nombre').focus();
-            //var datos={estado:1};
-            //slctGlobal.listarSlct('area','slct_area','simple',null,datos);
-            //slctGlobal.listarSlct('rol','slct_rol','simple',null,datos);
         } else {
             var id = button.data('id'); //extrae el id del atributo data
-            var user = users[id]._aData;
-
+            //var user = users[id]._aData;
+            user = Users.get(id);
             //Persona.CargarAreas(PersonasG.id); //no es multiselect
             modal.find('.modal-footer .btn-primary').text('Actualizar');
-            modal.find('.modal-footer .btn-primary').attr('onClick','Editar();');
-            //PersonasG
-            $('#form_user #txt_nombres').val( user.nombres );
-            $('#form_user #txt_apellidos').val( user.apellidos );
-            $('#form_user #txt_dni').val( user.dni );
-            $('#form_user #txt_direccion').val( user.direccion );
-            $('#form_user #txt_numero_telefono').val( user.numero_telefono );
-            $('#form_user #txt_fecha_nacimiento').val( user.fecha_nacimiento );
-            $('#form_user #txt_password').val( user.password );
-            $('#form_user #txt_email').val( user.email );
-            $('#form_user #slct_genero').val( user.genero );
-            $('#form_user #txt_username').val( user.username );
-            //$('#form_user #txt_email').val( PersonasG.email );
-            //$('#form_user #txt_fecha_nacimiento').val( PersonasG.fecha_nacimiento );
-            //$('#form_user #txt_password').val( '' );
-            var estado = 0;
-            if (user.deleted_at===null) {
-                estado = 1;
-            }
-            $('#form_user #slct_estado').val( estado );
-            //$("#form_user").append("<input type='hidden' value='"+PersonasG.id+"' name='id'>");
+            modal.find('.modal-footer .btn-primary').attr('onClick','updateUser();');
 
-            //var datos={estado:1};
-            //var idsarea=[]; idsarea.push(PersonasG.area_id);
-            //var idsrol=[]; idsrol.push(PersonasG.rol_id);
-            //slctGlobal.listarSlct('area','slct_area','simple',idsarea,datos);
-            
-            //slctGlobal.listarSlctFijo('area','slct_area',PersonasG.area);
-         //   alert(PersonasG.fecha_nacimiento_id);
-            //slctGlobal.listarSlct('rol','slct_rol','simple',idsrol,datos);
-            
-            //slctGlobal.listarSlctFijo('rol','slct_rol',PersonasG.rol);
         }
-        /*
-        $( "#form_user #slct_estado" ).trigger('change');
-        $( "#form_user #slct_estado" ).change(function() {
-            if ($( "#form_user #slct_estado" ).val()==1) {
-                $('#f_areas_cargo').removeAttr('disabled');
-            }
-            else {
-                $('#f_areas_cargo').attr('disabled', 'disabled');
-            }
-        });*/
     });
 
     $('#userModal').on('hide.bs.modal', function (event) {
@@ -213,8 +188,26 @@ $(document).ready(function() {
 
     $('#'+tabla).dataTable(dataTable);
 });
-
-
+updateUser=function(){
+    Users.update();
+};
+usuarioEdit=function(){
+    $('#form_user #txt_nombres').val( user.nombres );
+    $('#form_user #txt_apellidos').val( user.apellidos );
+    $('#form_user #txt_dni').val( user.dni );
+    $('#form_user #txt_direccion').val( user.direccion );
+    $('#form_user #txt_numero_telefono').val( user.numero_telefono );
+    $('#form_user #txt_fecha_nacimiento').val( user.fecha_nacimiento );
+    $('#form_user #txt_password').val( user.password );
+    $('#form_user #txt_email').val( user.email );
+    $('#form_user #slct_genero').val( user.genero );
+    $('#form_user #txt_username').val( user.username );
+    var estado = 0;
+    if (user.deleted_at===null) {
+        estado = 1;
+    }
+    $('#form_user #slct_estado').val( estado );
+};
 desactivar=function(id){
 
     $('#'+tabla).DataTable().ajax.reload();
