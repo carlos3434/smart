@@ -19,7 +19,7 @@
                             <i class="fa fa-exclamation"></i>
                         </a>
                     </label>
-                    <input type="text" class="form-control" placeholder="Ingrese Nombre" name="txt_nombres" id="txt_nombres">
+                    <input type="text" class="form-control" placeholder="Ingrese Nombre" v-model='user.nombres'>
                 </div>
                 <div class="col-sm-4">
                     <label class="control-label">
@@ -27,7 +27,7 @@
                             <i class="fa fa-exclamation"></i>
                         </a>
                     </label>
-                    <input type="text" class="form-control" placeholder="Ingrese Apellidos" name="txt_apellidos" id="txt_apellidos">
+                    <input type="text" class="form-control" placeholder="Ingrese Apellidos" v-model='user.apellidos'>
                 </div>
               
                 <div class="col-sm-4">
@@ -36,7 +36,7 @@
                             <i class="fa fa-exclamation"></i>
                         </a>
                     </label>
-                    <input type="text" class="form-control" placeholder="Ingrese DNI" name="txt_dni" id="txt_dni">
+                    <input type="text" class="form-control" placeholder="Ingrese DNI" v-model='user.dni'>
                   </div>
             </div>
             
@@ -47,7 +47,7 @@
                           <i class="fa fa-exclamation"></i>
                       </a>
                   </label>
-                  <input type="text" class="form-control" placeholder="Ingrese Dirección" name="txt_direccion" id="txt_direccion">
+                  <input type="text" class="form-control" placeholder="Ingrese Dirección" v-model='user.direccion'>
                 </div>
                 <div class="col-sm-4">
                   <label class="control-label">
@@ -55,7 +55,7 @@
                           <i class="fa fa-exclamation"></i>
                       </a>
                   </label>
-                  <input type="text" class="form-control" placeholder="Ingrese Teléfono" name="txt_numero_telefono" id="txt_numero_telefono">
+                  <input type="text" class="form-control" placeholder="Ingrese Teléfono" v-model='user.numero_telefono'>
                 </div>
                 <div class="col-sm-4">
                   <label class="control-label">
@@ -63,7 +63,7 @@
                           <i class="fa fa-exclamation"></i>
                       </a>
                   </label>
-                  <input type="text" class="form-control" placeholder="Ingrese email" name="txt_email" id="txt_email">
+                  <input type="text" class="form-control" placeholder="Ingrese email" v-model='user.email'>
                 </div>
                 
             </div>
@@ -75,24 +75,26 @@
                           <i class="fa fa-exclamation"></i>
                       </a>
                   </label>
-                  <input type="text" id="txt_fecha_nacimiento" name="txt_fecha_nacimiento" placeholder="AAAA-MM-DD" class="form-control datepicker" data-dateformat="dd/mm/yy" autocomplete="off" onfocus="blur()">
+                  <input type="text" placeholder="AAAA-MM-DD" class="form-control datepicker" data-dateformat="dd/mm/yy" autocomplete="off" onfocus="blur()" v-model='user.fecha_nacimiento'>
                 </div>
 
                 <div class="col-sm-4">
                   <label class="control-label">
 
                   </label>
-                  <select class="form-control" name="slct_genero" id="slct_genero">
+                  <select class="form-control" v-model='user.genero'>
                       <option value='' style="display:none">.:Seleccione:.</option>
                       <option value='F'>Femenino</option>
                       <option value='M' selected>Masculino</option>
                   </select>
                 </div>
+
                 <div class="col-sm-4">
                   <label class="control-label">
 
                   </label>
-                  <select class="form-control" name="slct_estado" id="slct_estado">
+                  <select class="form-control" v-model='user.estado'>
+                      <option value='' style="display:none">.:Seleccione:.</option>
                       <option value='0'>Inactivo</option>
                       <option value='1' selected>Activo</option>
                   </select>
@@ -107,7 +109,7 @@
                           <i class="fa fa-exclamation"></i>
                       </a>
                   </label>
-                  <input type="text" class="form-control" placeholder="user" id="txt_username" name="txt_username" onfocus="blur()"/>
+                  <input type="text" class="form-control" placeholder="user" v-model='user.username'/>
                 </div>
                 <div class="col-sm-4">
                   <label class="control-label">
@@ -115,36 +117,76 @@
                           <i class="fa fa-exclamation"></i>
                       </a>
                   </label>
-                  <input type="password" class="form-control" placeholder="Ingrese Password" name="txt_password" id="txt_password">
+                  <input type="password" class="form-control" placeholder="Ingrese Password" v-model='user.password'>
                 </div>
             </div>
               
-
-          
-
             <div class="row">
-              
-                <div class="col-sm-6">
-                  <label class="control-label">Roles:
-                  </label>
-                  <select class="form-control" name="slct_cargos" id="slct_cargos">
-                  </select>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                          <label>
+                            
+                          </label>
+                          <select multiple style="width:100%" class="select2" v-model="selected">
+                              <template v-for="modulo in modulos">
+                                  <optgroup :label="modulo.nombre">
+
+                                      <option v-for="submodulo in modulo.children" v-bind:value="submodulo.id">
+                                        @{{ submodulo.nombre }}
+                                      </option>
+                                  </optgroup>
+                              </template>
+                        </select>
+
+                    </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-sm-6">
-                    <br>
-                    <button type="button" class="btn btn-success" Onclick="AgregarArea();">
-                      <i class="fa fa-plus fa-sm"></i>
-                      &nbsp;Nuevo
-                    </button>
+                    <i class="fa fa-graduation-cap"></i>
+                    <h3 class="box-title">DATOS ACADÉMICOS
+                      <a @click="addRow" class="btn btn-succes btn-sm"><i class="fa fa-plus"></i></a>
+                    </h3>
                 </div>
               
+
+                <div class="box-body">
+                  <table class="table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                      <th class="col-md-3" style="text-align:center;">Universidad</th>
+                      <th class="col-md-3" style="text-align:center;">Titulo Profesional</th>
+                      <th class="col-md-1" style="text-align:center;">Subir Archivo</th>
+                      <th class="col-md-1" style="text-align:center;">[]</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tr_academicos">
+                      <tr v-for="(item, index) in rows">
+                        <td>
+                            <textarea class="form-control" v-model='item.universidad'></textarea>
+                        </td>
+                        <td>
+                            <textarea class="form-control" v-model='item.titulo'></textarea>
+                        </td>
+                        <td>
+                            <input type="text" maxlength="4" class="form-control fecha" v-model='item.anio'>
+                        </td>
+                        <td>
+                            <button type="button" @click="removeRow(index)" class="fa fa-remove delete-button"></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+
             </div>
             <ul class="list-group" id="t_cargoPersona"></ul>
           </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
+        <button type="button" @click.prevent="guardarUser" class="btn btn-primary">Guardar</button>
       </div>
     </div>
   </div>

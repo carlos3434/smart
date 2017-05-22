@@ -1,20 +1,25 @@
 <?php
 
-class ApiUserController extends Controller
+class ApiModulosController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * url     /user
+     * url     /modulos
      * metohd  GET
      * @return Response
      */
     public function index()
     {
-        return Response::json(User::searchPaginateAndOrder());
+        $sumodulos = Modulo::raiz()->with('children');
+        //$sumodulosUser = Auth::user()->with('submodulos');
+        return Response::json(
+            $sumodulos->get()
+            //'sumodulosUser'=>$sumodulosUser->get()
+        );
     }
     /**
      * Show the form for creating a new resource.
-     * url     /user/create
+     * url     /modulos/create
      * metohd  GET
      * @return Response
      */
@@ -24,7 +29,7 @@ class ApiUserController extends Controller
     }
     /**
      * Store a newly created resource in storage.
-     * url     /user
+     * url     /modulos
      * metohd  POST
      * @return Response
      */
@@ -35,7 +40,7 @@ class ApiUserController extends Controller
     }
     /**
      * Display the specified resource.
-     * url     /user/{id}
+     * url     /modulos/{id}
      * metohd  GET
      *
      * @param  int  $id
@@ -43,11 +48,11 @@ class ApiUserController extends Controller
      */
     public function show($id)
     {
-        return User::with('roles','submodulos')->findOrFail($id);
+        return User::with('roles','modulos')->findOrFail($id);
     }
     /**
      * Show the form for editing the specified resource.
-     * url     /user/{id}/edit
+     * url     /modulos/{id}/edit
      * metohd  GET
      *
      * @param  int  $id
@@ -61,7 +66,7 @@ class ApiUserController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * url     /user/{id}
+     * url     /modulos/{id}
      * metohd  PUT/PATCH
      *
      * @param  int  $id
@@ -76,7 +81,7 @@ class ApiUserController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * url     /user/{id}
+     * url     /modulos/{id}
      * metohd  DELETE
      *
      * @param  int  $id

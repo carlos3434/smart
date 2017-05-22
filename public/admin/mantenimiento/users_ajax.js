@@ -1,6 +1,6 @@
 var Users={
     all:function(dataUsers){
-        $.post( "user/all",
+        $.post( "api/users/all",
         function(response) {
             dataUsers(response);
             //alert( "success" );
@@ -16,10 +16,20 @@ var Users={
         });
     },
     get:function(id){
-        $.get( "user/"+id,
+        $.get( "api/users/"+id,
         function(response) {
-            user = response;
-            usuarioEdit();
+            vm.user = response;
+            submodulos = response.submodulos;
+            //seleccionar los submodulos obtenidos
+            for (var i = vm.modulos.length - 1; i >= 0; i--) {
+                //  console.log(vm.modulos[i].id);
+                if ( vm.modulos[i].children.length > 0 ) {
+                    submodulos = vm.modulos[i].children;
+                    for (var j = submodulos.length - 1; j >= 0; j--) {
+                        console.log( submodulos[j]  );
+                    }
+                }
+            }
         })
         .done(function(response) {
             //alert( "second success" );
@@ -31,11 +41,15 @@ var Users={
             //alert( "finished" );
         });
     },
+    /** guardar nuevo
+    */
     store:function(){
-        $.post( "user",user,
+        $.post( "api/users",vm.user,
         function(response) {
-            user = response;
-            usuarioEdit();
+            //user = response;
+            reload();
+            //$('#'+tabla).DataTable().ajax.reload();
+            $("#userModal").modal('hide');
         })
         .done(function(response) {
             //alert( "second success" );
@@ -47,10 +61,14 @@ var Users={
             //alert( "finished" );
         });
     },
-    update:function(){
-        $.put('user/'+user.id,user, 
+    /** guardar existente
+    */
+    update:function(id){
+        $.put('api/users/'+id,vm.user, 
             function(response){
-            console.log(response);
+            reload();
+            //$('#'+tabla).DataTable().ajax.reload();
+            $("#userModal").modal('hide');
         })
         .done(function(response) {
             //alert( "second success" );
@@ -63,10 +81,9 @@ var Users={
         });
     },
     destroy:function(id){
-        $.delete( "user/"+id,
+        $.delete( "api/users/"+id,
         function(response) {
             user = response;
-            usuarioEdit();
         })
         .done(function(response) {
             //alert( "second success" );
@@ -79,7 +96,7 @@ var Users={
         });
     },
     allPaginate:function(dataUsersPag){
-        $.post( "user/all-paginate",
+        $.post( "api/users/all-paginate",
         { name: "John", time: "2pm" },
         function(response) {
             dataUsersPag(response);
@@ -97,5 +114,27 @@ var Users={
     },
     CambiarEstadoAreas:function(id,AD){
 
+    }
+};
+var Modulos={
+    all:function(/*dataUsers*/){
+        $.get( "api/modulos",
+        function(response) {
+            vm.modulos = response;
+                $('.select2').select2({
+        dropdownParent: $('#userModal')
+    });
+            //dataUsers(response);
+            //alert( "success" );
+        })
+        .done(function(response) {
+            //alert( "second success" );
+        })
+        .fail(function(response) {
+            //alert( "error" );
+        })
+        .always(function(response) {
+            //alert( "finished" );
+        });
     }
 };

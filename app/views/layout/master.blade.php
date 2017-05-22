@@ -97,8 +97,9 @@
     <!-- MAIN PANEL -->
     <div id="main" role="main">
 
-      
-      @yield('main')
+        @yield('main')
+
+        @stack('formulario')
 
     </div>
     <!-- END MAIN PANEL -->
@@ -125,7 +126,5 @@
         @include('layout.partials.scripts')
     @show
    
-
-    @yield('formulario')
   </body>
 </html>

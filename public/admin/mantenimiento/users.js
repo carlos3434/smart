@@ -1,5 +1,68 @@
+const vm = new Vue({
+    el: '#main',
+    data: {
+        userEdit:{
+            datos_academicos:[]
+        },
+        user:{},
+        userNuevo:{
+            nombres:'',
+            apellidos:'',
+            dni:'',
+            direccion:'',
+            numero_telefono:'',
+            username:'',
+            fecha_nacimiento:'',
+            genero:'',
+            group_id:'',
+            email:'',
+            verified:'',
+            token:'',
+
+            //created_at:'',
+            //updated_at:'',
+            //deleted_at:null,
+        },
+        rows: [ {}],
+        modulos: [ {}],
+        accion:'',
+        selected:[],
+        
+    },
+
+    methods: {
+        /**edita o actualiza usuario*/
+        guardarUser: function () {
+            if (vm.accion=='nuevo') {
+                Users.store();
+            } else {
+                Users.update(vm.user.id);
+            }
+
+        },
+        storeUser: function () {
+            $("#userModal").modal();
+            vm.accion = 'nuevo';
+            vm.user = vm.userNuevo;
+        },
+        addRow: function(){
+          this.rows.push({});
+        },
+        removeRow: function(row){
+            this.rows.splice( row, 1 );
+        },
+        modulos: function(){
+            Modulos.all();
+        },
+    },
+    ready: function(){
+        this.modulos();
+    }
+});
+
+
 var tabla='datatable_tabletools';
-var user;
+//var user;
 var users;
 /* BASIC ;*/
 var responsiveHelper_datatable_tabletools = undefined;
@@ -8,23 +71,7 @@ var breakpointDefinition = {
     tablet : 1024,
     phone : 480
 };
-jQuery.each( [ "put", "delete" ], function( i, method ) {
-  jQuery[ method ] = function( url, data, callback, type ) {
-    if ( jQuery.isFunction( data ) ) {
-      type = type || callback;
-      callback = data;
-      data = undefined;
-    }
 
-    return jQuery.ajax({
-      url: url,
-      type: method,
-      dataType: type,
-      data: data,
-      success: callback
-    });
-  };
-});
 var columnDefs=[
     {
         "targets": 0,
@@ -59,7 +106,7 @@ var columnDefs=[
         "name": "verified",
         "searchable":false,
         "data": function ( row, type, val, meta ) {
-            return '<td><a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#userModal" data-id="'+row.id+'" data-titulo="Editar"><i class="fa fa-edit fa-lg"></i> </a></td>';
+            return '<td><button type="button" onClick="editar('+row.id+')" class="btn btn-primary">Editar</button></td>';
         },
         "defaultContent": '',
     },
@@ -68,9 +115,9 @@ var columnDefs=[
         "name": "deleted_at",
         "searchable":false,
         "data": function ( row, type, val, meta ) {
-            estado='<span id="'+row.id+'" onClick="activar('+row.id+')" class="btn btn-danger">Inactivo</span>';
+            estado='<button type="button"  onClick="activar('+row.id+')" class="btn btn-success">Inactivo</button>';
             if (row.deleted_at===null){
-                estado='<span id="'+row.id+'" onClick="desactivar('+row.id+')" class="btn btn-success">Activo</span>';
+                estado='<button type="button" onClick="desactivar('+row.id+')" class="btn btn-success">Activo</button>';
             }
             return estado;
         },
@@ -91,7 +138,7 @@ var dataTable={
         $(".overlay,.loading-img").remove();
     },
     "ajax": {
-        "url": "user",
+        "url": "api/users",
         "type": "GET",
         "data": function(d){
             d.per_page=d.length;
@@ -139,80 +186,29 @@ var dataTable={
         responsiveHelper_datatable_tabletools.respond();
     }
 };
+var datatable;
 $(document).ready(function() {
     pageSetUp();
+    datatable = $('#'+tabla).DataTable(dataTable);
+    Modulos.all();
 
-    $('#userModal').on('show.bs.modal', function (event) {
-        /*
-        $('#txt_fecha_nacimiento').daterangepicker({
-            format: 'YYYY-MM-DD',
-            singleDatePicker: true,
-            showDropdowns: true
-        });
-*/
-        var button = $(event.relatedTarget); // captura al boton
-        var titulo = button.data('titulo'); // extrae del atributo data-
-        
-
-        
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this); //captura el modal
-        modal.find('.modal-title').text(titulo+' Usuario');
-        $('#form_user [data-toggle="tooltip"]').css("display","none");
-        $("#form_user input[type='hidden']").remove();
-        //slctGlobal.listarSlct('cargo','slct_cargos','simple');
-        
-        if(titulo=='Nuevo'){
-            
-            modal.find('.modal-footer .btn-primary').text('Guardar');
-            modal.find('.modal-footer .btn-primary').attr('onClick','Agregar();');
-            $('#form_user #txt_nombre').focus();
-        } else {
-            var id = button.data('id'); //extrae el id del atributo data
-            //var user = users[id]._aData;
-            user = Users.get(id);
-            //Persona.CargarAreas(PersonasG.id); //no es multiselect
-            modal.find('.modal-footer .btn-primary').text('Actualizar');
-            modal.find('.modal-footer .btn-primary').attr('onClick','updateUser();');
-
-        }
-    });
-
-    $('#userModal').on('hide.bs.modal', function (event) {
-        var modal = $(this); //captura el modal
-        modal.find('.modal-body input').val(''); // busca un input para copiarle texto
-        //$('#slct_cargos,#slct_rol,#slct_area').multiselect('destroy');
-        //$("#t_cargoPersona").html('');
-    });
-
-    $('#'+tabla).dataTable(dataTable);
 });
-updateUser=function(){
-    Users.update();
-};
-usuarioEdit=function(){
-    $('#form_user #txt_nombres').val( user.nombres );
-    $('#form_user #txt_apellidos').val( user.apellidos );
-    $('#form_user #txt_dni').val( user.dni );
-    $('#form_user #txt_direccion').val( user.direccion );
-    $('#form_user #txt_numero_telefono').val( user.numero_telefono );
-    $('#form_user #txt_fecha_nacimiento').val( user.fecha_nacimiento );
-    $('#form_user #txt_password').val( user.password );
-    $('#form_user #txt_email').val( user.email );
-    $('#form_user #slct_genero').val( user.genero );
-    $('#form_user #txt_username').val( user.username );
-    var estado = 0;
-    if (user.deleted_at===null) {
-        estado = 1;
-    }
-    $('#form_user #slct_estado').val( estado );
+/**
+   
+*/
+editar=function(id){
+    vm.accion='editar';
+    Users.get(id);
+    $("#userModal").modal();
 };
 desactivar=function(id){
-
-    $('#'+tabla).DataTable().ajax.reload();
+    console.log(id);
+    reload();
 };
 activar=function(id){
-
-    $('#'+tabla).DataTable().ajax.reload();
+    console.log(id);
+    reload();
+};
+reload=function(){
+    datatable.ajax.reload(null,false);
 };

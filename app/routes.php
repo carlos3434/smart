@@ -50,15 +50,16 @@ Route::any('/', function()
     return View::make('user/login');
 });
 
-Route::get('entrust',['before' => ['create-users'], function()
+Route::get('entrust', function()
 {
-    $user = Auth::user();//obtenemos el usuario logueado
-    return "";
-    if ($user->hasRole(‘admin’))
-    {
-    return 'usuario tiene rol admin!';
-    }
-}]);
+     $options = array(
+    'validate_all' => true,
+    'return_type' => 'both'
+    );
+     $user = Auth::user();
+    list($validate,$allValidations) = $user->ability(array('Admin','Owner'), array('manage_posts','manage_users'), $options);
+    dd($validate,$allValidations);
+});
 Route::get('password/remind', function()
 {
     return View::make('password/remind');
@@ -71,22 +72,21 @@ Route::get('register/confirm/{token}', 'UserController@confirmEmail');
 
 //Route::group(["before" => "csrf"], function() {
     Route::controller('password', 'RemindersController');
-    //Route::controller("user", "UserController");
+    Route::controller("user", "UserController");
     Route::controller("mesa", "MesaController");
     Route::controller("plato", "PlatoController");
     Route::post("login", "UserController@postLogin");
     //Route::controller('login', 'LoginController');
 //});
 
-/*Route::group(["before" => "auth"], function() {
-    Route::group(["before" => "session"], function() {*/
+Route::group(["before" => "auth"], function() {
+    Route::group(["before" => "session"], function() {
 
         Route::get('inicio', function () {
             return View::make('admin.main');
         });
         Route::get('admin.mantenimiento.usuarios', function () {
-            $user = Auth::user();
-            return View::make('admin.mantenimiento.users')->with('user',$user);
+            return View::make('admin.mantenimiento.users');
         });
         Route::get('admin.orders.order', function () {
 
@@ -118,13 +118,13 @@ Route::get('register/confirm/{token}', 'UserController@confirmEmail');
             return view('admin.'.$modulo.'.'.$submodulo.'.index');
         });*/
 
-/*   });*/
+    });
     //filtro token csrf
     //Route::group(["before" => "csrf"], function() {
 
-        Route::resource('user', 'ApiUserController');
+        Route::resource('api/users', 'ApiUserController');
+        Route::resource('api/modulos', 'ApiModulosController');
         Route::resource('pedido', 'PedidoController');
 
     //});
-/*});
-*/
+});
