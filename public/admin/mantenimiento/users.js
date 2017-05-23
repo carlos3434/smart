@@ -67,6 +67,8 @@ var users;
 /* BASIC ;*/
 var responsiveHelper_datatable_tabletools = undefined;
 
+var $selectModulos;
+
 var breakpointDefinition = {
     tablet : 1024,
     phone : 480

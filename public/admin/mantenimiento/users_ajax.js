@@ -19,17 +19,12 @@ var Users={
         $.get( "api/users/"+id,
         function(response) {
             vm.user = response;
-            submodulos = response.submodulos;
-            //seleccionar los submodulos obtenidos
-            for (var i = vm.modulos.length - 1; i >= 0; i--) {
-                //  console.log(vm.modulos[i].id);
-                if ( vm.modulos[i].children.length > 0 ) {
-                    submodulos = vm.modulos[i].children;
-                    for (var j = submodulos.length - 1; j >= 0; j--) {
-                        console.log( submodulos[j]  );
-                    }
-                }
+            //submodulosUser = response.submodulos;
+            submodulosUser = [];
+            for (var i = response.submodulos.length - 1; i >= 0; i--) {
+                submodulosUser.push(response.submodulos[i].id);
             }
+            $selectModulos.val(submodulosUser).trigger("change");
         })
         .done(function(response) {
             //alert( "second success" );
@@ -121,9 +116,9 @@ var Modulos={
         $.get( "api/modulos",
         function(response) {
             vm.modulos = response;
-                $('.select2').select2({
-        dropdownParent: $('#userModal')
-    });
+            $selectModulos = $('.select2').select2({
+                dropdownParent: $('#userModal')
+            });
             //dataUsers(response);
             //alert( "success" );
         })
