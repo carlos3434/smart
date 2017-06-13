@@ -1,55 +1,46 @@
-const vm = new Vue({
+//Vue.component('v-select', VueSelect.VueSelect);
+var vm = new Vue({
     el: '#main',
     data: {
-        userEdit:{
-            datos_academicos:[]
+        rol:{},
+        rolNuevo:{
+            nombre:'',
+            nombre_mostrar:'',
+            descripcion:''
         },
-        user:{},
-        userNuevo:{
-            nombres:'',
-            apellidos:'',
-            dni:'',
-            direccion:'',
-            numero_telefono:'',
-            username:'',
-            fecha_nacimiento:'',
-            genero:'',
-            group_id:'',
-            email:'',
-            verified:'',
-            token:'',
-
-            //created_at:'',
-            //updated_at:'',
-            //deleted_at:null,
-        },
-        //submodulosUser: [],
         rolesUser: [],
         modulos: [],
+        submodulos: [],//grilla de check
         roles: [],
         accion:''
     },
 
     methods: {
         /**edita o actualiza usuario*/
-        guardarUser: function () {
+        guardarRole: function () {
             if (vm.accion=='nuevo') {
-                Users.store();
+                Roles.store();
             } else {
-                Users.update(vm.user.id);
+                Roles.update(vm.rol.id);
             }
-
         },
-        storeUser: function () {
-            $("#userModal").modal();
+        storeRole: function () {
+            $("#rolModal").modal();
             vm.accion = 'nuevo';
-            vm.user = vm.userNuevo;
+            vm.rol = vm.rolNuevo;
         },
         addRow: function(){
-          this.user.submodulos.push({});
+            var submodulo={
+                nombre:'',
+                create:'',
+                read:'',
+                update:'',
+                delete:''
+            };
+            vm.submodulos.push(submodulo);
         },
         removeRow: function(row){
-            this.user.submodulos.splice( row, 1 );
+            this.rows.splice( row, 1 );
         },
         modulos: function(){
             Modulos.all();
@@ -58,16 +49,10 @@ const vm = new Vue({
             Roles.all();
         },
     },
-    ready: function(){
-        //this.modulos();
-        //this.roles();
-    }
 });
 
-
 var tabla='datatable_tabletools';
-//var user;
-var users;
+
 /* BASIC ;*/
 var responsiveHelper_datatable_tabletools = undefined;
 
@@ -88,29 +73,23 @@ var columnDefs=[
     },
     {
         "targets": 1,
-        "data": "nombres",
-        "name": "nombres"
+        "data": "nombre",
+        "name": "nombre"
     },
     {
         "targets": 2,
-        "data": "apellidos",
-        "name": "apellidos"
+        "data": "nombre_mostrar",
+        "name": "nombre_mostrar"
     },
     {
         "targets": 3,
-        "data": "numero_telefono",
-        "name": "numero_telefono",
+        "data": "descripcion",
+        "name": "descripcion",
         "searchable":false
     },
     {
         "targets": 4,
-        "data": "genero",
-        "name": "genero",
-        "searchable":false
-    },
-    {
-        "targets": 5,
-        "name": "verified",
+        "name": "updated_at",
         "searchable":false,
         "data": function ( row, type, val, meta ) {
             return '<td><button type="button" onClick="editar('+row.id+')" class="btn btn-primary">Editar</button></td>';
@@ -118,7 +97,7 @@ var columnDefs=[
         "defaultContent": '',
     },
     {
-        "targets": 6,
+        "targets": 5,
         "name": "deleted_at",
         "searchable":false,
         "data": function ( row, type, val, meta ) {
@@ -145,7 +124,7 @@ var dataTable={
         $(".overlay,.loading-img").remove();
     },
     "ajax": {
-        "url": "api/users",
+        "url": "api/roles",
         "type": "GET",
         "data": function(d){
             d.per_page=d.length;
@@ -180,7 +159,6 @@ var dataTable={
     },
     "autoWidth" : true,
     "preDrawCallback" : function() {
-        // Initialize the responsive datatables helper once.
         if (!responsiveHelper_datatable_tabletools) {
             responsiveHelper_datatable_tabletools = new ResponsiveDatatablesHelper($('#'+tabla), breakpointDefinition);
         }
@@ -189,7 +167,6 @@ var dataTable={
         responsiveHelper_datatable_tabletools.createExpandIcon(nRow);
     },
     "drawCallback" : function(oSettings) {
-        //users = oSettings.aoData;
         responsiveHelper_datatable_tabletools.respond();
     }
 };
@@ -197,24 +174,20 @@ var datatable;
 $(document).ready(function() {
     pageSetUp();
     Modulos.all();
-    Roles.all();
     datatable = $('#'+tabla).DataTable(dataTable);
-    
 });
 /**
    
 */
 editar=function(id){
     vm.accion='editar';
-    Users.get(id);
-    $("#userModal").modal();
+    Roles.get(id);
+    $("#rolModal").modal();
 };
 desactivar=function(id){
-    console.log(id);
     reload();
 };
 activar=function(id){
-    console.log(id);
     reload();
 };
 reload=function(){

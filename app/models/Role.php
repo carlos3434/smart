@@ -1,9 +1,12 @@
 <?php
 
 use Zizaco\Entrust\EntrustRole;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Role extends EntrustRole
 {
+    use DataViewer,SoftDeletingTrait;
+
     protected $fillable = [
         'nombre',
         'nombre_mostrar',

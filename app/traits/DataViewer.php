@@ -45,7 +45,8 @@ trait DataViewer {
 
             });
         }
-        $perPage = $request->has('per_page') ? (int) $request->get('per_page') : null;
+        $perPage = $request->has('per_page') ? (int) $request->get('per_page') : 10;
+
         $result = $query->paginate($perPage);
 
         $data = $result->toArray();

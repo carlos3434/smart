@@ -18,6 +18,13 @@ class Modulo extends Eloquent
     {
         return $this->belongsToMany('User');
     }
+    /**
+     * Permisos relationship
+     */
+    public function permiso()
+    {
+        return $this->hasMany('Permission');
+    }
 
     public function parent()
     {

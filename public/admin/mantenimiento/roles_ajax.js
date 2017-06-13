@@ -1,8 +1,8 @@
-var Users={
-    all:function(dataUsers){
-        $.post( "api/users/all",
+var Roles={
+    all:function(){
+        $.get( "api/roles",
         function(response) {
-            dataUsers(response);
+            //dataUsers(response);
             //alert( "success" );
         })
         .done(function(response) {
@@ -16,19 +16,15 @@ var Users={
         });
     },
     get:function(id){
-        $.get( "api/users/"+id,
+        $.get( "api/roles/"+id,
         function(response) {
-            vm.user = response;
-            var rolesUser=[];
-            var submodulosUser= [];
-            for (var i = response.submodulos.length - 1; i >= 0; i--) {
-                submodulosUser.push(response.submodulos[i].id);
+            vm.rol = response;
+            var modulosRol= [];
+            for (var i = response.permissions.length - 1; i >= 0; i--) {
+                modulosRol.push(response.permissions[i].submodulo_id);
+
             }
-            for ( i = response.roles.length - 1; i >= 0; i--) {
-                rolesUser.push(response.roles[i].id);
-            }
-            $selectModulos.val(submodulosUser).trigger("change");
-            $selectRoles.val(rolesUser).trigger("change");
+            $selectModulos.val(modulosRol).trigger("change");
         })
         .done(function(response) {
             //alert( "second success" );
@@ -45,12 +41,12 @@ var Users={
     store:function(){
         vm.user.submodulos = $('#modulos').val();
         vm.user.roles = $('#roles').val();
-        $.post( "api/users",vm.user,
+        $.post( "api/roles",vm.user,
         function(response) {
             //user = response;
             reload();
             //$('#'+tabla).DataTable().ajax.reload();
-            $("#userModal").modal('hide');
+            $("#rolModal").modal('hide');
         })
         .done(function(response) {
             //alert( "second success" );
@@ -66,12 +62,14 @@ var Users={
     */
     update:function(id){
         //vm.user.submodulos = submodulosUser;
-        vm.user.roles = $('#roles').val();
-        $.put('api/users/'+id,vm.user, 
+        //vm.user.roles = $('#roles').val();
+        //recorrer 
+        vm.rol.submodulos = vm.submodulos;
+        $.put('api/roles/'+id,vm.rol, 
             function(response){
             reload();
             //$('#'+tabla).DataTable().ajax.reload();
-            $("#userModal").modal('hide');
+            $("#rolModal").modal('hide');
         })
         .done(function(response) {
             //alert( "second success" );
@@ -84,7 +82,7 @@ var Users={
         });
     },
     destroy:function(id){
-        $.delete( "api/users/"+id,
+        $.delete( "api/roles/"+id,
         function(response) {
             user = response;
         })
@@ -99,7 +97,7 @@ var Users={
         });
     },
     allPaginate:function(dataUsersPag){
-        $.post( "api/users/all-paginate",
+        $.post( "api/roles/all-paginate",
         { name: "John", time: "2pm" },
         function(response) {
             dataUsersPag(response);
@@ -124,19 +122,41 @@ var Modulos={
         $.get( "api/modulos", function(response) {
             vm.modulos = response;
             $selectModulos = $('#modulos').select2({
-                dropdownParent: $('#userModal')
+                dropdownParent: $('#rolModal')
             });
+
             $selectModulos.on("change", function (e) {
                 //actualizar objeto moduloUser
-                //vm.submodulosUser = [];
-                vm.user.submodulos = [];
+                var submodulo;
+                vm.submodulos = [];
                 if ($('#modulos').val()) {
                     for (var i = vm.modulos.length - 1; i >= 0; i--) {
                         submodulo = vm.modulos[i].children;
                         for (var j = submodulo.length - 1; j >= 0; j--) {
                             if ($('#modulos').val().indexOf(submodulo[j].id.toString()) >=0) {
-                                //vm.submodulosUser.push(submodulo[j]);
-                                vm.user.submodulos.push(submodulo[j]);
+                                //comparar si esta en permisos
+                                
+                                for (var k = vm.rol.permissions.length - 1; k >= 0; k--) {
+                                    //(vm.rol.permissions[k].submodulo_id)
+                                    if (vm.rol.permissions[k].submodulo_id==submodulo[j].id.toString()) {
+                                        //console.log(vm.rol.permissions[k]);
+                                        //buscar los que se encuentren en true
+                                        //aqui seria mejor armar un erray 
+                                        //con las opciones del sistema
+                                        //y en el frontend recorrerlo
+
+                                        if ( vm.rol.permissions[k].nombre.indexOf("read") )
+                                            submodulo[j].read=true;
+                                        if ( vm.rol.permissions[k].nombre.indexOf("create") )
+                                            submodulo[j].create=true;
+                                        if ( vm.rol.permissions[k].nombre.indexOf("update") )
+                                            submodulo[j].update=true;
+                                        if ( vm.rol.permissions[k].nombre.indexOf("delete") )
+                                            submodulo[j].delete=true;
+
+                                    }
+                                }
+                                vm.submodulos.push(submodulo[j]);
                             }
                         }
                         
@@ -155,8 +175,9 @@ var Modulos={
         });
     }
 };
+/*
 var Roles={
-    all:function(/*dataUsers*/){
+    all:function(/){
         $.get( "roles/lista",
         function(response) {
             vm.roles = response;
@@ -176,4 +197,4 @@ var Roles={
             //alert( "finished" );
         });
     }
-};
+};*/

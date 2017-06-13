@@ -1,20 +1,20 @@
 <?php
 
-class ApiUserController extends Controller
+class ApiRolesController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * url     /user
+     * url     /roles
      * metohd  GET
      * @return Response
      */
     public function index()
     {
-        return Response::json(User::searchPaginateAndOrder());
+        return Response::json(Role::searchPaginateAndOrder());
     }
     /**
      * Show the form for creating a new resource.
-     * url     /user/create
+     * url     /roles/create
      * metohd  GET
      * @return Response
      */
@@ -24,22 +24,18 @@ class ApiUserController extends Controller
     }
     /**
      * Store a newly created resource in storage.
-     * url     /user
+     * url     /roles
      * metohd  POST
      * @return Response
      */
     public function store()
     {
-        $user = User::create(Input::except('modulos'));
-        if (Input::has('modulos')) {
-            $user->submodulos()->getRelatedIds();
-            $user->submodulos()->sync( Input::get('modulos') );
-        }
-        return $user;
+        //
+        return Role::create(Input::all());
     }
     /**
      * Display the specified resource.
-     * url     /user/{id}
+     * url     /roles/{id}
      * metohd  GET
      *
      * @param  int  $id
@@ -47,11 +43,11 @@ class ApiUserController extends Controller
      */
     public function show($id)
     {
-        return User::with('roles','submodulos')->findOrFail($id);
+        return Role::with('permissions')->findOrFail($id);
     }
     /**
      * Show the form for editing the specified resource.
-     * url     /user/{id}/edit
+     * url     /roles/{id}/edit
      * metohd  GET
      *
      * @param  int  $id
@@ -65,7 +61,7 @@ class ApiUserController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * url     /user/{id}
+     * url     /roles/{id}
      * metohd  PUT/PATCH
      *
      * @param  int  $id
@@ -73,24 +69,14 @@ class ApiUserController extends Controller
      */
     public function update($id)
     {
-        $user = User::findOrFail($id);
-        $response = $user->update(Input::except('submodulos','roles'));
-        if ($response && Input::has('submodulos')) {
-            
-            $user->submodulos()->getRelatedIds();
-            $user->submodulos()->sync( Input::get('submodulos') );
-        }
-        if ($response && Input::has('roles')) {
-            $user->roles()->getRelatedIds();
-            $user->roles()->sync( Input::get('roles') );
-        }
+        $response = Role::findOrFail($id)->update(Input::all());
         return Response::json($response);
     }
 
 
     /**
      * Remove the specified resource from storage.
-     * url     /user/{id}
+     * url     /roles/{id}
      * metohd  DELETE
      *
      * @param  int  $id
@@ -98,6 +84,6 @@ class ApiUserController extends Controller
      */
     public function destroy($id)
     {
-        User::findOrFail($id)->delete();
+        Role::findOrFail($id)->delete();
     }
 }
