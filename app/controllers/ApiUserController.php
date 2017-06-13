@@ -47,7 +47,7 @@ class ApiUserController extends Controller
      */
     public function show($id)
     {
-        return User::with('roles','submodulos')->findOrFail($id);
+        return User::with('roles'/*,'submodulos'*/)->findOrFail($id);
     }
     /**
      * Show the form for editing the specified resource.

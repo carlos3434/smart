@@ -23,6 +23,7 @@ class CreateModulosTable extends Migration
         });
 
         // Create table for associating modulos to users (Many-to-Many)
+        /*
         Schema::create('modulo_user', function (Blueprint $table) {
             $table->integer('modulo_id')->unsigned();
             $table->integer('user_id')->unsigned();
@@ -35,7 +36,7 @@ class CreateModulosTable extends Migration
 
             $table->primary(['modulo_id', 'user_id']);
             $table->softDeletes();
-        });
+        });*/
     }
 
     /**
@@ -45,7 +46,7 @@ class CreateModulosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('modulo_user');
+        //Schema::dropIfExists('modulo_user');
         Schema::dropIfExists('modulos');
     }
 }

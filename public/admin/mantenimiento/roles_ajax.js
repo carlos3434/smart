@@ -64,6 +64,7 @@ var Roles={
         //vm.user.submodulos = submodulosUser;
         //vm.user.roles = $('#roles').val();
         //recorrer 
+        vm.rol.permissions = vm.permissions;
         vm.rol.submodulos = vm.submodulos;
         $.put('api/roles/'+id,vm.rol, 
             function(response){
@@ -129,6 +130,7 @@ var Modulos={
                 //actualizar objeto moduloUser
                 var submodulo;
                 vm.submodulos = [];
+                vm.permissions = [];
                 if ($('#modulos').val()) {
                     for (var i = vm.modulos.length - 1; i >= 0; i--) {
                         submodulo = vm.modulos[i].children;
@@ -144,15 +146,21 @@ var Modulos={
                                         //aqui seria mejor armar un erray 
                                         //con las opciones del sistema
                                         //y en el frontend recorrerlo
-
-                                        if ( vm.rol.permissions[k].nombre.indexOf("read") )
+                                        //es necesario pasarle el permido id para
+                                        //que en el backend pueda actualizar el rol con los permisos
+                                        vm.permissions.push({id:vm.rol.permissions[k].id});
+                                        if ( vm.rol.permissions[k].nombre.indexOf("read") ){
                                             submodulo[j].read=true;
-                                        if ( vm.rol.permissions[k].nombre.indexOf("create") )
+                                        }
+                                        if ( vm.rol.permissions[k].nombre.indexOf("create") ){
                                             submodulo[j].create=true;
-                                        if ( vm.rol.permissions[k].nombre.indexOf("update") )
+                                        }
+                                        if ( vm.rol.permissions[k].nombre.indexOf("update") ){
                                             submodulo[j].update=true;
-                                        if ( vm.rol.permissions[k].nombre.indexOf("delete") )
+                                        }
+                                        if ( vm.rol.permissions[k].nombre.indexOf("delete") ){
                                             submodulo[j].delete=true;
+                                        }
 
                                     }
                                 }

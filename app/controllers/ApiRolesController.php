@@ -69,8 +69,24 @@ class ApiRolesController extends Controller
      */
     public function update($id)
     {
-        $response = Role::findOrFail($id)->update(Input::all());
-        return Response::json($response);
+        $role = Role::findOrFail($id);
+        $respuestaUpdate = $role->update(Input::all());
+
+        
+        if (Input::has('permissions')) {
+            $permissions = Input::get('permissions');
+        //if ($request->has('roles_user')) {
+           $rst= $role->permissions()->getRelatedIds();
+dd($permissions);
+           //$role->perms()->sync([1,2,3,4,5]);
+           $role->perms()->sync($permissions);
+           //$role->attachPermission($permissions);
+            //$role->permissions()->sync($permissions);
+            //$user->roles()->getRelatedIds();
+        }
+        
+
+        return Response::json($respuestaUpdate);
     }
 
 

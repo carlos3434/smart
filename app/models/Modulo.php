@@ -14,10 +14,11 @@ class Modulo extends Eloquent
     /**
      * Usuarios relationship
      */
+    /*
     public function user()
     {
         return $this->belongsToMany('User');
-    }
+    }*/
     /**
      * Permisos relationship
      */

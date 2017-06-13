@@ -9,6 +9,7 @@ var vm = new Vue({
             descripcion:''
         },
         rolesUser: [],
+        permissions: [],
         modulos: [],
         submodulos: [],//grilla de check
         roles: [],
