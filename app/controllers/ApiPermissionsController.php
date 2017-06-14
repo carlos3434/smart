@@ -1,20 +1,24 @@
 <?php
 
-class ApiRolesController extends Controller
+class ApiPermissionsController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * url     /roles
+     * url     /permissions
      * metohd  GET
      * @return Response
      */
     public function index()
     {
-        return Response::json(Role::searchPaginateAndOrder());
+        //return Response::json(Permission::searchPaginateAndOrder());
+        $permissions = Permission::all();
+        return Response::json(
+            $permissions
+        );
     }
     /**
      * Show the form for creating a new resource.
-     * url     /roles/create
+     * url     /permissions/create
      * metohd  GET
      * @return Response
      */
@@ -24,7 +28,7 @@ class ApiRolesController extends Controller
     }
     /**
      * Store a newly created resource in storage.
-     * url     /roles
+     * url     /permissions
      * metohd  POST
      * @return Response
      */
@@ -35,7 +39,7 @@ class ApiRolesController extends Controller
     }
     /**
      * Display the specified resource.
-     * url     /roles/{id}
+     * url     /permissions/{id}
      * metohd  GET
      *
      * @param  int  $id
@@ -47,7 +51,7 @@ class ApiRolesController extends Controller
     }
     /**
      * Show the form for editing the specified resource.
-     * url     /roles/{id}/edit
+     * url     /permissions/{id}/edit
      * metohd  GET
      *
      * @param  int  $id
@@ -61,7 +65,7 @@ class ApiRolesController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * url     /roles/{id}
+     * url     /permissions/{id}
      * metohd  PUT/PATCH
      *
      * @param  int  $id
@@ -92,7 +96,7 @@ class ApiRolesController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * url     /roles/{id}
+     * url     /permissions/{id}
      * metohd  DELETE
      *
      * @param  int  $id

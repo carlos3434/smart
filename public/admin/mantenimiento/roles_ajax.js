@@ -127,6 +127,28 @@ var Modulos={
             });
 
             $selectModulos.on("change", function (e) {
+                //recorrer modulo
+
+                //modulo1
+                //recorrer sus permisos
+                //se deberia llegar a esto
+                var modulo ={
+                    id:1,
+                    permisos:[
+                        {
+                            id:1
+                        },
+                        {
+                            id:2
+                        },
+                        {
+                            id:3,
+                            
+                        },
+                    ]
+                };
+                //al final se debe recorrer modulos y permisos e ir pintando en la grilla de acuerdo a lo que se tiene
+
                 //actualizar objeto moduloUser
                 var submodulo;
                 vm.submodulos = [];
@@ -183,17 +205,17 @@ var Modulos={
         });
     }
 };
-/*
-var Roles={
-    all:function(/){
-        $.get( "roles/lista",
+
+var Permisos={
+    all:function(){
+        $.get( "api/permissions",
         function(response) {
-            vm.roles = response;
-            $selectRoles = $('#roles').select2({
-                dropdownParent: $('#userModal')
-            });
-            //dataUsers(response);
-            //alert( "success" );
+            vm.permissions = response;
+            //esto servira para que se pueda saber los permisos del sistema por modulo
+            //al momento de pintar la grilla de permisos
+            //se debera de jalar sus permisos
+            //tambien servira para agrupar los permisos por modulos
+            //para que sea mejor el envio de actualizacion de rol, ya que se enviara lo seleccionado
         })
         .done(function(response) {
             //alert( "second success" );
@@ -205,4 +227,4 @@ var Roles={
             //alert( "finished" );
         });
     }
-};*/
+};

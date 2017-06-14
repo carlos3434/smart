@@ -131,6 +131,7 @@ Route::group(["before" => "auth"], function() {
         Route::resource('api/users', 'ApiUserController');
         Route::resource('api/modulos', 'ApiModulosController');
         Route::resource('api/roles', 'ApiRolesController');
+        Route::resource('api/permissions', 'ApiPermissionsController');
         Route::resource('pedido', 'PedidoController');
 
     //});

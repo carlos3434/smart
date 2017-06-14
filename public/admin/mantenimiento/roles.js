@@ -175,6 +175,7 @@ var datatable;
 $(document).ready(function() {
     pageSetUp();
     Modulos.all();
+    Permisos.all();
     datatable = $('#'+tabla).DataTable(dataTable);
 });
 /**
