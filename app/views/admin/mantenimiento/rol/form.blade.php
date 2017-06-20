@@ -104,6 +104,41 @@
                   </table>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <i class="fa fa-graduation-cap"></i>
+                    <h3 class="box-title">DATOS ACADÉMICOS
+                      <a @click="addRow" class="btn btn-succes btn-sm"><i class="fa fa-plus"></i></a>
+                    </h3>
+                </div>
+
+                <div class="box-body">
+                  <table class="table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                      <th class="col-md-4" style="text-align:center;">submodulo</th>
+                      <th class="col-md-2" style="text-align:center;">crear</th>
+                      <th class="col-md-2" style="text-align:center;">leer</th>
+                      <th class="col-md-2" style="text-align:center;">editar</th>
+                      <th class="col-md-2" style="text-align:center;">eliminar</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tr_academicos">
+                      <tr v-for="jnk in jnks">
+                        <td>
+                            <label>
+                                @{{jnk.nombre}}
+                            </label>
+                        </td>
+                        <td v-for="permiso in jnk.permisos">
+                            <input type="checkbox" v-model="permiso.nombre">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div>
             
         </form>
       </div>

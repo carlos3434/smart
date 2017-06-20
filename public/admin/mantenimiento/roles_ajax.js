@@ -132,25 +132,44 @@ var Modulos={
                 //modulo1
                 //recorrer sus permisos
                 //se deberia llegar a esto
-                var modulo ={
-                    id:1,
-                    permisos:[
-                        {
-                            id:1
-                        },
-                        {
-                            id:2
-                        },
-                        {
-                            id:3,
-                            
-                        },
-                    ]
-                };
+                var modulo =[
+                    {
+                        id:1,
+                        permisos:[
+                            {
+                                id:1
+                            },
+                            {
+                                id:2
+                            },
+                            {
+                                id:3,
+                                
+                            },
+                        ]
+                    },
+                    {
+                        id:2,
+                        permisos:[
+                            {
+                                id:1
+                            },
+                            {
+                                id:2
+                            },
+                            {
+                                id:3,
+                                
+                            },
+                        ]
+                    },
+                ];
                 //al final se debe recorrer modulos y permisos e ir pintando en la grilla de acuerdo a lo que se tiene
 
                 //actualizar objeto moduloUser
                 var submodulo;
+                vm.jnks=[];
+                var permisos=[];
                 vm.submodulos = [];
                 vm.permissions = [];
                 if ($('#modulos').val()) {
@@ -160,6 +179,7 @@ var Modulos={
                             if ($('#modulos').val().indexOf(submodulo[j].id.toString()) >=0) {
                                 //comparar si esta en permisos
                                 
+                                permisos=[];
                                 for (var k = vm.rol.permissions.length - 1; k >= 0; k--) {
                                     //(vm.rol.permissions[k].submodulo_id)
                                     if (vm.rol.permissions[k].submodulo_id==submodulo[j].id.toString()) {
@@ -171,21 +191,37 @@ var Modulos={
                                         //es necesario pasarle el permido id para
                                         //que en el backend pueda actualizar el rol con los permisos
                                         vm.permissions.push({id:vm.rol.permissions[k].id});
+                                        estado=false;
                                         if ( vm.rol.permissions[k].nombre.indexOf("read") ){
                                             submodulo[j].read=true;
+                                            estado=true;
                                         }
                                         if ( vm.rol.permissions[k].nombre.indexOf("create") ){
                                             submodulo[j].create=true;
+                                            estado=true;
                                         }
                                         if ( vm.rol.permissions[k].nombre.indexOf("update") ){
                                             submodulo[j].update=true;
+                                            estado=true;
                                         }
                                         if ( vm.rol.permissions[k].nombre.indexOf("delete") ){
                                             submodulo[j].delete=true;
+                                            estado=true;
                                         }
-
+                                        permiso ={
+                                            id:vm.rol.permissions[k].id,
+                                            nombre:vm.rol.permissions[k].nombre_mostrar,
+                                            estado:estado,
+                                        };
+                                        permisos.push(permiso);
                                     }
                                 }
+                                jnk = {
+                                    id:submodulo[j].id,
+                                    nombre:submodulo[j].nombre,
+                                    permisos:permisos
+                                };
+                                vm.jnks.push(jnk);
                                 vm.submodulos.push(submodulo[j]);
                             }
                         }

@@ -13,6 +13,7 @@ var vm = new Vue({
         modulos: [],
         submodulos: [],//grilla de check
         roles: [],
+        jnks: [],
         accion:''
     },
 
