@@ -13,7 +13,6 @@ var vm = new Vue({
         modulos: [],
         submodulos: [],//grilla de check
         roles: [],
-        jnks: [],
         accion:''
     },
 
@@ -30,19 +29,6 @@ var vm = new Vue({
             $("#rolModal").modal();
             vm.accion = 'nuevo';
             vm.rol = vm.rolNuevo;
-        },
-        addRow: function(){
-            var submodulo={
-                nombre:'',
-                create:'',
-                read:'',
-                update:'',
-                delete:''
-            };
-            vm.submodulos.push(submodulo);
-        },
-        removeRow: function(row){
-            this.rows.splice( row, 1 );
         },
         modulos: function(){
             Modulos.all();

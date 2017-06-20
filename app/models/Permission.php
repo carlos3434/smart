@@ -8,6 +8,7 @@ class Permission extends EntrustPermission
         'nombre',
         'nombre_mostrar',
         'descripcion',
+        'orden',
         'submodulo_id'
     ];
    //establecemos las relacion de muchos a muchos con el modelo Role, ya que un permiso

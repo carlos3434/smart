@@ -61,12 +61,7 @@ var Roles={
     /** guardar existente
     */
     update:function(id){
-        //vm.user.submodulos = submodulosUser;
-        //vm.user.roles = $('#roles').val();
-        //recorrer 
-        vm.rol.permissions = vm.permissions;
-        //vm.rol.submodulos = vm.submodulos;
-        vm.rol.submodulos = vm.jnks;
+        vm.rol.submodulos = vm.submodulos;
         $.put('api/roles/'+id,vm.rol, 
             function(response){
             reload();
@@ -128,88 +123,57 @@ var Modulos={
             });
 
             $selectModulos.on("change", function (e) {
-                
                 //actualizar objeto moduloUser
                 var submodulo;
-                vm.jnks=[];
+                vm.submodulos=[];
                 var permisos=[];
-                var aux=[];
-                vm.submodulos = [];
-                //vm.permissions = [];
                 if ($('#modulos').val()) {
                     for (var i = vm.modulos.length - 1; i >= 0; i--) {
                         submodulo = vm.modulos[i].children;
                         for (var j = submodulo.length - 1; j >= 0; j--) {
                             if ($('#modulos').val().indexOf(submodulo[j].id.toString()) >=0) {
-                                //recorrer los permisos y luego buscar si el usuario tiene meriso
-                                //cuando tenga poner estado=true
-                                //cuando no tenga estado=false
-                                //comparar si esta en permisos
-                                aux=[];
                                 permisos=[];
-                                for (var l = vm.permissions.length - 1; l >= 0; l--) {
-                                    permissions = vm.permissions[l];
-                                    if (vm.permissions[l].submodulo_id==submodulo[j].id.toString()) {
-                                        aux.push(vm.permissions[l].id);
+                                for (var k = vm.rol.permissions.length - 1; k >= 0; k--) {
+                                    if (vm.rol.permissions[k].submodulo_id==submodulo[j].id.toString()) {
                                         permiso ={
-                                            id:vm.permissions[l].id,
-                                            nombre:vm.permissions[l].nombre_mostrar,
-                                            estado:false,
+                                            id:vm.rol.permissions[k].id,
+                                            nombre:vm.rol.permissions[k].nombre_mostrar,
+                                            orden:vm.rol.permissions[k].orden,
+                                            estado:true,
                                         };
                                         permisos.push(permiso);
                                     }
                                 }
-                                for (var k = vm.rol.permissions.length - 1; k >= 0; k--) {
-                                    //(vm.rol.permissions[k].submodulo_id)
-                                    if (vm.rol.permissions[k].submodulo_id==submodulo[j].id.toString()) {
-                                        //vm.permissions.push({id:vm.rol.permissions[k].id});
-                                        estado=false;
-                                        if ( vm.rol.permissions[k].nombre.indexOf("read") ){
-                                            submodulo[j].read=true;
-                                            estado=true;
+                                for (var l = vm.permissions.length - 1; l >= 0; l--) {
+                                    permissions = vm.permissions[l];
+                                    if (vm.permissions[l].submodulo_id==submodulo[j].id.toString()) {
+                                        flag=false;
+                                        for ( k = vm.rol.permissions.length - 1; k >= 0; k--) {
+                                            if ( vm.rol.permissions[k].id == vm.permissions[l].id ) {
+                                                flag=true;
+                                            }
                                         }
-                                        if ( vm.rol.permissions[k].nombre.indexOf("create") ){
-                                            submodulo[j].create=true;
-                                            estado=true;
-                                        }
-                                        if ( vm.rol.permissions[k].nombre.indexOf("update") ){
-                                            submodulo[j].update=true;
-                                            estado=true;
-                                        }
-                                        if ( vm.rol.permissions[k].nombre.indexOf("delete") ){
-                                            submodulo[j].delete=true;
-                                            estado=true;
-                                        }
-                                        permiso ={
-                                            id:vm.rol.permissions[k].id,
-                                            nombre:vm.rol.permissions[k].nombre_mostrar,
-                                            estado:estado,
-                                        };
-                                        //si lo encuentro lo actualizo
-                                        //necesito saber el elemento añadido antes
-                                        //para eliminarlo po key
-                                        
-                                        if (permisos.indexOf(permiso)) {
-                                            rst = permisos.indexOf(permiso);
-                                            permisos.splice( rst, 1 );
-
-                                            permisos.push(permiso);
-                                        } else {
-                                            //si no encuentro añado
+                                        if (flag===false) {
+                                            permiso ={
+                                                id:vm.permissions[l].id,
+                                                nombre:vm.permissions[l].nombre_mostrar,
+                                                orden:vm.permissions[l].orden,
+                                                estado:false,
+                                            };
                                             permisos.push(permiso);
                                         }
                                     }
                                 }
-                                jnk = {
+                                permisos.sort( function(a,b){
+                                    return a.orden - b.orden;
+                                });
+                                vm.submodulos.push({
                                     id:submodulo[j].id,
                                     nombre:submodulo[j].nombre,
                                     permisos:permisos
-                                };
-                                vm.jnks.push(jnk);
-                                vm.submodulos.push(submodulo[j]);
+                                });
                             }
                         }
-                        
                     }
                 }
             });

@@ -41,6 +41,7 @@ class EntrustSetupTables extends Migration
             $table->string('nombre')->unique();
             $table->string('nombre_mostrar')->nullable();
             $table->string('descripcion')->nullable();
+            $table->integer('orden');
             $table->integer('submodulo_id')->unsigned();
 
             $table->foreign('submodulo_id')->references('id')->on('modulos')
