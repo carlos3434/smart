@@ -132,7 +132,7 @@
                             </label>
                         </td>
                         <td v-for="permiso in jnk.permisos">
-                            <input type="checkbox" v-model="permiso.nombre">
+                            <input type="checkbox" v-model="permiso.estado">
                         </td>
                       </tr>
                     </tbody>

@@ -72,7 +72,7 @@ class ApiRolesController extends Controller
         $role = Role::findOrFail($id);
         $respuestaUpdate = $role->update(Input::all());
 
-        
+        $permisos=[];
         if (Input::has('permissions')) {
             $permissions = Input::get('permissions');
         //if ($request->has('roles_user')) {
@@ -85,7 +85,24 @@ class ApiRolesController extends Controller
             //$user->roles()->getRelatedIds();
         }
         
-
+        if (Input::has('submodulos')) {
+            $submodulos = Input::get('submodulos');
+            $ids= array_column($submodulos, 'id');
+            //dd($submodulos,$rst);
+            foreach ($submodulos as $submodulo) {
+                if (isset($submodulo['permisos'])) {
+                    # code...
+                    foreach ($submodulo['permisos'] as $permiso) {
+                        if ($permiso['estado']=='true') {
+                            array_push($permisos,$permiso['id']);
+                        }
+                    }
+                }
+            }
+           //dd($permisos);
+            $role->permissions()->sync($permisos);
+            //$role->attachPermissions($permisos);
+        }
         return Response::json($respuestaUpdate);
     }
 

@@ -65,7 +65,8 @@ var Roles={
         //vm.user.roles = $('#roles').val();
         //recorrer 
         vm.rol.permissions = vm.permissions;
-        vm.rol.submodulos = vm.submodulos;
+        //vm.rol.submodulos = vm.submodulos;
+        vm.rol.submodulos = vm.jnks;
         $.put('api/roles/'+id,vm.rol, 
             function(response){
             reload();
@@ -127,70 +128,41 @@ var Modulos={
             });
 
             $selectModulos.on("change", function (e) {
-                //recorrer modulo
-
-                //modulo1
-                //recorrer sus permisos
-                //se deberia llegar a esto
-                var modulo =[
-                    {
-                        id:1,
-                        permisos:[
-                            {
-                                id:1
-                            },
-                            {
-                                id:2
-                            },
-                            {
-                                id:3,
-                                
-                            },
-                        ]
-                    },
-                    {
-                        id:2,
-                        permisos:[
-                            {
-                                id:1
-                            },
-                            {
-                                id:2
-                            },
-                            {
-                                id:3,
-                                
-                            },
-                        ]
-                    },
-                ];
-                //al final se debe recorrer modulos y permisos e ir pintando en la grilla de acuerdo a lo que se tiene
-
+                
                 //actualizar objeto moduloUser
                 var submodulo;
                 vm.jnks=[];
                 var permisos=[];
+                var aux=[];
                 vm.submodulos = [];
-                vm.permissions = [];
+                //vm.permissions = [];
                 if ($('#modulos').val()) {
                     for (var i = vm.modulos.length - 1; i >= 0; i--) {
                         submodulo = vm.modulos[i].children;
                         for (var j = submodulo.length - 1; j >= 0; j--) {
                             if ($('#modulos').val().indexOf(submodulo[j].id.toString()) >=0) {
+                                //recorrer los permisos y luego buscar si el usuario tiene meriso
+                                //cuando tenga poner estado=true
+                                //cuando no tenga estado=false
                                 //comparar si esta en permisos
-                                
+                                aux=[];
                                 permisos=[];
+                                for (var l = vm.permissions.length - 1; l >= 0; l--) {
+                                    permissions = vm.permissions[l];
+                                    if (vm.permissions[l].submodulo_id==submodulo[j].id.toString()) {
+                                        aux.push(vm.permissions[l].id);
+                                        permiso ={
+                                            id:vm.permissions[l].id,
+                                            nombre:vm.permissions[l].nombre_mostrar,
+                                            estado:false,
+                                        };
+                                        permisos.push(permiso);
+                                    }
+                                }
                                 for (var k = vm.rol.permissions.length - 1; k >= 0; k--) {
                                     //(vm.rol.permissions[k].submodulo_id)
                                     if (vm.rol.permissions[k].submodulo_id==submodulo[j].id.toString()) {
-                                        //console.log(vm.rol.permissions[k]);
-                                        //buscar los que se encuentren en true
-                                        //aqui seria mejor armar un erray 
-                                        //con las opciones del sistema
-                                        //y en el frontend recorrerlo
-                                        //es necesario pasarle el permido id para
-                                        //que en el backend pueda actualizar el rol con los permisos
-                                        vm.permissions.push({id:vm.rol.permissions[k].id});
+                                        //vm.permissions.push({id:vm.rol.permissions[k].id});
                                         estado=false;
                                         if ( vm.rol.permissions[k].nombre.indexOf("read") ){
                                             submodulo[j].read=true;
@@ -213,7 +185,19 @@ var Modulos={
                                             nombre:vm.rol.permissions[k].nombre_mostrar,
                                             estado:estado,
                                         };
-                                        permisos.push(permiso);
+                                        //si lo encuentro lo actualizo
+                                        //necesito saber el elemento añadido antes
+                                        //para eliminarlo po key
+                                        
+                                        if (permisos.indexOf(permiso)) {
+                                            rst = permisos.indexOf(permiso);
+                                            permisos.splice( rst, 1 );
+
+                                            permisos.push(permiso);
+                                        } else {
+                                            //si no encuentro añado
+                                            permisos.push(permiso);
+                                        }
                                     }
                                 }
                                 jnk = {
