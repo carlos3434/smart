@@ -3,21 +3,14 @@ var vm = new Vue({
     el: '#main',
     data: {
         rol:{},
-        rolNuevo:{
-            nombre:'',
-            nombre_mostrar:'',
-            descripcion:''
-        },
-        rolesUser: [],
         permissions: [],
-        modulos: [],
+        modulos: [],//select modulos
         submodulos: [],//grilla de check
-        roles: [],
         accion:''
     },
 
     methods: {
-        /**edita o actualiza usuario*/
+        /**boton de modal Guardar*/
         guardarRole: function () {
             if (vm.accion=='nuevo') {
                 Roles.store();
@@ -25,10 +18,13 @@ var vm = new Vue({
                 Roles.update(vm.rol.id);
             }
         },
+        /**boton llama a modal, nuevo rol */
         storeRole: function () {
             $("#rolModal").modal();
             vm.accion = 'nuevo';
-            vm.rol = vm.rolNuevo;
+            vm.rol = {};
+            
+            $selectModulos.val([]).trigger("change");
         },
         modulos: function(){
             Modulos.all();
@@ -45,7 +41,7 @@ var tabla='datatable_tabletools';
 var responsiveHelper_datatable_tabletools = undefined;
 
 var $selectModulos;
-var $selectRoles;
+//var $selectRoles;
 
 var breakpointDefinition = {
     tablet : 1024,
@@ -166,7 +162,7 @@ $(document).ready(function() {
     datatable = $('#'+tabla).DataTable(dataTable);
 });
 /**
-   
+   boton llama a modal, editar rol
 */
 editar=function(id){
     vm.accion='editar';
@@ -181,4 +177,94 @@ activar=function(id){
 };
 reload=function(){
     datatable.ajax.reload(null,false);
+};
+/**
+* obtener los submodulos del rol
+*/
+modulosRol=function(){
+    var modulosRol= [];
+    for (var i = vm.rol.permissions.length - 1; i >= 0; i--) {
+        modulosRol.push(vm.rol.permissions[i].submodulo_id);
+    }
+    $selectModulos.val(modulosRol).trigger("change");
+};
+/**
+* obtener los submodulos del rol
+*/
+modulos=function(){
+    $selectModulos = $('#modulos').select2({
+        dropdownParent: $('#rolModal')
+    });
+
+    $selectModulos.on("change", function (e) {  
+        var submodulo;
+        vm.submodulos=[];
+        var permisos=[];
+
+        if ($('#modulos').val()) {
+            for (var i = vm.modulos.length - 1; i >= 0; i--) {
+                submodulo = vm.modulos[i].children;
+                for (var j = submodulo.length - 1; j >= 0; j--) {
+                    if ($('#modulos').val().indexOf(submodulo[j].id.toString()) >=0) {
+                        permisos=[];
+
+                        if (vm.accion=='nuevo') {
+                            for (var l = vm.permissions.length - 1; l >= 0; l--) {
+                                if (vm.permissions[l].submodulo_id==submodulo[j].id.toString()) {
+                                    permiso ={
+                                        id:vm.permissions[l].id,
+                                        nombre:vm.permissions[l].nombre_mostrar,
+                                        orden:vm.permissions[l].orden,
+                                        estado:false,
+                                    };
+                                    permisos.push(permiso);
+                                }
+                            }
+                        } else {
+
+                            for (var k = vm.rol.permissions.length - 1; k >= 0; k--) {
+                                if (vm.rol.permissions[k].submodulo_id==submodulo[j].id.toString()) {
+                                    permiso ={
+                                        id:vm.rol.permissions[k].id,
+                                        nombre:vm.rol.permissions[k].nombre_mostrar,
+                                        orden:vm.rol.permissions[k].orden,
+                                        estado:true,
+                                    };
+                                    permisos.push(permiso);
+                                }
+                            }
+                            for (var l = vm.permissions.length - 1; l >= 0; l--) {
+                                permissions = vm.permissions[l];
+                                if (vm.permissions[l].submodulo_id==submodulo[j].id.toString()) {
+                                    flag=false;
+                                    for ( k = vm.rol.permissions.length - 1; k >= 0; k--) {
+                                        if ( vm.rol.permissions[k].id == vm.permissions[l].id ) {
+                                            flag=true;
+                                        }
+                                    }
+                                    if (flag===false) {
+                                        permiso ={
+                                            id:vm.permissions[l].id,
+                                            nombre:vm.permissions[l].nombre_mostrar,
+                                            orden:vm.permissions[l].orden,
+                                            estado:false,
+                                        };
+                                        permisos.push(permiso);
+                                    }
+                                }
+                            }
+                        }
+                        permisos.sort( function(a,b){
+                            return a.orden - b.orden;
+                        });
+                        vm.submodulos.push({
+                            id:submodulo[j].id,
+                            nombre:submodulo[j].nombre,
+                            permisos:permisos
+                        });
+                    }
+                }
+            }
+        }
+    });
 };

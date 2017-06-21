@@ -30,10 +30,10 @@ class ApiUserController extends Controller
      */
     public function store()
     {
-        $user = User::create(Input::except('modulos'));
-        if (Input::has('modulos')) {
-            $user->submodulos()->getRelatedIds();
-            $user->submodulos()->sync( Input::get('modulos') );
+        $user = User::create(Input::except(['roles','estado']));
+        if (Input::has('roles')) {
+            $user->roles()->getRelatedIds();
+            $user->roles()->sync( Input::get('roles') );
         }
         return $user;
     }

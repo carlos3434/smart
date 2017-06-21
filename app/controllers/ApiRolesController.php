@@ -30,8 +30,22 @@ class ApiRolesController extends Controller
      */
     public function store()
     {
-        //
-        return Role::create(Input::all());
+        $role = new Role(Input::except('submodulos'));
+        if ($role->save()){
+
+        } else {
+            return Response::json( $role->validationErrors );
+        }
+        if (Input::has('submodulos')) {
+            foreach (Input::get('submodulos') as $submodulo) {
+                foreach ($submodulo['permisos'] as $permisos) {
+                    if ($permisos['estado']=='true') {
+                        $role->attachPermission($permisos);
+                    }
+                }
+            }
+        }
+        return Response::json($role);
     }
     /**
      * Display the specified resource.

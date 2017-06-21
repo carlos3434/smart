@@ -1,77 +1,39 @@
 const vm = new Vue({
     el: '#main',
     data: {
-        userEdit:{
-            datos_academicos:[]
-        },
         user:{},
-        userNuevo:{
-            nombres:'',
-            apellidos:'',
-            dni:'',
-            direccion:'',
-            numero_telefono:'',
-            username:'',
-            fecha_nacimiento:'',
-            genero:'',
-            group_id:'',
-            email:'',
-            verified:'',
-            token:'',
-
-            //created_at:'',
-            //updated_at:'',
-            //deleted_at:null,
-        },
-        //submodulosUser: [],
-        rolesUser: [],
-        modulos: [],
         roles: [],
         accion:''
     },
 
     methods: {
-        /**edita o actualiza usuario*/
+        /**boton de modal Guardar*/
         guardarUser: function () {
             if (vm.accion=='nuevo') {
                 Users.store();
             } else {
                 Users.update(vm.user.id);
             }
-
         },
+        /**boton llama a modal, nuevo user */
         storeUser: function () {
             $("#userModal").modal();
             vm.accion = 'nuevo';
-            vm.user = vm.userNuevo;
-        },
-        addRow: function(){
-          this.user.submodulos.push({});
-        },
-        removeRow: function(row){
-            this.user.submodulos.splice( row, 1 );
-        },
-        modulos: function(){
-            Modulos.all();
+            vm.user = {};
+            $selectRoles.val([]).trigger("change");
         },
         roles: function(){
             Roles.all();
         },
-    },
-    ready: function(){
-        //this.modulos();
-        //this.roles();
     }
 });
 
 
 var tabla='datatable_tabletools';
-//var user;
-var users;
+
 /* BASIC ;*/
 var responsiveHelper_datatable_tabletools = undefined;
 
-var $selectModulos;
 var $selectRoles;
 
 var breakpointDefinition = {
@@ -196,10 +158,8 @@ var dataTable={
 var datatable;
 $(document).ready(function() {
     pageSetUp();
-    Modulos.all();
     Roles.all();
     datatable = $('#'+tabla).DataTable(dataTable);
-    
 });
 /**
    
@@ -219,4 +179,11 @@ activar=function(id){
 };
 reload=function(){
     datatable.ajax.reload(null,false);
+};
+roles=function(){
+    var rolesUser=[];
+    for ( i = vm.user.roles.length - 1; i >= 0; i--) {
+        rolesUser.push(vm.user.roles[i].id);
+    }
+    $selectRoles.val(rolesUser).trigger("change");
 };
