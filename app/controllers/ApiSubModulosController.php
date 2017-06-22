@@ -1,23 +1,25 @@
 <?php
 
-class ApiModulosController extends Controller
+class ApiSubModulosController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * url     api/modulos
+     * url     /modulos
      * metohd  GET
      * @return Response
      */
     public function index()
     {
-        $modulos = Modulo::WhereNull('modulo_id')->searchPaginateAndOrder();
+        $sumodulos = Modulo::raiz()->with('children');
+        //$sumodulosUser = Auth::user()->with('submodulos');
         return Response::json(
-            $modulos
+            $sumodulos->get()
+            //'sumodulosUser'=>$sumodulosUser->get()
         );
     }
     /**
      * Show the form for creating a new resource.
-     * url     api/modulos/create
+     * url     /modulos/create
      * metohd  GET
      * @return Response
      */
@@ -27,18 +29,18 @@ class ApiModulosController extends Controller
     }
     /**
      * Store a newly created resource in storage.
-     * url     api/modulos
+     * url     /modulos
      * metohd  POST
      * @return Response
      */
     public function store()
     {
         //
-        return Modulo::create(Input::all());
+        return User::create(Input::all());
     }
     /**
      * Display the specified resource.
-     * url     api/modulos/{id}
+     * url     /modulos/{id}
      * metohd  GET
      *
      * @param  int  $id
@@ -46,11 +48,11 @@ class ApiModulosController extends Controller
      */
     public function show($id)
     {
-        return Modulo::findOrFail($id);
+        return User::with('roles','modulos')->findOrFail($id);
     }
     /**
      * Show the form for editing the specified resource.
-     * url     api/modulos/{id}/edit
+     * url     /modulos/{id}/edit
      * metohd  GET
      *
      * @param  int  $id
@@ -64,7 +66,7 @@ class ApiModulosController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * url     api/modulos/{id}
+     * url     /modulos/{id}
      * metohd  PUT/PATCH
      *
      * @param  int  $id
@@ -72,14 +74,14 @@ class ApiModulosController extends Controller
      */
     public function update($id)
     {
-        $response = Modulo::findOrFail($id)->update(Input::all());
+        $response = User::findOrFail($id)->update(Input::all());
         return Response::json($response);
     }
 
 
     /**
      * Remove the specified resource from storage.
-     * url     api/modulos/{id}
+     * url     /modulos/{id}
      * metohd  DELETE
      *
      * @param  int  $id
@@ -87,6 +89,6 @@ class ApiModulosController extends Controller
      */
     public function destroy($id)
     {
-        Modulo::findOrFail($id)->delete();
+        User::findOrFail($id)->delete();
     }
 }

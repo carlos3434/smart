@@ -1,6 +1,6 @@
-var Roles={
+var Modulos={
     all:function(){
-        $.get( "api/roles",
+        $.get( "api/modulos",
         function(response) {
             //dataUsers(response);
             //alert( "success" );
@@ -16,10 +16,9 @@ var Roles={
         });
     },
     get:function(id){
-        $.get( "api/roles/"+id,
+        $.get( "api/modulos/"+id,
         function(response) {
-            vm.rol = response;
-            modulosRol();
+            vm.modulo = response;
         })
         .done(function(response) {
             //alert( "second success" );
@@ -34,11 +33,11 @@ var Roles={
     /** guardar nuevo
     */
     store:function(){
-        vm.rol.submodulos = vm.submodulos;
-        $.post( "api/roles",vm.rol,
+        //vm.rol.submodulos = vm.submodulos;
+        $.post( "api/modulos",vm.modulo,
         function(response) {
             reload();
-            $("#rolModal").modal('hide');
+            $("#moduloModal").modal('hide');
         })
         .done(function(response) {
             //alert( "second success" );
@@ -53,11 +52,11 @@ var Roles={
     /** guardar existente
     */
     update:function(id){
-        vm.rol.submodulos = vm.submodulos;
-        $.put('api/roles/'+id,vm.rol, 
+        //vm.rol.submodulos = vm.submodulos;
+        $.put('api/modulos/'+id,vm.modulo, 
             function(response){
             reload();
-            $("#rolModal").modal('hide');
+            $("#moduloModal").modal('hide');
         })
         .done(function(response) {
             //alert( "second success" );
@@ -70,26 +69,9 @@ var Roles={
         });
     },
     destroy:function(id){
-        $.delete( "api/roles/"+id,
+        $.delete( "api/modulos/"+id,
         function(response) {
-            user = response;
-        })
-        .done(function(response) {
-            //alert( "second success" );
-        })
-        .fail(function(response) {
-            //alert( "error" );
-        })
-        .always(function(response) {
-            //alert( "finished" );
-        });
-    },
-    allPaginate:function(dataUsersPag){
-        $.post( "api/roles/all-paginate",
-        { name: "John", time: "2pm" },
-        function(response) {
-            dataUsersPag(response);
-            //alert( "success" );
+            //user = response;
         })
         .done(function(response) {
             //alert( "second success" );
@@ -103,40 +85,5 @@ var Roles={
     },
     CambiarEstadoAreas:function(id,AD){
 
-    }
-};
-var Modulos={
-    all:function(/*dataUsers*/){
-        $.get( "modulos/lista", function(response) {
-            vm.modulos = response;
-            modulos();
-        })
-        .done(function(response) {
-            //alert( "second success" );
-        })
-        .fail(function(response) {
-            //alert( "error" );
-        })
-        .always(function(response) {
-            //alert( "finished" );
-        });
-    }
-};
-
-var Permisos={
-    all:function(){
-        $.get( "permissions/lista",
-        function(response) {
-            vm.permissions = response;
-        })
-        .done(function(response) {
-            //alert( "second success" );
-        })
-        .fail(function(response) {
-            //alert( "error" );
-        })
-        .always(function(response) {
-            //alert( "finished" );
-        });
     }
 };

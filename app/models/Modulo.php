@@ -2,7 +2,13 @@
 
 class Modulo extends Eloquent
 {
-    //use DataViewer;
+    use DataViewer;
+
+    protected $fillable = [
+        'nombre',
+        'url',
+        'icon'
+    ];
     /**
      * Submodulos relationship
      */

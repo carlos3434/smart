@@ -91,6 +91,9 @@ Route::group(["before" => "auth"], function() {
         Route::get('admin.mantenimiento.roles', function () {
             return View::make('admin.mantenimiento.roles');
         });
+        Route::get('admin.mantenimiento.modulos', function () {
+            return View::make('admin.mantenimiento.modulos');
+        });
         Route::get('admin.orders.order', function () {
 
             $sql = "SELECT p.id, p.nombre, cp.stock, cp.precio, tp.nombre as tipo
@@ -126,10 +129,13 @@ Route::group(["before" => "auth"], function() {
     //Route::group(["before" => "csrf"], function() {
         //controllers
         Route::controller('roles', 'RolesController');
+        Route::controller('modulos', 'ModulosController');
+        Route::controller('permissions', 'PermissionsController');
 
         //api's
         Route::resource('api/users', 'ApiUserController');
         Route::resource('api/modulos', 'ApiModulosController');
+        Route::resource('api/submodulos', 'ApiSubModulosController.php');
         Route::resource('api/roles', 'ApiRolesController');
         Route::resource('api/permissions', 'ApiPermissionsController');
         Route::resource('pedido', 'PedidoController');
