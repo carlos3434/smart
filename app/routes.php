@@ -94,6 +94,9 @@ Route::group(["before" => "auth"], function() {
         Route::get('admin.mantenimiento.modulos', function () {
             return View::make('admin.mantenimiento.modulos');
         });
+        Route::get('admin.mantenimiento.submodulos', function () {
+            return View::make('admin.mantenimiento.submodulos');
+        });
         Route::get('admin.orders.order', function () {
 
             $sql = "SELECT p.id, p.nombre, cp.stock, cp.precio, tp.nombre as tipo
@@ -135,7 +138,7 @@ Route::group(["before" => "auth"], function() {
         //api's
         Route::resource('api/users', 'ApiUserController');
         Route::resource('api/modulos', 'ApiModulosController');
-        Route::resource('api/submodulos', 'ApiSubModulosController.php');
+        Route::resource('api/submodulos', 'ApiSubModulosController');
         Route::resource('api/roles', 'ApiRolesController');
         Route::resource('api/permissions', 'ApiPermissionsController');
         Route::resource('pedido', 'PedidoController');

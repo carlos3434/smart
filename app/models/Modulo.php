@@ -10,11 +10,18 @@ class Modulo extends Eloquent
         'icon'
     ];
     /**
-     * Submodulos relationship
+     * Submodulos
      */
     public function scopeRaiz($query)
     {
         return $query->whereNull('modulo_id');
+    }
+    /**
+     * Submodulos relationship
+     */
+    public function scopeChild($query)
+    {
+        return $query->whereNotNull('modulo_id');
     }
 
     /**
