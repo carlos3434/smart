@@ -62,8 +62,8 @@ var columnDefs=[
     },
     {
         "targets": 4,
-        "data": "icon",
-        "name": "modulo_id",
+        "data": "modulo",
+        "name": "modulo",
         "searchable":false
     },
     {

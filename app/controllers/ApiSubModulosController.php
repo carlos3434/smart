@@ -10,8 +10,19 @@ class ApiSubModulosController extends Controller
      */
     public function index()
     {
-        $modulos = Modulo::first()->parent();
-        //dd($modulos->parent());
+        $modulos = Modulo::from('modulos as s')
+        ->select(
+            's.id',
+            's.nombre',
+            's.icon',
+            's.url',
+            'm.nombre as modulo',
+            'm.id as parent_id'
+        )
+        ->Child()
+        ->joinParent()
+        ->searchPaginateAndOrder();
+        
         return Response::json(
             $modulos
         );

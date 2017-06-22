@@ -21,17 +21,23 @@ class Modulo extends Eloquent
      */
     public function scopeChild($query)
     {
-        return $query->whereNotNull('modulo_id');
+        return $query->whereNotNull('s.modulo_id');
     }
 
     /**
-     * Usuarios relationship
+     * Scope para obtener  movimiento.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
      */
-    /*
-    public function user()
+    public function scopeJoinParent($query)
     {
-        return $this->belongsToMany('User');
-    }*/
+        return $query->join(
+            'modulos as m',
+            'm.id',
+            '=',
+            's.modulo_id'
+        );
+    }
     /**
      * Permisos relationship
      */
