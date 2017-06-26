@@ -1,6 +1,6 @@
-var Submodulos={
+var Inventario={
     all:function(){
-        $.get( "api/submodulos",
+        $.get( $url,
         function(response) {
             //dataUsers(response);
             //alert( "success" );
@@ -16,10 +16,9 @@ var Submodulos={
         });
     },
     get:function(id){
-        $.get( "api/submodulos/"+id,
+        $.get( $url+"/"+id,
         function(response) {
-            vm.submodulo = response;
-            $selectModulos.val(vm.submodulo.modulo_id).trigger("change");
+            vm.modulo = response;
         })
         .done(function(response) {
             //alert( "second success" );
@@ -34,11 +33,11 @@ var Submodulos={
     /** guardar nuevo
     */
     store:function(){
-        vm.submodulo.modulo_id = $selectModulos.val();
-        $.post( "api/submodulos",vm.submodulo,
+        //vm.rol.submodulos = vm.submodulos;
+        $.post( $url,vm.inventario,
         function(response) {
             reload();
-            $("#submoduloModal").modal('hide');
+            $("#moduloModal").modal('hide');
         })
         .done(function(response) {
             //alert( "second success" );
@@ -53,11 +52,11 @@ var Submodulos={
     /** guardar existente
     */
     update:function(id){
-        vm.submodulo.modulo_id = $selectModulos.val();
-        $.put('api/submodulos/'+id,vm.submodulo, 
+        //vm.rol.submodulos = vm.submodulos;
+        $.put( $url+id,vm.modulo, 
             function(response){
             reload();
-            $("#submoduloModal").modal('hide');
+            $("#moduloModal").modal('hide');
         })
         .done(function(response) {
             //alert( "second success" );
@@ -70,7 +69,7 @@ var Submodulos={
         });
     },
     destroy:function(id){
-        $.delete( "api/submodulos/"+id,
+        $.delete( $url+id,
         function(response) {
             //user = response;
         })
@@ -86,25 +85,5 @@ var Submodulos={
     },
     CambiarEstadoAreas:function(id,AD){
 
-    }
-};
-var Modulos={
-    all:function(){
-        $.get( "modulos/lista",
-        function(response) {
-            vm.modulos = response;
-            $selectModulos = $('#modulos').select2({
-                dropdownParent: $('#submoduloModal')
-            });
-        })
-        .done(function(response) {
-            //alert( "second success" );
-        })
-        .fail(function(response) {
-            //alert( "error" );
-        })
-        .always(function(response) {
-            //alert( "finished" );
-        });
     }
 };

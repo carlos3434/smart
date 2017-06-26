@@ -26,6 +26,37 @@
 
     <ul>
       <li class="active">
+        <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Mantenimientos</span></a>
+        <ul>
+          <li class="">
+            <a href="admin.mantenimiento.modulos" title="Dashboard"><span class="menu-item-parent">Modulos</span></a>
+          </li>
+          <li class="">
+            <a href="admin.mantenimiento.submodulos" title="Dashboard"><span class="menu-item-parent">Submodulos</span></a>
+          </li>
+          <li class="active">
+            <a href="admin.mantenimiento.usuarios" title="Dashboard"><span class="menu-item-parent">Usuarios</span></a>
+          </li>
+          <li class="">
+            <a href="admin.mantenimiento.roles" title="Dashboard"><span class="menu-item-parent">Roles</span></a>
+          </li>
+        </ul> 
+      </li>
+      <li>
+        <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Inventario</span></a>
+        <ul>
+          <li class="">
+            <a href="admin.inventario.registro" title="Dashboard"><span class="menu-item-parent">Registro</span></a>
+          </li>
+          <li class="">
+            <a href="admin.inventario.transferencia" title="Dashboard"><span class="menu-item-parent">Transferencia</span></a>
+          </li>
+          <li class="active">
+            <a href="admin.inventario.recepcion" title="Dashboard"><span class="menu-item-parent">Recepcion</span></a>
+          </li>
+        </ul> 
+      </li>
+      <li>
         <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
         <ul>
           <li class="active">

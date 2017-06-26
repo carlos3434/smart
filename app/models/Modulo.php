@@ -7,7 +7,8 @@ class Modulo extends Eloquent
     protected $fillable = [
         'nombre',
         'url',
-        'icon'
+        'icon',
+        'modulo_id'
     ];
     /**
      * Submodulos
@@ -41,9 +42,9 @@ class Modulo extends Eloquent
     /**
      * Permisos relationship
      */
-    public function permiso()
+    public function permisos()
     {
-        return $this->hasMany('Permission');
+        return $this->hasMany('Permission','submodulo_id');
     }
 
     public function parent()

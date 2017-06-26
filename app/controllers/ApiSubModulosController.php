@@ -46,7 +46,43 @@ class ApiSubModulosController extends Controller
     public function store()
     {
         //
-        return Modulo::create(Input::all());
+        $modulo = Modulo::create(Input::all());
+        if ($modulo) {
+            # crear permisos
+            Permission::create([
+                'nombre' => 'create-'.$modulo->nombre,
+                'nombre_mostrar' => 'create '.$modulo->nombre,
+                'descripcion' => '',
+                'orden' => 1,
+                'submodulo_id' => $modulo->id,
+            ]);
+
+            Permission::create([
+                'nombre' => 'read-'.$modulo->nombre,
+                'nombre_mostrar' => 'read '.$modulo->nombre,
+                'descripcion' => '',
+                'orden' => 2,
+                'submodulo_id' => $modulo->id,
+            ]);
+
+            Permission::create([
+                'nombre' => 'update-'.$modulo->nombre,
+                'nombre_mostrar' => 'update '.$modulo->nombre,
+                'descripcion' => '',
+                'orden' => 3,
+                'submodulo_id' => $modulo->id,
+            ]);
+
+            Permission::create([
+                'nombre' => 'delete-'.$modulo->nombre,
+                'nombre_mostrar' => 'delete '.$modulo->nombre,
+                'descripcion' => '',
+                'orden' => 4,
+                'submodulo_id' => $modulo->id,
+            ]);
+            return $modulo;
+        }
+        return $modulo;
     }
     /**
      * Display the specified resource.
@@ -58,7 +94,8 @@ class ApiSubModulosController extends Controller
      */
     public function show($id)
     {
-        return Modulo::findOrFail($id);
+        $modulo = Modulo::where('id', $id)->with('permisos')->first();
+        return Response::json($modulo);
     }
     /**
      * Show the form for editing the specified resource.
@@ -84,7 +121,9 @@ class ApiSubModulosController extends Controller
      */
     public function update($id)
     {
-        $response = Modulo::findOrFail($id)->update(Input::all());
+        $modulo = Modulo::findOrFail($id);
+        $response = $modulo->update(Input::all());
+
         return Response::json($response);
     }
 

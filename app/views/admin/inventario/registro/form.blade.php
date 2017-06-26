@@ -1,5 +1,5 @@
 <!-- /.modal -->
-<div class="modal fade" id="submoduloModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="moduloModal" tabindex="-1" role="dialog" aria-hidden="true">
 
   <div class="modal-dialog">
     <div class="modal-content">
@@ -19,7 +19,7 @@
                             <i class="fa fa-exclamation"></i>
                         </a>
                     </label>
-                    <input type="text" class="form-control" placeholder="Ingrese nombre" v-model='submodulo.nombre'>
+                    <input type="text" class="form-control" placeholder="Ingrese nombre" v-model='modulo.nombre'>
                 </div>
                 <div class="col-sm-4">
                     <label class="control-label">
@@ -27,7 +27,7 @@
                             <i class="fa fa-exclamation"></i>
                         </a>
                     </label>
-                    <input type="text" class="form-control" placeholder="Ingrese url" v-model='submodulo.url'>
+                    <input type="text" class="form-control" placeholder="Ingrese url" v-model='modulo.url'>
                 </div>
               
                 <div class="col-sm-4">
@@ -36,28 +36,9 @@
                             <i class="fa fa-exclamation"></i>
                         </a>
                     </label>
-                    <input type="text" class="form-control" placeholder="Ingrese icon" v-model='submodulo.icon'>
+                    <input type="text" class="form-control" placeholder="Ingrese icon" v-model='modulo.icon'>
                 </div>
             </div>
-            
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                          <label>
-                            Roles
-                          </label>
-                          <select id='modulos' style="width:100%" class="select2">
-                              <template v-for="modulo in modulos">
-                                  <option v-bind:value="modulo.id">
-                                    @{{ modulo.nombre }}
-                                  </option>
-                              </template>
-                        </select>
-
-                    </div>
-                </div>
-            </div>
-            <!-- /.permisos -->
             
         </form>
       </div>

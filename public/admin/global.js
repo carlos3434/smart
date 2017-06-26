@@ -15,3 +15,10 @@ jQuery.each( [ "put", "delete" ], function( i, method ) {
     });
   };
 });
+
+
+$.ajaxSetup({
+  headers: {
+      'token': document.querySelector('#token').getAttribute('value')
+  }
+});

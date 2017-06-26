@@ -2,36 +2,27 @@
 var vm = new Vue({
     el: '#main',
     data: {
-        submodulo:{},
-        modulos:{},
+        modulo:{},
+        inventario:{},
+        elemento:{},
         accion:''
     },
 
     methods: {
         /**boton de modal Guardar*/
-        guardarModulo: function () {
-            if (vm.accion=='nuevo') {
-                Submodulos.store();
-            } else {
-                Submodulos.update(vm.submodulo.id);
-            }
-        },
-        /**boton llama a modal, nuevo rol */
-        storeModulo: function () {
-            $("#submoduloModal").modal();
-            vm.accion = 'nuevo';
-            vm.submodulo = {};
-            $selectModulos.val([]).trigger("change");
+        Enviar: function () {
+            Inventario.store();
         },
     },
 });
 
 var tabla='datatable_tabletools';
-
+var $url = "api/inventarios";
 /* BASIC ;*/
 var responsiveHelper_datatable_tabletools = undefined;
 
 var $selectModulos;
+//var $selectRoles;
 
 var breakpointDefinition = {
     tablet : 1024,
@@ -52,23 +43,35 @@ var columnDefs=[
     },
     {
         "targets": 2,
-        "data": "url",
-        "name": "url"
+        "data": "codigo",
+        "name": "codigo"
     },
     {
         "targets": 3,
-        "data": "icon",
-        "name": "icon",
+        "data": "proveedor",
+        "name": "proveedor",
         "searchable":false
     },
     {
         "targets": 4,
-        "data": "modulo",
-        "name": "modulo",
+        "data": "cantidad",
+        "name": "cantidad",
         "searchable":false
     },
     {
         "targets": 5,
+        "data": "categoria",
+        "name": "categoria",
+        "searchable":false
+    },
+    {
+        "targets": 6,
+        "data": "observacion",
+        "name": "observacion",
+        "searchable":false
+    },
+    {
+        "targets": 7,
         "name": "updated_at",
         "searchable":false,
         "data": function ( row, type, val, meta ) {
@@ -77,7 +80,7 @@ var columnDefs=[
         "defaultContent": '',
     },
     {
-        "targets": 6,
+        "targets": 8,
         "name": "deleted_at",
         "searchable":false,
         "data": function ( row, type, val, meta ) {
@@ -104,7 +107,7 @@ var dataTable={
         $(".overlay,.loading-img").remove();
     },
     "ajax": {
-        "url": "api/submodulos",
+        "url": $url,
         "type": "GET",
         "data": function(d){
             d.per_page=d.length;
@@ -154,15 +157,14 @@ var datatable;
 $(document).ready(function() {
     pageSetUp();
     datatable = $('#'+tabla).DataTable(dataTable);
-    Modulos.all();
 });
 /**
    boton llama a modal, editar rol
 */
 editar=function(id){
     vm.accion='editar';
-    Submodulos.get(id);
-    $("#submoduloModal").modal();
+    Modulos.get(id);
+    $("#moduloModal").modal();
 };
 desactivar=function(id){
     reload();

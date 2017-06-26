@@ -97,6 +97,13 @@ Route::group(["before" => "auth"], function() {
         Route::get('admin.mantenimiento.submodulos', function () {
             return View::make('admin.mantenimiento.submodulos');
         });
+
+        Route::get('admin.inventario.registro', function () {
+            return View::make('admin.inventario.registro');
+        });
+        Route::get('admin.inventario.bandeja', function () {
+            return View::make('admin.inventario.bandeja');
+        });
         Route::get('admin.orders.order', function () {
 
             $sql = "SELECT p.id, p.nombre, cp.stock, cp.precio, tp.nombre as tipo
@@ -129,7 +136,7 @@ Route::group(["before" => "auth"], function() {
 
     });
     //filtro token csrf
-    //Route::group(["before" => "csrf"], function() {
+    Route::group(["before" => "csrf"], function() {
         //controllers
         Route::controller('roles', 'RolesController');
         Route::controller('modulos', 'ModulosController');
@@ -141,7 +148,10 @@ Route::group(["before" => "auth"], function() {
         Route::resource('api/submodulos', 'ApiSubModulosController');
         Route::resource('api/roles', 'ApiRolesController');
         Route::resource('api/permissions', 'ApiPermissionsController');
+
+        Route::resource('api/inventarios', 'ApiInventariosController');
+
         Route::resource('pedido', 'PedidoController');
 
-    //});
+    });
 });
