@@ -25,23 +25,25 @@
     -->
 
     <ul>
-      <li class="active">
-        <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Mantenimientos</span></a>
-        <ul>
-          <li class="">
-            <a href="admin.mantenimiento.modulos" title="Dashboard"><span class="menu-item-parent">Modulos</span></a>
-          </li>
-          <li class="">
-            <a href="admin.mantenimiento.submodulos" title="Dashboard"><span class="menu-item-parent">Submodulos</span></a>
-          </li>
-          <li class="active">
-            <a href="admin.mantenimiento.usuarios" title="Dashboard"><span class="menu-item-parent">Usuarios</span></a>
-          </li>
-          <li class="">
-            <a href="admin.mantenimiento.roles" title="Dashboard"><span class="menu-item-parent">Roles</span></a>
-          </li>
-        </ul> 
-      </li>
+    @if (Session::get('menu'))
+      @foreach ( Session::get('menu') as $key => $modulo)
+        <li class="active">
+          <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">{{$key}}</span></a>
+          <ul>
+            @foreach ( $modulo as $submodulo)
+            
+            @if (Request::path()=='admin.'.$submodulo->url)
+            <li class="active">
+            @else
+            <li class="">
+            @endif
+              <a href="admin.{{ $submodulo->url }}" title="Dashboard"><span class="menu-item-parent">{{ $submodulo->submodulo }}</span></a>
+            </li>
+            @endforeach
+          </ul>
+        </li>
+      @endforeach
+    @endif
       <li>
         <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Inventario</span></a>
         <ul>
@@ -51,7 +53,7 @@
           <li class="">
             <a href="admin.inventario.transferencia" title="Dashboard"><span class="menu-item-parent">Transferencia</span></a>
           </li>
-          <li class="active">
+          <li class="">
             <a href="admin.inventario.recepcion" title="Dashboard"><span class="menu-item-parent">Recepcion</span></a>
           </li>
         </ul> 
@@ -59,7 +61,7 @@
       <li>
         <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
         <ul>
-          <li class="active">
+          <li class="">
             <a href="index.html" title="Dashboard"><span class="menu-item-parent">Analytics Dashboard</span></a>
           </li>
           <li class="">
