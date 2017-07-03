@@ -16,7 +16,16 @@ jQuery.each( [ "put", "delete" ], function( i, method ) {
   };
 });
 
-
+var headerAxios = {
+  headers: {
+    "token" : document.querySelector('#token').getAttribute('value'),
+    'X-Requested-With': 'XMLHttpRequest'
+  },
+  auth: {
+    username: 'janedoe',
+    password: 's00pers3cret'
+  },
+};
 $.ajaxSetup({
   headers: {
       'token': document.querySelector('#token').getAttribute('value')
