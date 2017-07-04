@@ -76,13 +76,13 @@ Vue.component('my-detail-row', {
     },
 });
 
-Vue.use(Vuetable);
+//Vue.use(Vuetable);
 //Vue.use(VuetablePagination);
 const vm = new Vue({
     el: '#main',
-    components:{
+    /*components:{
    'vuetable-pagination': Vuetable.VuetablePagination
-  },/*
+  },
     components:{
        'vuetable-pagination': Vuetable.VuetablePagination,
        'vuetable-pagination-info': Vuetable.VuetablePaginationInfo
@@ -304,35 +304,35 @@ var breakpointDefinition = {
 
 var columnDefs=[
     {
-        "targets": 0,
+        //"targets": 0,
         "data": "id",
         "name": "id",
         "searchable":false
     },
     {
-        "targets": 1,
+        //"targets": 1,
         "data": "nombres",
         "name": "nombres"
     },
     {
-        "targets": 2,
+        //"targets": 2,
         "data": "apellidos",
         "name": "apellidos"
     },
     {
-        "targets": 3,
+        //"targets": 3,
         "data": "numero_telefono",
         "name": "numero_telefono",
         "searchable":false
     },
     {
-        "targets": 4,
+        //"targets": 4,
         "data": "genero",
         "name": "genero",
         "searchable":false
     },
     {
-        "targets": 5,
+        //"targets": 5,
         "name": "verified",
         "searchable":false,
         "data": function ( row, type, val, meta ) {
@@ -341,7 +341,7 @@ var columnDefs=[
         "defaultContent": '',
     },
     {
-        "targets": 6,
+        //"targets": 6,
         "name": "deleted_at",
         "searchable":false,
         "data": function ( row, type, val, meta ) {
@@ -376,7 +376,14 @@ var dataTable={
             d.filter=d.search.value;
         },
     },
-    columnDefs,
+    "columns":columnDefs,
+    "columnDefs": [
+        {
+            "targets": 5,
+            "orderable": false,
+            "searchable": false
+        },
+    ],
     "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>"+
             "t"+
             "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
@@ -420,7 +427,7 @@ var datatable;
 $(document).ready(function() {
     //pageSetUp();
     Roles.all();
-    //datatable = $('#'+tabla).DataTable(dataTable);
+    datatable = $('#'+tabla).DataTable(dataTable);
 });
 /**
    
