@@ -1,126 +1,107 @@
 var Users={
-    all:function(dataUsers){
-        $.post( "api/users/all",
-        function(response) {
-            dataUsers(response);
-        })
-        .done(function(response) {
-            //alert( "second success" );
-        })
-        .fail(function(response) {
-            //alert( "error" );
-        })
-        .always(function(response) {
-            //alert( "finished" );
+    getAll:function(data,callback){
+        // make a regular ajax request using data.start and data.length
+        data.per_page=data.length;
+        data.page=(data.start+data.length)/data.length;
+        data.filter=data.search.value;
+        /*$.ajax({
+            "url": url,
+            "type": "GET",
+            "data" : data,
+            'beforeSend': function (request) {
+                console.log("before");
+                $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+            },
+            "success":function(response){
+                callback(response);
+                $(".overlay,.loading-img").remove();
+            },
+            "error":function(data){
+                $(".overlay,.loading-img").remove();
+            }
+        });*/
+        $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+        $.get(url, data, function(response) {
+            callback(response);
+            $(".overlay,.loading-img").remove();
         });
     },
     get:function(id){
-        $.get( "api/users/"+id,
-        function(response) {
-            vm.user = response;
+        axios.get(
+            url+'/'+id,
+            headerAxios
+        )
+        .then(response => {
+            vm.user = response.data;
             roles();
         })
-        .done(function(response) {
-            //alert( "second success" );
-        })
-        .fail(function(response) {
-            //alert( "error" );
-        })
-        .always(function(response) {
-            //alert( "finished" );
+        .catch(e => {
+            this.errors.push(e);
         });
     },
     /** guardar nuevo
     */
     store:function(){
+        vm.user.fecha_nacimiento =  $('input[name=fecha_nacimiento]').val();
         vm.user.roles = $('#roles').val();
-        $.post( "api/users",vm.user,
-        function(response) {
+
+        axios.post(
+            url,
+            vm.user,
+            headerAxios
+        )
+        .then(response => {
             reload();
             $("#userModal").modal('hide');
         })
-        .done(function(response) {
-            //alert( "second success" );
-        })
-        .fail(function(response) {
-            //alert( "error" );
-        })
-        .always(function(response) {
-            //alert( "finished" );
+        .catch(e => {
+            this.errors.push(e);
         });
     },
     /** guardar existente
     */
     update:function(id){
+        vm.user.fecha_nacimiento =  $('input[name=fecha_nacimiento]').val();
         vm.user.roles = $('#roles').val();
-        $.put('api/users/'+id,vm.user, 
-            function(response){
+        axios.put(
+            url+'/'+id,
+            vm.user,
+            headerAxios
+        )
+        .then(response => {
             reload();
             $("#userModal").modal('hide');
         })
-        .done(function(response) {
-            //alert( "second success" );
-        })
-        .fail(function(response) {
-            //alert( "error" );
-        })
-        .always(function(response) {
-            //alert( "finished" );
+        .catch(e => {
+            this.errors.push(e);
         });
     },
     destroy:function(id){
-        $.delete( "api/users/"+id,
-        function(response) {
+        axios.delete(
+            url+'/'+id,
+            headerAxios
+        )
+        .then(response => {
             user = response;
         })
-        .done(function(response) {
-            //alert( "second success" );
-        })
-        .fail(function(response) {
-            //alert( "error" );
-        })
-        .always(function(response) {
-            //alert( "finished" );
+        .catch(e => {
+            this.errors.push(e);
         });
-    },
-    allPaginate:function(dataUsersPag){
-        $.post( "api/users/all-paginate",
-        { name: "John", time: "2pm" },
-        function(response) {
-            dataUsersPag(response);
-            //alert( "success" );
-        })
-        .done(function(response) {
-            //alert( "second success" );
-        })
-        .fail(function(response) {
-            //alert( "error" );
-        })
-        .always(function(response) {
-            //alert( "finished" );
-        });
-    },
-    CambiarEstadoAreas:function(id,AD){
-
     }
 };
-var Roles={
-    all:function(/*dataUsers*/){
-        $.get( "roles/lista",
-        function(response) {
-            vm.roles = response;
+var Roles ={
+    all:function(){
+        axios.all([
+            axios.get('roles/lista',headerAxios)
+        ])
+        .then(axios.spread(function (response) {
+            vm.roles = response.data;
             $selectRoles = $('#roles').select2({
                 dropdownParent: $('#userModal')
             });
-        })
-        .done(function(response) {
-            //alert( "second success" );
-        })
-        .fail(function(response) {
-            //alert( "error" );
-        })
-        .always(function(response) {
-            //alert( "finished" );
+        }))
+        .catch(e => {
+          this.errors.push(e);
         });
     }
 };

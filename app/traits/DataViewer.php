@@ -9,6 +9,9 @@ trait DataViewer {
         $request = app()->make('request');
 
         if ($request->has('order')) {
+            foreach ($request->get('order') as $order) {
+                //$query = $query->orderBy($order['column'], $order['dir']);
+            }
             $col = $request->get('order')[0]['column'];
             $sortCol = $request->get('columns')[$col]['name'];
             $sortDir = $request->get('order')[0]['dir'];

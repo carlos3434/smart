@@ -75,7 +75,7 @@
                           <i class="fa fa-exclamation"></i>
                       </a>
                   </label>
-                  <input type="text" placeholder="AAAA-MM-DD" class="form-control datepicker" data-dateformat="dd/mm/yy" autocomplete="off" onfocus="blur()" v-model='user.fecha_nacimiento'>
+                  <input type="text" placeholder="dd/mm/yyyy" class="form-control datepicker" data-dateformat="dd/mm/yy" autocomplete="off" onfocus="blur()" v-model='user.fecha_nacimiento'>
                 </div>
 
                 <div class="col-sm-4">
