@@ -20,7 +20,7 @@ class EntrustRole extends Ardent
      * @var array
      */
     public static $rules = array(
-        'nombre' => 'required|between:4,128'
+        'name' => 'required|between:4,128'
     );
 
     /**

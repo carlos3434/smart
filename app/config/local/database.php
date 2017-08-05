@@ -25,7 +25,7 @@ return array(
 			'host'      => '127.0.0.1',
 			'database'  => 'smart',
 			'username'  => 'root',
-			'password'  => 'carlos3434',
+			'password'  => '1234',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

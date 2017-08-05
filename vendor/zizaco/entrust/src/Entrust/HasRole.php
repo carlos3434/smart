@@ -25,7 +25,7 @@ trait HasRole
     public function hasRole($name)
     {
         foreach ($this->roles as $role) {
-            if ($role->nombre == $name) {
+            if ($role->name == $name) {
                 return true;
             }
         }
@@ -50,7 +50,7 @@ trait HasRole
 
             // Validate against the Permission table
             foreach ($role->perms as $perm) {
-                if ($perm->nombre == $permission) {
+                if ($perm->name == $permission) {
                     return true;
                 }
             }
