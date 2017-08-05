@@ -152,7 +152,7 @@
 
     <script src="/js/plugin/vue/vue-2.3.3.js"></script>
 
-
-    <script src="/admin/mantenimiento/roles_ajax.js"></script>
-    <script src="/admin/mantenimiento/roles.js"></script>
+    {{HTML::script(mix('/admin/mantenimiento/roles/app.js'))}}
+    <!--<script src="/admin/mantenimiento/roles_ajax.js"></script>
+    <script src="/admin/mantenimiento/roles.js"></script>-->
 @endpush

@@ -155,7 +155,8 @@
 
     <script src="/js/plugin/vue/vue-2.3.3.js"></script>
 
-
+    {{HTML::script(mix('/admin/inventario/bandeja/app.js'))}}
+    <!--
     <script src="/admin/inventario/bandeja_ajax.js"></script>
-    <script src="/admin/inventario/bandeja.js"></script>
+    <script src="/admin/inventario/bandeja.js"></script>-->
 @endpush

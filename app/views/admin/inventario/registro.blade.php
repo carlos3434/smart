@@ -122,7 +122,8 @@
 
     <script src="/js/plugin/vue/vue-2.3.3.js"></script>
 
-
+    {{HTML::script(mix('/admin/inventario/registro/app.js'))}}
+    <!--
     <script src="/admin/inventario/registro_ajax.js"></script>
     <script src="/admin/inventario/registro.js"></script>
 @endpush

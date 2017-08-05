@@ -153,7 +153,8 @@
 
     <script src="/js/plugin/vue/vue-2.3.3.js"></script>
 
-
+    {{HTML::script(mix('/admin/mantenimiento/submodulos/app.js'))}}
+    <!--
     <script src="/admin/mantenimiento/submodulos_ajax.js"></script>
-    <script src="/admin/mantenimiento/submodulos.js"></script>
+    <script src="/admin/mantenimiento/submodulos.js"></script>-->
 @endpush

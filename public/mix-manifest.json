@@ -1,3 +1,8 @@
 {
-    "/admin/mantenimiento/user/app.js": "/admin/mantenimiento/user/app.js?id=820b3c5eedd87f5e80c4"
+    "/admin/mantenimiento/user/app.js": "/admin/mantenimiento/user/app.js?id=e7b765651b7ceeb95c66",
+    "/admin/mantenimiento/roles/app.js": "/admin/mantenimiento/roles/app.js?id=8218c680be9b34001efd",
+    "/admin/mantenimiento/modulos/app.js": "/admin/mantenimiento/modulos/app.js?id=e06e7e054e1d4792c214",
+    "/admin/mantenimiento/submodulos/app.js": "/admin/mantenimiento/submodulos/app.js?id=142bac7f296f77f9708d",
+    "/admin/inventario/bandeja/app.js": "/admin/inventario/bandeja/app.js?id=ea59f7cc0dda141c40b7",
+    "/admin/bandeja/registro/app.js": "/admin/bandeja/registro/app.js?id=d41d8cd98f00b204e980"
 }

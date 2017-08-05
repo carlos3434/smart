@@ -154,7 +154,7 @@
     <script src="/js/plugin/vue/vue-2.3.3.js"></script>
     <script src="/js/plugin/vue/axios.min.js"></script>
 
-    <script src="<?php echo mix('/admin/mantenimiento/user/app.js'); ?>"></script>
+    {{HTML::script(mix('/admin/mantenimiento/user/app.js'))}}
     <!--<script src="/admin/mantenimiento/users_ajax.js"></script>
     <script src="/admin/mantenimiento/users.js"></script>-->
 @endpush
