@@ -4,7 +4,7 @@ const mix = require('laravel-mix');
 
 mix.babel(
     [
-    'resources/admin/mantenimiento/user_ajax.js',
+    'resources/admin/mantenimiento/users_ajax.js',
     'resources/admin/mantenimiento/users.js'
     ],
     'public/admin/mantenimiento/user/app.js'
@@ -51,8 +51,8 @@ mix.babel(
 
 mix.babel(
     [
-    'resources/admin/bandeja/registro_ajax.js',
-    'resources/admin/bandeja/registro.js'
+    'resources/admin/tarea/registro_ajax.js',
+    'resources/admin/tarea/registro.js'
     ],
-    'public/admin/bandeja/registro/app.js'
+    'public/admin/tarea/registro/app.js'
 ).version();

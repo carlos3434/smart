@@ -104,6 +104,9 @@ Route::group(["before" => "auth"], function() {
         Route::get('admin.inventario.bandeja', function () {
             return View::make('admin.inventario.bandeja');
         });
+        Route::get('admin.tarea.registro', function () {
+            return View::make('admin.tarea.registro');
+        });
         Route::get('admin.orders.order', function () {
 
             $sql = "SELECT p.id, p.nombre, cp.stock, cp.precio, tp.nombre as tipo
