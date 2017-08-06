@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=”en”>
+<html lang="es">
     <head>
         <meta charset="UTF-8" />
         <meta name="token" id="token" value="{{ csrf_token() }}">
@@ -9,8 +9,6 @@
         @section('autor')
           <meta name="author" content="Sistemas">
         @show
-        
-        <link rel="shortcut icon" href="favicon.ico">
 
         @section('descripcion')
           <meta name="description" content="">
@@ -21,28 +19,23 @@
           @show
         </title>
 
-        @section('includes')
-            <!-- {{ HTML::style('lib/bootstrap-3.3.1/css/bootstrap.min.css') }}-->
-            <!-- {{ HTML::script('lib/jquery-2.1.3.min.js') }}-->
+        <link rel="shortcut icon" href="favicon.ico">
 
+        @section('includes')
             <!-- Basic Styles -->
-            <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css">
-            <link rel="stylesheet" type="text/css" media="screen" href="css/font-awesome.min.css">
+            {{ HTML::style('css/bootstrap.min.css') }}
+            {{ HTML::style('css/font-awesome.min.css') }}
 
             <!-- SmartAdmin Styles : Caution! DO NOT change the order -->
-            <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production-plugins.min.css">
-            <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-production.min.css">
-            <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-skins.min.css">
+            {{ HTML::style('css/smartadmin-production-plugins.min.css') }}
+            {{ HTML::style('css/smartadmin-production.min.css') }}
+            {{ HTML::style('css/smartadmin-skins.min.css') }}
 
             <!-- SmartAdmin RTL Support  -->
-            <link rel="stylesheet" type="text/css" media="screen" href="css/smartadmin-rtl.min.css">
-
-            <!-- We recommend you use "your_style.css" to override SmartAdmin
-                 specific styles this will also ensure you retrain your customization with each SmartAdmin update.
-            <link rel="stylesheet" type="text/css" media="screen" href="css/your_style.css"> -->
+            {{ HTML::style('css/smartadmin-rtl.min.css') }}
 
             <!-- Demo purpose only: goes with demo.js, you can delete this css when designing your own WebApp -->
-            <link rel="stylesheet" type="text/css" media="screen" href="css/demo.min.css">
+            {{ HTML::style('css/demo.min.css') }}
 
             <!-- FAVICONS -->
             <link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
@@ -69,62 +62,45 @@
         @show
 
     </head>
-    <!-- 
-    <body>
-        include("header")
-        <div class="content">
-            <div class="container">
-                yield("content")
-            </div>
+    <body class="smart-style-6">
+        <!-- HEADER -->
+        <header id="header">
+            @include("layout.header")
+        </header>
+        <!-- END HEADER -->
+
+        <!-- Left panel : Navigation area -->
+        <!-- Note: This width of the aside area can be adjusted through LESS variables -->
+        <aside id="left-panel">
+            @include("layout.aside")
+        </aside>
+        <!-- END NAVIGATION -->
+
+        <!-- MAIN PANEL -->
+        <div id="main" role="main">
+            @yield('main')
+
+            @stack('formulario')
         </div>
-        include("footer")
-    </body>-->
-    <body class="">
-      <!-- HEADER -->
-      <header id="header">
-          @include("layout.header")
+        <!-- END MAIN PANEL -->
 
-      </header>
-      <!-- END HEADER -->
+        <!-- PAGE FOOTER -->
+        <div class="page-footer">
+          @include("layout.footer")
+        </div>
+        <!-- END PAGE FOOTER -->
 
-      <!-- Left panel : Navigation area -->
-      <!-- Note: This width of the aside area can be adjusted through LESS variables -->
-      <aside id="left-panel">
-        @include("layout.aside")
-      </aside>
-      <!-- END NAVIGATION -->
+        <!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
+        Note: These tiles are completely responsive,
+        you can add as many as you like
+        -->
+        @include("layout.flotante")
+        <!-- END SHORTCUT AREA -->
 
-    <!-- MAIN PANEL -->
-    <div id="main" role="main">
-
-        @yield('main')
-
-        @stack('formulario')
-
-    </div>
-    <!-- END MAIN PANEL -->
-
-    <!-- PAGE FOOTER -->
-    <div class="page-footer">
-      @include("layout.footer")
-      
-    </div>
-    <!-- END PAGE FOOTER -->
-
-    <!-- SHORTCUT AREA : With large tiles (activated via clicking user name tag)
-    Note: These tiles are completely responsive,
-    you can add as many as you like
-    -->
-    @include("layout.flotante")
-    
-    <!-- END SHORTCUT AREA -->
-
-    <!--================================================== -->
-
-    <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
-    @section('scripts')
-        @include('layout.partials.scripts')
-    @show
+        <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
+        @section('scripts')
+            @include('layout.partials.scripts')
+        @show
    
-  </body>
+    </body>
 </html>

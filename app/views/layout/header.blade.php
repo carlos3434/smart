@@ -51,33 +51,6 @@
     <!-- END AJAX-DROPDOWN -->
   </div>
 
-  <!-- projects dropdown -->
-  <div class="project-context hidden-xs">
-
-    <span class="label">Projects:</span>
-    <span class="project-selector dropdown-toggle" data-toggle="dropdown">Recent projects <i class="fa fa-angle-down"></i></span>
-
-    <!-- Suggestion: populate this list with fetch and push technique -->
-    <ul class="dropdown-menu">
-      <li>
-        <a href="javascript:void(0);">Online e-merchant management system - attaching integration with the iOS</a>
-      </li>
-      <li>
-        <a href="javascript:void(0);">Notes on pipeline upgradee</a>
-      </li>
-      <li>
-        <a href="javascript:void(0);">Assesment Report for merchant account</a>
-      </li>
-      <li class="divider"></li>
-      <li>
-        <a href="javascript:void(0);"><i class="fa fa-power-off"></i> Clear</a>
-      </li>
-    </ul>
-    <!-- end dropdown-menu-->
-
-  </div>
-  <!-- end projects dropdown -->
-
   <!-- pulled right: nav area -->
   <div class="pull-right">
     
@@ -132,29 +105,7 @@
 
     <!-- input: search field -->
     <form action="search.html" class="header-search pull-right">
-      <input id="search-fld"  type="text" name="param" placeholder="Find reports and more" data-autocomplete='[
-      "ActionScript",
-      "AppleScript",
-      "Asp",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"]'>
+      <input id="search-fld"  type="text" name="param" placeholder="Buscar">
       <button type="submit">
         <i class="fa fa-search"></i>
       </button>
@@ -191,40 +142,7 @@
     <!-- multiple lang dropdown : find all flags in the flags page -->
     <ul class="header-dropdown-list hidden-xs">
       <li>
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="img/blank.gif" class="flag flag-us" alt="United States"> <span> English (US) </span> <i class="fa fa-angle-down"></i> </a>
-        <ul class="dropdown-menu pull-right">
-          <li class="active">
-            <a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-us" alt="United States"> English (US)</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-fr" alt="France"> Français</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-es" alt="Spanish"> Español</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-de" alt="German"> Deutsch</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-jp" alt="Japan"> 日本語</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-cn" alt="China"> 中文</a>
-          </li> 
-          <li>
-            <a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-it" alt="Italy"> Italiano</a>
-          </li> 
-          <li>
-            <a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-pt" alt="Portugal"> Portugal</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-ru" alt="Russia"> Русский язык</a>
-          </li>
-          <li>
-            <a href="javascript:void(0);"><img src="img/blank.gif" class="flag flag-kr" alt="Korea"> 한국어</a>
-          </li>           
-          
-        </ul>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="img/blank.gif" class="flag flag-es" alt="Spanish"> <span>Español</span></a>
       </li>
     </ul>
     <!-- end multiple lang -->
