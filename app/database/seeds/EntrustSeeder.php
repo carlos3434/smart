@@ -45,7 +45,7 @@ class EntrustSeeder extends Seeder {
     private function submodulosSeeder(){
         DB::table('modulos')->insert([ //id: 4
             'nombre' => 'users',
-            'url'  => 'users',
+            'url'  => 'usuarios',
             'icon' => 'fa-map-marker',
             'modulo_id' => 1
         ]);
@@ -59,7 +59,21 @@ class EntrustSeeder extends Seeder {
 
         DB::table('modulos')->insert([ //id: 6
             'nombre' => 'permissions',
-            'url'  => 'permissions',
+            'url'  => 'permisos',
+            'icon' => 'fa-map-marker',
+            'modulo_id' => 1
+        ]);
+
+        DB::table('modulos')->insert([ //id: 7
+            'nombre' => 'modulos',
+            'url'  => 'modulos',
+            'icon' => 'fa-map-marker',
+            'modulo_id' => 1
+        ]);
+
+        DB::table('modulos')->insert([ //id: 8
+            'nombre' => 'submodulos',
+            'url'  => 'submodulos',
             'icon' => 'fa-map-marker',
             'modulo_id' => 1
         ]);
