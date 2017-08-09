@@ -1,5 +1,5 @@
 <?php
-
+echo gethostname(); exit();
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -26,7 +26,7 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('homestead', gethostname()),
+	'local' => array('homestead', 'Lenovo-IdeaPad-Z500'),
 
 ));
 
