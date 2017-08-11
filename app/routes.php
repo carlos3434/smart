@@ -165,12 +165,3 @@ Route::group(["before" => "auth"], function() {
         Route::resource('api/tareas', 'ApiTareasController');
     });
 });
-
-Route::any('/ot', function()
-{
-
-    Log::useDailyFiles(storage_path().'/logs/officetrack.log');
-    Log::info(Input::all());
-
-    return 'hola';
-});
