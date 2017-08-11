@@ -80,6 +80,8 @@ class OfficetrackController extends \BaseController
         $mov = Movimiento::where('TaskNumber',$form['TaskNumber'])->first();
         if (is_null($mov)) {
             echo "OK";
+            $form['movimiento_id']=1;
+            Formulario::create($form);
             return;
         }
         $form['movimiento_id']=$mov->id;
