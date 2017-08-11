@@ -1,3 +1,36 @@
+var vm = new Vue({
+  el: '#main',
+  data: {
+    tarea: {
+      codigo: '',
+      estado: '',
+      cordenadax: '',
+      cordenaday: '',
+      tipo_tarea: '',
+      observacion: ''
+    },
+    accion: ''
+  },
+
+  methods: {
+    /**boton de modal Guardar*/
+    guardarModulo: function guardarModulo() {
+      if (vm.accion == 'nuevo') {
+        Modulos.store();
+      } else {
+        Modulos.update(vm.modulo.id);
+      }
+    },
+    /**boton llama a modal, nuevo rol */
+    storeModulo: function storeModulo() {
+      $("#moduloModal").modal();
+      vm.accion = 'nuevo';
+      vm.modulo = {};
+    }
+  }
+});
+
+
 var datatable;
 var tabla = 'tabla_registro_tarea';
 var responsiveHelper_datatable_tabletools = undefined;
@@ -29,11 +62,11 @@ var columnDefs = [
   }, {
     "targets": 4,
     "data": "tipo",
-    "name": "tipo"
+    "name": "tipo_tarea_id"
   }, {
     "targets": 5,
     "data": "estado",
-    "name": "estado"
+    "name": "estado_tarea_id"
   }, {
     "targets": 6,
     "name": "editar_tarea",
@@ -101,3 +134,10 @@ $(document).ready(function () {
   pageSetUp();
   datatable = $('#' + tabla).DataTable(dataTable);
 });
+
+editar = function editar(id) {
+  // vm.accion = 'editar';
+  // Roles.get(id);
+  $("#modal-tarea").modal();
+};
+

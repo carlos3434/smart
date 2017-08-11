@@ -76,7 +76,7 @@
         </section>
 
         @push('formulario')
-            @include( 'admin.mantenimiento.user.form' )
+            @include( 'admin.tarea.form.editar_tarea' )
         @endpush
 
     </div>
