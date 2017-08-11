@@ -9,7 +9,7 @@ class Tarea extends Eloquent
 
     protected $dates = ['created_at','updated_at','deleted_at'];
     protected $table = 'tareas';
-    
+    protected $guarded =[];
     public function movimientos()
     {
         return $this->hasMany('Movimiento');
