@@ -1,306 +1,144 @@
-var Tareas = {
-    getAll: function getAll(data, callback) {
-        data.per_page = data.length;
-        data.page = (data.start + data.length) / data.length;
-        data.filter = data.search.value;
-        $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
-        $.get(url, data, function (response) {
-            callback(response);
-            $(".overlay,.loading-img").remove();
-        });
-    },
-    get: function get(id) {
-        var _this = this;
-
-        axios.get(url + '/' + id, headerAxios).then(function (response) {
-            vm.user = response.data;
-            roles();
-        }).catch(function (e) {
-            _this.errors.push(e);
-        });
-    },
-    /** guardar nuevo
-    */
-    store: function store() {
-        var _this2 = this;
-
-        vm.user.fecha_nacimiento = $('input[name=fecha_nacimiento]').val();
-        vm.user.roles = $('#roles').val();
-
-        axios.post(url, vm.user, headerAxios).then(function (response) {
-            reload();
-            $("#userModal").modal('hide');
-        }).catch(function (e) {
-            _this2.errors.push(e);
-        });
-    },
-    /** guardar existente
-    */
-    update: function update(id) {
-        var _this3 = this;
-
-        vm.user.fecha_nacimiento = $('input[name=fecha_nacimiento]').val();
-        vm.user.roles = $('#roles').val();
-        axios.put(url + '/' + id, vm.user, headerAxios).then(function (response) {
-            reload();
-            $("#userModal").modal('hide');
-        }).catch(function (e) {
-            _this3.errors.push(e);
-        });
-    },
-    destroy: function destroy(id) {
-        var _this4 = this;
-
-        axios.delete(url + '/' + id, headerAxios).then(function (response) {
-            user = response;
-        }).catch(function (e) {
-            _this4.errors.push(e);
-        });
-    }
-};
-var $validator = $("#wizard-1").validate({
-
-    rules: {
-        email: {
-            required: true,
-            email: "Your email address must be in the format of name@domain.com"
-        },
-        fname: {
-            required: true
-        },
-        lname: {
-            required: true
-        },
-        country: {
-            required: true
-        },
-        city: {
-            required: true
-        },
-        postal: {
-            required: true,
-            minlength: 4
-        },
-        wphone: {
-            required: true,
-            minlength: 10
-        },
-        hphone: {
-            required: true,
-            minlength: 10
-        }
-    },
-
-    messages: {
-        fname: "Please specify your First name",
-        lname: "Please specify your Last name",
-        email: {
-            required: "We need your email address to contact you",
-            email: "Your email address must be in the format of name@domain.com"
-        }
-    },
-
-    highlight: function highlight(element) {
-        $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-    },
-    unhighlight: function unhighlight(element) {
-        $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
-    },
-    errorElement: 'span',
-    errorClass: 'help-block',
-    errorPlacement: function errorPlacement(error, element) {
-        if (element.parent('.input-group').length) {
-            error.insertAfter(element.parent());
-        } else {
-            error.insertAfter(element);
-        }
-    }
-});
-
-$('#bootstrap-wizard-1').bootstrapWizard({
-    'tabClass': 'form-wizard',
-    'onNext': function onNext(tab, navigation, index) {
-        var $valid = $("#wizard-1").valid();
-        if (!$valid) {
-            $validator.focusInvalid();
-            return false;
-        } else {
-            $('#bootstrap-wizard-1').find('.form-wizard').children('li').eq(index - 1).addClass('complete');
-            $('#bootstrap-wizard-1').find('.form-wizard').children('li').eq(index - 1).find('.step').html('<i class="fa fa-check"></i>');
-        }
-    }
-});
-
-// fuelux wizard
-var wizard = $('.wizard').wizard();
-
-wizard.on('finished', function (e, data) {
-    //$("#fuelux-wizard").submit();
-    //console.log("submitted!");
-    $.smallBox({
-        title: "Congratulations! Your form was submitted",
-        content: "<i class='fa fa-clock-o'></i> <i>1 seconds ago...</i>",
-        color: "#5F895F",
-        iconSmall: "fa fa-check bounce animated",
-        timeout: 4000
-    });
-});
-
 var vm = new Vue({
-    el: '#main',
-    data: {
-        user: {},
-        roles: [],
-        accion: ''
+  el: '#main',
+  data: {
+    tarea: {
+      codigo: '',
+      estado: '',
+      cordenadax: '',
+      cordenaday: '',
+      tipo_tarea: '',
+      observacion: ''
     },
-    methods: {
-        /**boton de modal Guardar*/
-        guardarUser: function guardarUser() {
-            if (vm.accion == 'nuevo') {
-                Tareas.store();
-            } else {
-                Tareas.update(vm.user.id);
-            }
-        },
-        /**boton llama a modal, nuevo user */
-        storeUser: function storeUser() {
-            $("#userModal").modal();
-            vm.accion = 'nuevo';
-            vm.user = {};
-            $selectRoles.val([]).trigger("change");
-        },
-        roles: function roles() {
-            Roles.all();
-        }
+    accion: ''
+  },
+
+  methods: {
+    /**boton de modal Guardar*/
+    guardarModulo: function guardarModulo() {
+      if (vm.accion == 'nuevo') {
+        Modulos.store();
+      } else {
+        Modulos.update(vm.modulo.id);
+      }
+    },
+    /**boton llama a modal, nuevo rol */
+    storeModulo: function storeModulo() {
+      $("#moduloModal").modal();
+      vm.accion = 'nuevo';
+      vm.modulo = {};
     }
+  }
 });
 
-var tabla = 'datatable_tabletools';
 
-/* BASIC ;*/
+var datatable;
+var tabla = 'tabla_registro_tarea';
 var responsiveHelper_datatable_tabletools = undefined;
-
-var $selectRoles;
-
 var breakpointDefinition = {
-    tablet: 1024,
-    phone: 480
+  tablet: 1024,
+  phone: 480
 };
 
-var columns = [{
-    data: "id",
-    name: "id",
-    searchable: false
-}, {
-    data: "TaskNumber",
-    name: "TaskNumber",
-    searchable: false
-}, {
-    data: "EmployeeNumber",
-    name: "EmployeeNumber",
-    searchable: false
-}, {
-    data: "tipo_tarea_id",
-    name: "tipo_tarea_id",
-    searchable: false
-}, {
-    data: "estado_tarea_id",
-    name: "estado_tarea_id",
-    searchable: false
-}, {
-    name: "created_at",
-    searchable: false,
-    data: function data(row, type, val, meta) {
-        return '<td><button type="button" onClick="editar(' + row.id + ')" class="btn btn-primary">Editar</button></td>';
+var columnDefs = [
+  {
+    "targets": 0,
+    "data": "codigo",
+    "name": "codigo",
+    "searchable": false
+  }, {
+    "targets": 1,
+    "data": "coordx",
+    "name": "coordx",
+    "searchable": false
+  }, {
+    "targets": 2,
+    "data": "coordy",
+    "name": "coordy",
+    "searchable": false
+  }, {
+    "targets": 3,
+    "data": "observacion",
+    "name": "observacion"
+  }, {
+    "targets": 4,
+    "data": "tipo",
+    "name": "tipo_tarea_id"
+  }, {
+    "targets": 5,
+    "data": "estado",
+    "name": "estado_tarea_id"
+  }, {
+    "targets": 6,
+    "name": "editar_tarea",
+    "searchable": false,
+    "data": function data(row, type, val, meta) {
+      return '<td><button type="button" onClick="editar(' + row.id + ')" class="btn btn-primary">Editar</button></td>';
     },
     "defaultContent": ''
-}, {
-    name: "deleted_at",
-    searchable: false,
-    data: function data(row, type, val, meta) {
-        estado = '<button type="button"  onClick="activar(' + row.id + ')" class="btn btn-success">Inactivo</button>';
-        if (row.deleted_at === null) {
-            estado = '<button type="button" onClick="desactivar(' + row.id + ')" class="btn btn-success">Activo</button>';
-        }
-        return estado;
-    },
-    defaultContent: ''
-}];
-var url = "api/tareas";
-var tableTools = {
+  }];
+
+var dataTable = {
+  "processing": true,
+  "serverSide": true,
+  "stateSave": true,
+  "searching": true,
+  "ordering": true,
+  "stateLoadCallback": function stateLoadCallback(settings) {
+    $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+  },
+  "stateSaveCallback": function stateSaveCallback(settings) {
+    // Cuando finaliza el ajax
+    $(".overlay,.loading-img").remove();
+  },
+  "ajax": {
+    "url": "api/tareas",
+    "type": "GET",
+    "data": function data(d) {
+      d.per_page = d.length;
+      d.page = (d.start + d.length) / d.length;
+      d.filter = d.search.value;
+    }
+  },
+  columnDefs: columnDefs,
+  "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>" + "t" + "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+  "oLanguage": {
+    "sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
+  },
+  "oTableTools": {
     "aButtons": ["copy", "csv", "xls", {
-        "sExtends": "pdf",
-        "sTitle": "SmartAdmin_PDF",
-        "sPdfMessage": "SmartAdmin PDF Export",
-        "sPdfSize": "letter"
+      "sExtends": "pdf",
+      "sTitle": "SmartAdmin_PDF",
+      "sPdfMessage": "SmartAdmin PDF Export",
+      "sPdfSize": "letter"
     }, {
-        "sExtends": "print",
-        "sMessage": "Generated by SmartAdmin <i>(press Esc to close)</i>"
+      "sExtends": "print",
+      "sMessage": "Generated by SmartAdmin <i>(press Esc to close)</i>"
     }],
     "sSwfPath": "js/plugin/datatables/swf/copy_csv_xls_pdf.swf"
-};
-var dataTable = {
-    "processing": true,
-    "serverSide": true,
-    "stateSave": true,
-    "searching": true,
-    "ordering": true,
-    "stateLoadCallback": function stateLoadCallback(settings) {
-        //$("body").append('<div class="overlay"></div><div class="loading-img"></div>');
-    },
-    "stateSaveCallback": function stateSaveCallback(settings) {// Cuando finaliza el ajax
-        //$(".overlay,.loading-img").remove();
-    },
-    ajax: function ajax(data, callback, settings) {
-        Tareas.getAll(data, callback);
-    },
-    "columns": columns,
-    "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>" + "t" + "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
-    "oLanguage": {
-        "sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
-    },
-    "oTableTools": tableTools,
-    "autoWidth": true,
-    "preDrawCallback": function preDrawCallback() {
-        // Initialize the responsive datatables helper once.
-        if (!responsiveHelper_datatable_tabletools) {
-            responsiveHelper_datatable_tabletools = new ResponsiveDatatablesHelper($('#' + tabla), breakpointDefinition);
-        }
-    },
-    "rowCallback": function rowCallback(nRow, data) {
-        responsiveHelper_datatable_tabletools.createExpandIcon(nRow);
-    },
-    "drawCallback": function drawCallback(oSettings) {
-        responsiveHelper_datatable_tabletools.respond();
+  },
+  "autoWidth": true,
+  "preDrawCallback": function preDrawCallback() {
+    if (!responsiveHelper_datatable_tabletools) {
+      responsiveHelper_datatable_tabletools = new ResponsiveDatatablesHelper($('#' + tabla), breakpointDefinition);
     }
+  },
+  "rowCallback": function rowCallback(nRow, data) {
+    responsiveHelper_datatable_tabletools.createExpandIcon(nRow);
+  },
+  "drawCallback": function drawCallback(oSettings) {
+    responsiveHelper_datatable_tabletools.respond();
+  }
 };
-var datatable;
+
 $(document).ready(function () {
-    pageSetUp();
-    //Roles.all();
-    datatable = $('#' + tabla).DataTable(dataTable);
+  pageSetUp();
+  datatable = $('#' + tabla).DataTable(dataTable);
 });
-/**
-   
-*/
+
 editar = function editar(id) {
-    vm.accion = 'editar';
-    Tareas.get(id);
-    $("#userModal").modal();
+  // vm.accion = 'editar';
+  // Roles.get(id);
+  $("#modal-tarea").modal();
 };
-desactivar = function desactivar(id) {
-    reload();
-};
-activar = function activar(id) {
-    reload();
-};
-reload = function reload() {
-    datatable.ajax.reload(null, false);
-};
-roles = function roles() {
-    var rolesUser = [];
-    for (i = vm.user.roles.length - 1; i >= 0; i--) {
-        rolesUser.push(vm.user.roles[i].id);
-    }
-    $selectRoles.val(rolesUser).trigger("change");
-};
+
+>>>>>>> 6105f759bd381548c46b5301ab09117cb4020cfc

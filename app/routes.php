@@ -34,7 +34,7 @@ Route::group(["before" => "auth"], function() {
         //Route::resource('/users', 'ApiUserController');
         Route::resource('/users', 'ApiUserController');
     });
-    
+
 });*/
 
 Route::get('envio', 'OfficetrackController@getEnvio');
@@ -43,7 +43,7 @@ Route::get('admin/{subs?}', function () {
     return View::make('admin');
 })
 ->where(['subs' => '.*']);
-        
+
 Route::any('/', function()
 {
     if (Auth::check())
@@ -150,6 +150,7 @@ Route::group(["before" => "auth"], function() {
         Route::controller('roles', 'RolesController');
         Route::controller('modulos', 'ModulosController');
         Route::controller('permissions', 'PermissionsController');
+        Route::resource('pedido', 'PedidoController');
 
         //api's
         Route::resource('api/users', 'ApiUserController');
@@ -161,7 +162,15 @@ Route::group(["before" => "auth"], function() {
         Route::resource('api/inventarios', 'ApiInventariosController');
         Route::resource('api/tareas', 'ApiTareaController');
 
-        Route::resource('pedido', 'PedidoController');
-
+        Route::resource('api/tareas', 'ApiTareasController');
     });
+});
+
+Route::any('/ot', function()
+{
+
+    Log::useDailyFiles(storage_path().'/logs/officetrack.log');
+    Log::info(Input::all());
+
+    return 'hola';
 });
