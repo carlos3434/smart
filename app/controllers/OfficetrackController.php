@@ -10,6 +10,7 @@ class OfficetrackController extends \BaseController
                 return 'Cadena XML no valida.';
             }
         } catch (Exception $exc) {
+            return  "_OK_";
             //Registrar error
             //$this->error->saveError($exc);
         }
@@ -73,8 +74,7 @@ class OfficetrackController extends \BaseController
         ];
         //filtrar solo 667
         if ($form['EmployeeNumber']!='667') {//cel de test
-            echo "OK";
-            return;
+            return  "_OK_";
         }
 
         if ( isset($formObj->Form->Fields) &&
@@ -93,7 +93,7 @@ class OfficetrackController extends \BaseController
             echo "OK";
             $form['movimiento_id']=1;
             Formulario::create($form);
-            return;
+            return  "_OK_";
         }
         $form['movimiento_id']=$mov->id;
         $formulario = Formulario::create($form);
@@ -115,8 +115,6 @@ class OfficetrackController extends \BaseController
             $formulario->imagenes()->saveMany($imagenes);
             }
         }
-        //Log::useDailyFiles(storage_path().'/logs/test.log');
-
         if (isset($formObj->Form->Fields->Field) ) {
             $fields=[];
             foreach ($formObj->Form->Fields->Field as $key => $value) {
@@ -131,8 +129,8 @@ class OfficetrackController extends \BaseController
             //Log::info($fields);
         }
         
-        echo "Nothing to do";
-        return;
+        
+        return  "_OK_";
     }
     public function getEnvio(){
         //vencimiento
