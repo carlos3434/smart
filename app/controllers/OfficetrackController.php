@@ -11,7 +11,7 @@ class OfficetrackController extends \BaseController
             }
         } catch (Exception $exc) {
             //Registrar error
-            $this->error->saveError($exc);
+            //$this->error->saveError($exc);
         }
         $formObj = simplexml_load_string($forms);
         $form =[
@@ -167,5 +167,13 @@ class OfficetrackController extends \BaseController
         if($response->CreateOrUpdateTaskResult=='OK'){
             var_dump($response);
         }
+    }
+    private function is_valid_xml($xml)
+    {
+        libxml_use_internal_errors(true);
+        $doc = new \DOMDocument('1.0', 'utf-8');
+        $doc->loadXML($xml);
+        $errors = libxml_get_errors();
+        return empty($errors);
     }
 }
