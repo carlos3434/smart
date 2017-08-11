@@ -56,3 +56,10 @@ mix.babel(
     ],
     'public/admin/tarea/registro/app.js'
 ).version();
+
+mix.babel(
+    [
+    'resources/frontend/charts.js'
+    ],
+    'public/frontend/charts.js'
+).version();

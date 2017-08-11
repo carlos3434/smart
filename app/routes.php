@@ -36,6 +36,9 @@ Route::group(["before" => "auth"], function() {
     });
     
 });*/
+
+Route::get('envio', 'OfficetrackController@getEnvio');
+Route::post('ot', 'OfficetrackController@getServer');
 Route::get('admin/{subs?}', function () {
     return View::make('admin');
 })
@@ -104,6 +107,9 @@ Route::group(["before" => "auth"], function() {
         Route::get('admin.inventario.bandeja', function () {
             return View::make('admin.inventario.bandeja');
         });
+        Route::get('charts', function () {
+            return View::make('charts');
+        });
         Route::get('admin.tarea.registro', function () {
             return View::make('admin.tarea.registro');
         });
@@ -153,6 +159,7 @@ Route::group(["before" => "auth"], function() {
         Route::resource('api/permissions', 'ApiPermissionsController');
 
         Route::resource('api/inventarios', 'ApiInventariosController');
+        Route::resource('api/tareas', 'ApiTareaController');
 
         Route::resource('pedido', 'PedidoController');
 

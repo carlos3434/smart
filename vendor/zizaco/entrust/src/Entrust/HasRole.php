@@ -22,10 +22,10 @@ trait HasRole
      *
      * @return bool
      */
-    public function hasRole($name)
+    public function hasRole($nombre)
     {
         foreach ($this->roles as $role) {
-            if ($role->name == $name) {
+            if ($role->nombre == $nombre) {
                 return true;
             }
         }
@@ -42,7 +42,7 @@ trait HasRole
      */
     public function can($permission)
     {
-        foreach ($this->roles as $role) {
+        foreach ($this->roles as $role) { //var_dump($role->permissions);
             // Deprecated permission value within the role table.
             if (is_array($role->permissions) && in_array($permission, $role->permissions) ) {
                 return true;
@@ -50,7 +50,7 @@ trait HasRole
 
             // Validate against the Permission table
             foreach ($role->perms as $perm) {
-                if ($perm->name == $permission) {
+                if ($perm->nombre == $permission) {
                     return true;
                 }
             }

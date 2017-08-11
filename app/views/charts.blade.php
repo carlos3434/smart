@@ -98,17 +98,18 @@
     
               <!-- widget content -->
               <div class="widget-body no-padding">
+                <canvas id="myChart" width="400" height="400"></canvas>
 
                 <table id="datatable_tabletools" class="table table-striped table-bordered table-hover" width="100%">
                   <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>Codigo</th>
-                      <th data-hide="phone,tablet">observacion</th>
+                      <th data-hide="phone">ID</th>
+                      <th data-class="expand">Name</th>
+                      <th>Phone</th>
                       <th data-hide="phone">Company</th>
                       <th data-hide="phone,tablet">Zip</th>
-                      <th data-class="expand">[]</th>
-                      <th>Estado</th>
+                      <th data-hide="phone,tablet">[]</th>
+                      <th data-hide="phone,tablet">Estado</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -135,7 +136,7 @@
     </section>
     <!-- end widget grid -->
       @push('formulario')
-         @include( 'admin.tarea.registro.form' )
+         @include( 'admin.mantenimiento.user.form' )
       @endpush
   </div>
       <!-- END MAIN CONTENT -->
@@ -150,12 +151,12 @@
     <script src="js/plugin/datatables/dataTables.tableTools.min.js"></script>
     <script src="js/plugin/datatables/dataTables.bootstrap.min.js"></script>
     <script src="js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
-    <script src="js/plugin/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
-    <script src="js/plugin/fuelux/wizard/wizard.min.js"></script>
+
     <script src="/js/plugin/vue/vue-2.3.3.js"></script>
     <script src="/js/plugin/vue/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 
-    {{HTML::script(mix('/admin/tarea/registro/app.js'))}}
+    {{HTML::script(mix('/frontend/charts.js'))}}
     <!--<script src="/admin/mantenimiento/users_ajax.js"></script>
     <script src="/admin/mantenimiento/users.js"></script>-->
 @endpush

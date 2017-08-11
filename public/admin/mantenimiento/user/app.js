@@ -89,7 +89,6 @@ var Roles = {
         });
     }
 };
-
 var vm = new Vue({
     el: '#main',
     data: {
@@ -225,7 +224,7 @@ $(document).ready(function () {
     datatable = $('#' + tabla).DataTable(dataTable);
 });
 /**
-
+   
 */
 editar = function editar(id) {
     vm.accion = 'editar';

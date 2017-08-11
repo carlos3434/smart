@@ -48,15 +48,16 @@ class CreateTareasTable extends Migration
 
         Schema::create('tareas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('codigo',50);
+            $table->string('TaskNumber',50);
+            $table->string('EmployeeNumber',50);
+            $table->string('DueDate',50);
+            $table->string('Duration',50);
+            $table->string('Notes',50);
+            $table->string('Description',50);
+            $table->string('CustomerName',50);
+            $table->string('Address',50);
             $table->string('coordx',50);
             $table->string('coordy',50);
-            $table->string('foto1',50);
-            $table->string('foto2',50);
-            $table->string('foto3',50);
-            $table->string('foto4',50);
-            $table->string('foto5',50);
-            $table->string('observacion',50);
 
             $table->integer('tipo_tarea_id')->unsigned();
             $table->foreign('tipo_tarea_id')->references('id')->on('tipo_tareas')
@@ -64,6 +65,35 @@ class CreateTareasTable extends Migration
 
             $table->integer('estado_tarea_id')->unsigned();
             $table->foreign('estado_tarea_id')->references('id')->on('estado_tareas')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
+        Schema::create('movimientos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('TaskNumber',50);
+            $table->string('EmployeeNumber',50);
+            $table->string('DueDate',50);
+            $table->string('Duration',50);
+            $table->string('Notes',50);
+            $table->string('Description',50);
+            $table->string('CustomerName',50);
+            $table->string('Address',50);
+            $table->string('coordx',50);//operador
+            $table->string('coordy',50);//operador
+
+            $table->integer('tipo_tarea_id')->unsigned();
+            $table->foreign('tipo_tarea_id')->references('id')->on('tipo_tareas')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->integer('estado_tarea_id')->unsigned();
+            $table->foreign('estado_tarea_id')->references('id')->on('estado_tareas')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->integer('tarea_id')->unsigned();
+            $table->foreign('tarea_id')->references('id')->on('tareas')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
