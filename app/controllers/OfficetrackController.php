@@ -76,6 +76,17 @@ class OfficetrackController extends \BaseController
             echo "OK";
             return;
         }
+
+        if ( isset($formObj->Form->Fields) &&
+            isset($formObj->Form->Fields->Field) &&
+            isset($formObj->Form->Fields->Field->Id) &&
+            $formObj->Form->Fields->Field->Id=='Ubicación actual' ){
+
+            $coord = $formObj->Form->Fields->Field->Value;
+            list($y,$x) = explode(",", $coord );
+            $form['Y'] = $y;
+            $form['X'] = $x;
+        }
         //buscar id de tarea
         $mov = Movimiento::where('TaskNumber',$form['TaskNumber'])->first();
         if (is_null($mov)) {
