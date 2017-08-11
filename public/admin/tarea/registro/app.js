@@ -2,12 +2,12 @@ var vm = new Vue({
   el: '#main',
   data: {
     tarea: {
-      codigo: '',
+      TaskNumber: '',
       estado: '',
       cordenadax: '',
       cordenaday: '',
       tipo_tarea: '',
-      observacion: ''
+      Description: ''
     },
     accion: ''
   },
@@ -42,8 +42,8 @@ var breakpointDefinition = {
 var columnDefs = [
   {
     "targets": 0,
-    "data": "codigo",
-    "name": "codigo",
+    "data": "TaskNumber",
+    "name": "TaskNumber",
     "searchable": false
   }, {
     "targets": 1,
@@ -57,8 +57,8 @@ var columnDefs = [
     "searchable": false
   }, {
     "targets": 3,
-    "data": "observacion",
-    "name": "observacion"
+    "data": "Description",
+    "name": "Description"
   }, {
     "targets": 4,
     "data": "tipo",
@@ -140,5 +140,3 @@ editar = function editar(id) {
   // Roles.get(id);
   $("#modal-tarea").modal();
 };
-
->>>>>>> 6105f759bd381548c46b5301ab09117cb4020cfc
