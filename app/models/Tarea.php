@@ -15,9 +15,13 @@ class Tarea extends Eloquent
         return $this->hasMany('Movimiento');
     }
     public function scopeTipoEstado($query){
-        return $query->join('tipo_tareas as t', 'tareas.tipo_tarea_id', '=', 't.id')
-                    ->join('estado_tareas as e', 'tareas.estado_tarea_id', '=', 'e.id')
-                    ->select('tareas.*', 't.nombre as tipo', 'e.nombre as estado');
+        return $query->join('tipo_tareas as tt', 'tareas.tipo_tarea_id', '=', 'tt.id');
 
+    }
+    public function scopeEstadoTarea($query){
+        return $query->join('estado_tareas as et', 'tareas.estado_tarea_id', '=', 'et.id');
+    }
+    public function scopeTrabajador($query){
+        return $query->leftjoin('trabajadores as t', 'tareas.EmployeeNumber', '=', 't.EmployeeNumber');
     }
 }

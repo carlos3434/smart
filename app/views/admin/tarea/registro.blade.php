@@ -55,12 +55,13 @@
                                     <thead>
                                         <tr>
                                             <th>Código</th>
-                                            <th>Coordenada X</th>
-                                            <th>Coordenada Y</th>
+                                            <th>EmployeeNumber</th>
+                                            <th>trabajador</th>
                                             <th>Observación</th>
-                                            <th>Tipo Tarea</th>
+                                            <th>Tipo</th>
                                             <th>Estado</th>
-                                            <th>Acciones</th>
+                                            <th>[]</th>
+                                            <th>[]</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -92,8 +93,7 @@
     <script src="js/plugin/datatables/dataTables.tableTools.min.js"></script>
     <script src="js/plugin/datatables/dataTables.bootstrap.min.js"></script>
     <script src="js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
-    <script src="js/plugin/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
-    <script src="js/plugin/fuelux/wizard/wizard.min.js"></script>
+
     <script src="/js/plugin/vue/vue-2.3.3.js"></script>
     <script src="/js/plugin/vue/axios.min.js"></script>
 

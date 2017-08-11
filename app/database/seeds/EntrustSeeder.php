@@ -227,7 +227,7 @@ class EntrustSeeder extends Seeder {
 
     private function permissionsAllSeeder(){
 
-        $name = 'Tables_in_smart';
+        $name = 'Tables_in_muni';
         //$name = Config::get('connections.mysql.database');
         $data = DB::select('SHOW TABLES WHERE '.$name.' NOT REGEXP "[[.low-line.]]"');
 

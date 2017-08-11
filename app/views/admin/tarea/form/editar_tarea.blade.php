@@ -12,26 +12,25 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label>Código</label>
-                        <input type="text" class="form-control" v-model='tarea.codigo'>
+                        <input type="text" class="form-control" v-model='tarea.TaskNumber'>
                     </div>
                     <div class="col-md-6">
-                        <label>Estado</label>
-                        <select class="form-control" v-model='tarea.estado'>
-                            <option>1</option>
-                        </select>
+                        <label>EmployeeNumber</label>
+                        <input type="text" class="form-control" v-model='tarea.EmployeeNumber'>
                     </div>
                 </div>
             </div>
 
             <div class="modal-body">
                 <div class="row">
+
                     <div class="col-md-6">
                         <label>Cordenada X</label>
-                        <input type="text" class="form-control" v-model='tarea.cordenadax'>
+                        <input type="text" class="form-control" v-model='tarea.coordx'>
                     </div>
                     <div class="col-md-6">
                         <label>Cordenada Y</label>
-                        <input type="text" class="form-control" v-model='tarea.cordenaday'>
+                        <input type="text" class="form-control" v-model='tarea.coordy'>
                     </div>
                 </div>
             </div>
@@ -45,8 +44,18 @@
                         </select>
                     </div>
                     <div class="col-md-6">
+                        <label>Estado de Tarea</label>
+                        <select class="form-control" v-model='tarea.estado_tarea'>
+                            <option>1</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
                         <label>Observación</label>
-                        <textarea class="form-control" rows="3" v-model='tarea.observacion'></textarea>
+                        <textarea class="form-control" rows="3" v-model='tarea.Description'></textarea>
                     </div>
                 </div>
             </div>

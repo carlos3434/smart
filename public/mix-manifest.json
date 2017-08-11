@@ -4,5 +4,6 @@
     "/admin/mantenimiento/modulos/app.js": "/admin/mantenimiento/modulos/app.js?id=e06e7e054e1d4792c214",
     "/admin/mantenimiento/submodulos/app.js": "/admin/mantenimiento/submodulos/app.js?id=142bac7f296f77f9708d",
     "/admin/inventario/bandeja/app.js": "/admin/inventario/bandeja/app.js?id=ea59f7cc0dda141c40b7",
-    "/admin/tarea/registro/app.js": "/admin/tarea/registro/app.js?id=d41d8cd98f00b204e980"
+    "/admin/tarea/registro/app.js": "/admin/tarea/registro/app.js?id=882aa011e8993a13c7eb",
+    "/frontend/charts.js": "/frontend/charts.js?id=ce8185bb0a4c2014e8b8"
 }

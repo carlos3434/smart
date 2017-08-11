@@ -1,8 +1,9 @@
-const vm = new Vue({
+let vm = new Vue({
     el: '#main',
     data: {
-        user:{},
-        roles: [],
+        //user:{},
+        //roles: [],
+        tarea: [],
         accion:''
     },
     methods: {
@@ -11,14 +12,14 @@ const vm = new Vue({
             if (vm.accion=='nuevo') {
                 Tareas.store();
             } else {
-                Tareas.update(vm.user.id);
+                Tareas.update(vm.tarea.id);
             }
         },
         /**boton llama a modal, nuevo user */
         storeUser: function () {
-            $("#userModal").modal();
+            $("#modal-tarea").modal();
             vm.accion = 'nuevo';
-            vm.user = {};
+            vm.tarea = {};
             $selectRoles.val([]).trigger("change");
         },
         roles: function(){
@@ -27,7 +28,7 @@ const vm = new Vue({
     },
 });
 
-var tabla='datatable_tabletools';
+var tabla='tabla_registro_tarea';
 
 /* BASIC ;*/
 var responsiveHelper_datatable_tabletools = undefined;
@@ -41,11 +42,6 @@ var breakpointDefinition = {
 
 var columns=[
     {
-        data: "id",
-        name: "id",
-        searchable:false
-    },
-    {
         data: "TaskNumber",
         name: "TaskNumber",
         searchable:false
@@ -56,13 +52,23 @@ var columns=[
         searchable:false
     },
     {
-        data: "tipo_tarea_id",
-        name: "tipo_tarea_id",
+        data: "trabajador",
+        name: "trabajador",
         searchable:false
     },
     {
-        data: "estado_tarea_id",
-        name: "estado_tarea_id",
+        data: "Description",
+        name: "Description",
+        searchable:false
+    },
+    {
+        data: "tipo",
+        name: "tipo",
+        searchable:false
+    },
+    {
+        data: "estado",
+        name: "estado",
         searchable:false
     },
     {
@@ -154,7 +160,7 @@ $(document).ready(function() {
 editar=function(id){
     vm.accion='editar';
     Tareas.get(id);
-    $("#userModal").modal();
+    $("#modal-tarea").modal();
 };
 desactivar=function(id){
     reload();
@@ -165,10 +171,11 @@ activar=function(id){
 reload=function(){
     datatable.ajax.reload(null,false);
 };
+/*
 roles=function(){
     var rolesUser=[];
     for ( i = vm.user.roles.length - 1; i >= 0; i--) {
         rolesUser.push(vm.user.roles[i].id);
     }
     $selectRoles.val(rolesUser).trigger("change");
-};
+};*/

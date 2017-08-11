@@ -5,7 +5,14 @@ class ApiTareasController extends Controller
 
     public function index()
     {
-        $tareas = Tarea::tipoEstado()->searchPaginateAndOrder();
+        $tareas = Tarea::tipoEstado()
+                ->estadoTarea()
+                ->trabajador()
+                ->select(
+                    'tareas.*', 'tt.nombre as tipo', 'et.nombre as estado',
+                    't.EmployeeNumber','t.nombres as trabajador'
+                )
+                ->searchPaginateAndOrder();
 
         return Response::json($tareas);
     }
@@ -17,7 +24,7 @@ class ApiTareasController extends Controller
 
     public function store()
     {
-        $role = new Role(Input::except('submodulos'));
+        $role = new Tarea(Input::except('submodulos'));
         if ($role->save()){
 
         } else {
@@ -37,7 +44,7 @@ class ApiTareasController extends Controller
 
     public function show($id)
     {
-        return Role::with('permissions')->findOrFail($id);
+        return Tarea::with('movimientos')->findOrFail($id);
     }
 
     public function edit($id)
@@ -46,7 +53,7 @@ class ApiTareasController extends Controller
 
     public function update($id)
     {
-        $role = Role::findOrFail($id);
+        $role = Tarea::findOrFail($id);
         $respuestaUpdate = $role->update(Input::all());
 
         $permisos=[];
@@ -85,6 +92,6 @@ class ApiTareasController extends Controller
 
     public function destroy($id)
     {
-        Role::findOrFail($id)->delete();
+        Tarea::findOrFail($id)->delete();
     }
 }

@@ -15,8 +15,8 @@ var Tareas={
             headerAxios
         )
         .then(response => {
-            vm.user = response.data;
-            roles();
+            vm.tarea = response.data;
+            //roles();
         })
         .catch(e => {
             this.errors.push(e);
@@ -25,17 +25,17 @@ var Tareas={
     /** guardar nuevo
     */
     store:function(){
-        vm.user.fecha_nacimiento =  $('input[name=fecha_nacimiento]').val();
-        vm.user.roles = $('#roles').val();
+        //vm.user.fecha_nacimiento =  $('input[name=fecha_nacimiento]').val();
+        //vm.user.roles = $('#roles').val();
 
         axios.post(
             url,
-            vm.user,
+            vm.tarea,
             headerAxios
         )
         .then(response => {
             reload();
-            $("#userModal").modal('hide');
+            $("#modal-tarea").modal('hide');
         })
         .catch(e => {
             this.errors.push(e);
@@ -44,16 +44,16 @@ var Tareas={
     /** guardar existente
     */
     update:function(id){
-        vm.user.fecha_nacimiento =  $('input[name=fecha_nacimiento]').val();
-        vm.user.roles = $('#roles').val();
+        //vm.user.fecha_nacimiento =  $('input[name=fecha_nacimiento]').val();
+        //vm.user.roles = $('#roles').val();
         axios.put(
             url+'/'+id,
-            vm.user,
+            vm.tarea,
             headerAxios
         )
         .then(response => {
             reload();
-            $("#userModal").modal('hide');
+            $("#modal-tarea").modal('hide');
         })
         .catch(e => {
             this.errors.push(e);
@@ -72,6 +72,7 @@ var Tareas={
         });
     }
 };
+/*
 var $validator = $("#wizard-1").validate({
   
   rules: {
@@ -163,3 +164,4 @@ wizard.on('finished', function (e, data) {
   });
   
 });
+*/
