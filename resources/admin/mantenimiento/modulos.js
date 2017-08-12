@@ -10,6 +10,7 @@ var vm = new Vue({
         /**boton de modal Guardar*/
         guardarModulo: function () {
             if (vm.accion=='nuevo') {
+                vm.modulo.modulo_id=0;
                 Modulos.store();
             } else {
                 Modulos.update(vm.modulo.id);

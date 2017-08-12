@@ -31,16 +31,19 @@ class EntrustSeeder extends Seeder {
             'nombre' => 'Mantenimiento',
             'url'  => 'mantenimiento',
             'icon' => 'fa-map-marker',
+            'modulo_id' => 0
         ));
         DB::table('modulos')->insert(array(
             'nombre' => 'Procesos',
             'url'  => 'procesos',
             'icon' => 'fa-map-marker',
+            'modulo_id' => 0
         ));
         DB::table('modulos')->insert(array(
             'nombre' => 'Configuracion',
             'url'  => 'Configuracion',
             'icon' => 'fa-map-marker',
+            'modulo_id' => 0
         ));
     }
 

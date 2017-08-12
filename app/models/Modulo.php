@@ -15,14 +15,14 @@ class Modulo extends Eloquent
      */
     public function scopeRaiz($query)
     {
-        return $query->whereNull('modulo_id');
+        return $query->where('modulo_id',0);
     }
     /**
      * Submodulos relationship
      */
     public function scopeChild($query)
     {
-        return $query->whereNotNull('s.modulo_id');
+        return $query->where('s.modulo_id','<>',0);
     }
 
     /**

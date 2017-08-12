@@ -10,7 +10,7 @@ class ApiModulosController extends Controller
      */
     public function index()
     {
-        $modulos = Modulo::WhereNull('modulo_id')->searchPaginateAndOrder();
+        $modulos = Modulo::raiz('modulo_id')->searchPaginateAndOrder();
         return Response::json(
             $modulos
         );
