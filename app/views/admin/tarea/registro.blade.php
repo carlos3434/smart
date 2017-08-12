@@ -96,7 +96,9 @@
 
     <script src="/js/plugin/vue/vue-2.3.3.js"></script>
     <script src="/js/plugin/vue/axios.min.js"></script>
-
+    {{ HTML::script('https://maps.googleapis.com/maps/api/js?key='.Config::get('constantes.map.key').'&libraries=places,geometry,drawing') }}
+    {{ HTML::script("/js/plugin/markerclusterer/markerclusterer.js") }}
+    {{ HTML::script("/js/plugin/markerclusterer/OverlappingMarkerSpiderfier-oms.js") }}
     {{HTML::script(mix('/admin/tarea/registro/app.js'))}}
     <!--<script src="/admin/mantenimiento/users_ajax.js"></script>
     <script src="/admin/mantenimiento/users.js"></script>-->

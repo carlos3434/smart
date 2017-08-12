@@ -59,6 +59,13 @@
                     </div>
                 </div>
             </div>
+            <div class="modal-body">
+                <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-control" id="mapa_tarea" style="height: 300px;"></div>
+                        </div>
+                    </div>
+            </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

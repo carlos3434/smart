@@ -1,10 +1,16 @@
 let vm = new Vue({
     el: '#main',
     data: {
-        //user:{},
-        //roles: [],
+        errors: [],
         tarea: [],
-        accion:''
+        accion:'',
+
+        movimientos:[],
+        map:[],
+        markers:[],
+        bounds:[],
+        line:[],
+        nomarkers:[],
     },
     methods: {
         /**boton de modal Guardar*/
@@ -27,7 +33,59 @@ let vm = new Vue({
         },
     },
 });
+var gm = google.maps;
 
+var config = {
+    el: 'mapa_tarea',
+    lat: -12.109129,
+    lon: -77.016123,
+    zoom: 15,
+    minZoom: 15,
+    type: gm.MapTypeId.ROADMAP
+};
+
+var spiderConfig = {
+    keepSpiderfied: true,
+    event: 'mouseover'
+};
+
+var mapOptions = {
+    center: new gm.LatLng(config.lat, config.lon),
+    zoom: config.zoom,
+    mapTypeId: config.type
+};
+var markerSpiderfier;
+var infoWindows = [];
+removeMarkers = function() {
+    for (var i = 0; i < vm.markers.length; i++) {
+        vm.markers[i].setMap(null);
+    }
+    vm.markers=[];
+};
+addMarker=function(coordy,coordx,label,icon){
+    var location = new gm.LatLng(coordy, coordx);
+    var marker = new gm.Marker({
+        position: location,
+        //icon: icon,
+        map: vm.map
+    });
+    vm.markers.push(marker);
+    vm.bounds.extend(location);
+    marker.infowindow = new gm.InfoWindow({content: label});
+
+    gm.event.addListener(marker,'click', function() {
+        if(infoWindows.length>0){
+            for (var j=0;j<infoWindows.length;j++) {
+                infoWindows[j].close();
+            }
+        }
+        this.infowindow.open(vm.map,this);
+        infoWindows.push(this.infowindow);
+    });
+    markerSpiderfier.addMarker(marker);
+};
+
+////////////////////////////
 var tabla='tabla_registro_tarea';
 
 /* BASIC ;*/
@@ -153,14 +211,23 @@ $(document).ready(function() {
     pageSetUp();
     //Roles.all();
     datatable = $('#'+tabla).DataTable(dataTable);
+    //$('#st-detalle a').on('shown.bs.tab', function(e){
+
+    $('#modal-tarea').on('shown.bs.modal', function (event) {
+        //if ($(this)[0].hash=='#mapa') {
+            //pintarMapa();
+        //}
+        Tareas.get(vm.tarea.id);
+    });
 });
 /**
    
 */
 editar=function(id){
+    vm.tarea.id=id;
     vm.accion='editar';
-    Tareas.get(id);
     $("#modal-tarea").modal();
+    //Tareas.get(id);
 };
 desactivar=function(id){
     reload();
@@ -171,11 +238,25 @@ activar=function(id){
 reload=function(){
     datatable.ajax.reload(null,false);
 };
-/*
-roles=function(){
-    var rolesUser=[];
-    for ( i = vm.user.roles.length - 1; i >= 0; i--) {
-        rolesUser.push(vm.user.roles[i].id);
+pintarMapa=function () {
+    try { markerSpiderfier.clearMarkers(); }catch(c){}
+    removeMarkers();
+    vm.map = new gm.Map(
+        document.getElementById("mapa_tarea"),
+        mapOptions
+    );
+    markerSpiderfier = new OverlappingMarkerSpiderfier(vm.map, spiderConfig);
+
+    vm.bounds = new gm.LatLngBounds();
+    //var icon = "img/icons/tec_0e8499.png";
+    for (var i = vm.movimientos.length - 1; i >= 0; i--) {
+        var coordx = parseFloat(vm.movimientos[i].coordx);
+        var coordy = parseFloat(vm.movimientos[i].coordy);
+        icon = "/img/icons/tap.png";
+        label = "<label><b>TAP</b></label>";
+        addMarker( coordy, coordx, label, icon);
     }
-    $selectRoles.val(rolesUser).trigger("change");
-};*/
+    var markerCluster = new MarkerClusterer(vm.map, vm.markers);
+    markerCluster.setMaxZoom(config.minZoom);
+    vm.map.fitBounds(vm.bounds);
+};

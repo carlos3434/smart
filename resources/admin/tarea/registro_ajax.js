@@ -16,10 +16,12 @@ var Tareas={
         )
         .then(response => {
             vm.tarea = response.data;
+            vm.movimientos = response.data.movimientos;
+            pintarMapa();
             //roles();
         })
         .catch(e => {
-            this.errors.push(e);
+            vm.errors.push(e);
         });
     },
     /** guardar nuevo
@@ -38,7 +40,7 @@ var Tareas={
             $("#modal-tarea").modal('hide');
         })
         .catch(e => {
-            this.errors.push(e);
+            vm.errors.push(e);
         });
     },
     /** guardar existente
@@ -56,7 +58,7 @@ var Tareas={
             $("#modal-tarea").modal('hide');
         })
         .catch(e => {
-            this.errors.push(e);
+            vm.errors.push(e);
         });
     },
     destroy:function(id){
@@ -68,7 +70,7 @@ var Tareas={
             user = response;
         })
         .catch(e => {
-            this.errors.push(e);
+            vm.errors.push(e);
         });
     }
 };
