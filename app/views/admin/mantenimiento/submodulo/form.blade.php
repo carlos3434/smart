@@ -44,7 +44,7 @@
                 <div class="col-sm-12">
                     <div class="form-group">
                           <label>
-                            Roles
+                            Modulos
                           </label>
                           <select id='modulos' style="width:100%" class="select2">
                               <template v-for="modulo in modulos">
@@ -58,7 +58,36 @@
                 </div>
             </div>
             <!-- /.permisos -->
-            
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="box-title">Permisos</h3>
+                </div>
+                <div class="box-body">
+                  <table class="table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                      <th class="col-md-4" style="text-align:center;">submodulo</th>
+                      <th class="col-md-2" style="text-align:center;">crear</th>
+                      <th class="col-md-2" style="text-align:center;">leer</th>
+                      <th class="col-md-2" style="text-align:center;">editar</th>
+                      <th class="col-md-2" style="text-align:center;">eliminar</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tr_academicos">
+                      <tr>
+                        <td>
+                            <label>
+                                @{{submodulo.nombre}}
+                            </label>
+                        </td>
+                        <td v-for="permiso in permisos">
+                            <input type="checkbox" v-model="permiso.estado">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div>
         </form>
       </div>
       <div class="modal-footer">

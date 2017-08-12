@@ -44,6 +44,7 @@
         </li>
       @endforeach
     @endif
+    <!-- 
       <li>
         <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Inventario</span></a>
         <ul>
@@ -58,6 +59,8 @@
           </li>
         </ul> 
       </li>
+      -->
+      <!-- 
       <li>
         <a href="#" title="Dashboard"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Dashboard</span></a>
         <ul>
@@ -68,7 +71,7 @@
             <a href="dashboard-social.html" title="Dashboard"><span class="menu-item-parent">Social Wall</span></a>
           </li>
         </ul> 
-      </li>
+      </li>-->
     </ul>
   </nav>
 

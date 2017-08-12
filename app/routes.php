@@ -44,6 +44,11 @@ Route::get('admin/{subs?}', function () {
 })
 ->where(['subs' => '.*']);
 
+Route::get('test',function(){
+    $mov = Movimiento::where('TaskNumber',1234567)->first();
+    var_dump($mov);
+});
+
 Route::any('/', function()
 {
     if (Auth::check())
@@ -103,6 +108,12 @@ Route::group(["before" => "auth"], function() {
 
         Route::get('admin.inventario.registro', function () {
             return View::make('admin.inventario.registro');
+        });
+        Route::get('admin.inventario.recepcion', function () {
+            return View::make('admin.inventario.recepcion');
+        });
+        Route::get('admin.inventario.transferencia', function () {
+            return View::make('admin.inventario.transferencia');
         });
         Route::get('admin.inventario.bandeja', function () {
             return View::make('admin.inventario.bandeja');

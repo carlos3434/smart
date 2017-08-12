@@ -121,6 +121,8 @@ class ApiSubModulosController extends Controller
      */
     public function update($id)
     {
+        //buscar si se estan actualizando los permisos
+        
         $modulo = Modulo::findOrFail($id);
         $response = $modulo->update(Input::all());
 

@@ -16,6 +16,8 @@ class EntrustSeeder extends Seeder {
         $this->submodulosSeeder();
         $this->permissionsUserSeeder();
         $this->permissionsRoleSeeder();
+        $this->permissionsModulosSeeder();
+        $this->permissionsSubmodulosSeeder();
         $this->permissionsSeeder();
         $this->permissionsAllSeeder();
         $this->rolesSeeder();
@@ -177,6 +179,103 @@ class EntrustSeeder extends Seeder {
         ));
     }
 
+    private function permissionsModulosSeeder(){
+        $sql = "SELECT id FROM modulos WHERE nombre='modulos'";
+        $data = DB::select($sql);
+        $submoduloId = 1;
+        if (count($data)>0) {
+            $submoduloId = $data[0]->id;
+        }
+        DB::table('permissions')->insert(array(
+            'nombre' => 'create-modulos',
+            'nombre_mostrar' => 'Create modulos',
+            'descripcion' => 'Create modulos',
+            'orden' => 1,
+            'submodulo_id' => $submoduloId,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ));
+
+        DB::table('permissions')->insert(array(
+            'nombre' => 'read-modulos',
+            'nombre_mostrar' => 'Read modulos',
+            'descripcion' => 'List modulos',
+            'orden' => 2,
+            'submodulo_id' => $submoduloId,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ));
+
+        DB::table('permissions')->insert(array(
+            'nombre' => 'update-modulos',
+            'nombre_mostrar' => 'Update modulos',
+            'descripcion' => 'Update modulos',
+            'orden' => 3,
+            'submodulo_id' => $submoduloId,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ));
+
+        DB::table('permissions')->insert(array(
+            'nombre' => 'delete-modulos',
+            'nombre_mostrar' => 'Delete modulos',
+            'descripcion' => 'Delete modulos',
+            'orden' => 4,
+            'submodulo_id' => $submoduloId,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ));
+    }
+
+
+    private function permissionsSubmodulosSeeder(){
+        $sql = "SELECT id FROM modulos WHERE nombre='submodulos'";
+        $data = DB::select($sql);
+        $submoduloId = 1;
+        if (count($data)>0) {
+            $submoduloId = $data[0]->id;
+        }
+        DB::table('permissions')->insert(array(
+            'nombre' => 'create-submodulos',
+            'nombre_mostrar' => 'Create submodulos',
+            'descripcion' => 'Create submodulos',
+            'orden' => 1,
+            'submodulo_id' => $submoduloId,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ));
+
+        DB::table('permissions')->insert(array(
+            'nombre' => 'read-submodulos',
+            'nombre_mostrar' => 'Read submodulos',
+            'descripcion' => 'List submodulos',
+            'orden' => 2,
+            'submodulo_id' => $submoduloId,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ));
+
+        DB::table('permissions')->insert(array(
+            'nombre' => 'update-submodulos',
+            'nombre_mostrar' => 'Update submodulos',
+            'descripcion' => 'Update submodulos',
+            'orden' => 3,
+            'submodulo_id' => $submoduloId,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ));
+
+        DB::table('permissions')->insert(array(
+            'nombre' => 'delete-submodulos',
+            'nombre_mostrar' => 'Delete submodulos',
+            'descripcion' => 'Delete submodulos',
+            'orden' => 4,
+            'submodulo_id' => $submoduloId,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ));
+    }
+
     private function permissionsSeeder(){
         $sql = "SELECT id FROM modulos WHERE nombre='permissions'";
         $data = DB::select($sql);
@@ -227,14 +326,15 @@ class EntrustSeeder extends Seeder {
 
     private function permissionsAllSeeder(){
 
-        $name = 'Tables_in_muni';
+        $name = 'Tables_in_smart';
         //$name = Config::get('connections.mysql.database');
         $data = DB::select('SHOW TABLES WHERE '.$name.' NOT REGEXP "[[.low-line.]]"');
 
         foreach($data as $value) {
 
             if(($value->$name != 'users') && ($value->$name != 'migrations') &&
-                ($value->$name != 'roles') && ($value->$name != 'permissions')) {
+                ($value->$name != 'roles') && ($value->$name != 'permissions') &&
+                ($value->$name != 'modulos') && ($value->$name != 'submodulos')) {
                 //buscar modul
                 $sql = "SELECT id FROM modulos WHERE nombre=?";
                 $data = DB::select($sql,[$value->$name]);

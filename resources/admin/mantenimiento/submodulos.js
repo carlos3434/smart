@@ -4,10 +4,21 @@ var vm = new Vue({
     data: {
         submodulo:{},
         modulos:{},
+        permisos:{},
         accion:''
     },
 
     methods: {
+        setPermisosCRUD:function(){
+            vm.permisos =[];
+            for (var i = 3; i >= 0; i--) {
+                var permiso = {
+                    orden: 1,
+                    estado: false
+                };
+                vm.permisos.push(permiso);
+            }
+        },
         /**boton de modal Guardar*/
         guardarModulo: function () {
             if (vm.accion=='nuevo') {
@@ -18,10 +29,15 @@ var vm = new Vue({
         },
         /**boton llama a modal, nuevo rol */
         storeModulo: function () {
-            $("#submoduloModal").modal();
             vm.accion = 'nuevo';
-            vm.submodulo = {};
+            //vm.submodulo.icon = '';
+            //vm.submodulo.url = '';
+            //vm.submodulo.nombre = '';
+            vm.submodulo={};
+            //this.setPermisosCRUD();
             $selectModulos.val([]).trigger("change");
+            
+            $("#submoduloModal").modal();
         },
     },
 });
@@ -155,6 +171,7 @@ $(document).ready(function() {
     pageSetUp();
     datatable = $('#'+tabla).DataTable(dataTable);
     Modulos.all();
+    vm.setPermisosCRUD();
 });
 /**
    boton llama a modal, editar rol
@@ -172,4 +189,25 @@ activar=function(id){
 };
 reload=function(){
     datatable.ajax.reload(null,false);
+};
+pintarPermisos=function(permisos){
+    if (vm.permisos) {
+        //re correr los permisos y markar los que no esten con deleted_at null
+        for (var i = vm.permisos.length - 1; i >= 0; i--) {
+            if (vm.permisos[i].deleted_at) {
+                vm.permisos[i].estado = false;
+            } else {
+                vm.permisos[i].estado = true;
+            }
+        }
+    } else {
+        vm.permisos =[];
+        for (var i = 3; i >= 0; i--) {
+            permiso = {
+                orden: 1,
+                estado: false
+            };
+            vm.permisos.push(permiso);
+        }
+    }
 };

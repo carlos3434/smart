@@ -19,6 +19,8 @@ var Submodulos={
         $.get( "api/submodulos/"+id,
         function(response) {
             vm.submodulo = response;
+            vm.permisos = response.permisos;
+            pintarPermisos();
             $selectModulos.val(vm.submodulo.modulo_id).trigger("change");
         })
         .done(function(response) {
