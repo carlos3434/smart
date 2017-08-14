@@ -25,29 +25,28 @@ class ApiTareasController extends Controller
     public function store()
     {
         $user = Tarea::create(Input::all());
-        
         if (!is_null($user)) {
-            //enviar a officetrack
-            $dueDate = date("YmdHis", strtotime("2017-08-10 23:59:59"));
-
+            $mov = new Movimiento(Input::all());
+            $user->movimientos()->save($mov);
             $trama['TaskNumber'] = Input::get('TaskNumber');
             $trama['EmployeeNumber'] = Input::get('EmployeeNumber');
-            $trama['DueDateAsYYYYMMDDHHMMSS'] = $dueDate;
+            $trama['DueDateAsYYYYMMDDHHMMSS'] = date("YmdHis",strtotime(Input::get('DueDate')));
             $trama['Duration'] = 0.75;
             $trama['Notes'] = "";
             $trama['Description']=Input::get('Description');
-
-            $trama['CustomerName'] = '/ DELGADO DE LA FLOR DE PIEROLA, MONICA CECILIA';
+            $trama['CustomerName'] = Input::get('CustomerName');
             $trama['Location'] = [
                 "East"      => Input::get('coordx'),//lng X
                 "North"     => Input::get('coordy'),//lat Y
-                "Address"   => 'AV LA MERCED 625 UR UR MONTAGNE, Piso: 1 Int: 102 Mzn:  Lt: '
+                "Address"   => Input::get('Address')
             ];
             $ot = new Officetrack;
             $response = $ot->envio($trama);
             if($response->CreateOrUpdateTaskResult=='OK'){
                 
                 return Response::json("ok");
+            } else {
+                return Response::json("no ok");
             }
         }
         return $user;

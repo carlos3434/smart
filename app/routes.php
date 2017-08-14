@@ -183,6 +183,9 @@ Route::group(["before" => "auth"], function() {
     Route::group(["before" => "csrf"], function() {
         //controllers
         Route::controller('roles', 'RolesController');
+        Route::controller('trabajadores', 'TrabajadoresController');
+        Route::controller('estadotarea', 'EstadoTareaController');
+        Route::controller('tipotarea', 'TipoTareaController');
         Route::controller('modulos', 'ModulosController');
         Route::controller('permissions', 'PermissionsController');
         Route::resource('pedido', 'PedidoController');

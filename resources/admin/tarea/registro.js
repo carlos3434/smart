@@ -4,7 +4,9 @@ let vm = new Vue({
         errors: [],
         tarea: [],
         accion:'',
-
+        trabajadores:[],
+        estadotarea:[],
+        tipotarea:[],
         movimientos:[],
         map:[],
         markers:[],
@@ -108,8 +110,13 @@ var columns=[
         searchable:false
     },
     {
-        data: "EmployeeNumber",
-        name: "EmployeeNumber",
+        data: "created_at",
+        name: "created_at",
+        searchable:false
+    },
+    {
+        data: "DueDate",
+        name: "DueDate",
         searchable:false
     },
     {
@@ -215,7 +222,7 @@ $(document).ready(function() {
     //Roles.all();
     datatable = $('#'+tabla).DataTable(dataTable);
     //$('#st-detalle a').on('shown.bs.tab', function(e){
-
+    Listas.all();
     $('#modal-tarea').on('shown.bs.modal', function (event) {
         //if ($(this)[0].hash=='#mapa') {
             //pintarMapa();

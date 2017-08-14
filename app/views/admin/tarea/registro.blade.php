@@ -55,7 +55,8 @@
                                     <thead>
                                         <tr>
                                             <th>Código</th>
-                                            <th>EmployeeNumber</th>
+                                            <th>Registro</th>
+                                            <th>Vencimiento</th>
                                             <th>trabajador</th>
                                             <th>Observación</th>
                                             <th>Tipo</th>

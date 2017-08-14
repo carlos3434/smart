@@ -26,7 +26,10 @@ var Tareas={
     /** guardar nuevo
     */
     store:function(){
-
+        vm.tarea.DueDate =  $('input[name=DueDate]').val();
+        vm.tarea.estado_tarea_id = $('#estado_tarea_id').val();
+        vm.tarea.tipo_tarea_id = $('#tipo_tarea_id').val();
+        vm.tarea.EmployeeNumber = $('#EmployeeNumber').val();
         axios.post(
             url,
             vm.tarea,
@@ -43,6 +46,7 @@ var Tareas={
     /** guardar existente
     */
     update:function(id){
+        vm.tarea.DueDate =  $('input[name=DueDate]').val();
         axios.put(
             url+'/'+id,
             vm.tarea,
@@ -66,6 +70,26 @@ var Tareas={
         })
         .catch(e => {
             vm.errors.push(e);
+        });
+    }
+};
+var Listas ={
+    all:function(){
+        axios.all([
+            axios.get('trabajadores/lista',headerAxios),
+            axios.get('estadotarea/lista',headerAxios),
+            axios.get('tipotarea/lista',headerAxios)
+        ])
+        .then(axios.spread(function (trabajadores,estadotarea,tipotarea) {
+            vm.trabajadores = trabajadores.data;
+            vm.estadotarea = estadotarea.data;
+            vm.tipotarea = tipotarea.data;
+            /*$selectRoles = $('#roles').select2({
+                dropdownParent: $('#userModal')
+            });*/
+        }))
+        .catch(e => {
+          this.errors.push(e);
         });
     }
 };

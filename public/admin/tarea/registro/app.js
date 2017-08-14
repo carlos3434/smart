@@ -21,7 +21,10 @@ var Tareas = {
     /** guardar nuevo
     */
     store: function store() {
-
+        vm.tarea.DueDate = $('input[name=DueDate]').val();
+        vm.tarea.estado_tarea_id = $('#estado_tarea_id').val();
+        vm.tarea.tipo_tarea_id = $('#tipo_tarea_id').val();
+        vm.tarea.EmployeeNumber = $('#EmployeeNumber').val();
         axios.post(url, vm.tarea, headerAxios).then(function (response) {
             reload();
             $("#modal-tarea").modal('hide');
@@ -32,6 +35,7 @@ var Tareas = {
     /** guardar existente
     */
     update: function update(id) {
+        vm.tarea.DueDate = $('input[name=DueDate]').val();
         axios.put(url + '/' + id, vm.tarea, headerAxios).then(function (response) {
             reload();
             $("#modal-tarea").modal('hide');
@@ -47,13 +51,31 @@ var Tareas = {
         });
     }
 };
+var Listas = {
+    all: function all() {
+        var _this = this;
+
+        axios.all([axios.get('trabajadores/lista', headerAxios), axios.get('estadotarea/lista', headerAxios), axios.get('tipotarea/lista', headerAxios)]).then(axios.spread(function (trabajadores, estadotarea, tipotarea) {
+            vm.trabajadores = trabajadores.data;
+            vm.estadotarea = estadotarea.data;
+            vm.tipotarea = tipotarea.data;
+            /*$selectRoles = $('#roles').select2({
+                dropdownParent: $('#userModal')
+            });*/
+        })).catch(function (e) {
+            _this.errors.push(e);
+        });
+    }
+};
 var vm = new Vue({
     el: '#main',
     data: {
         errors: [],
         tarea: [],
         accion: '',
-
+        trabajadores: [],
+        estadotarea: [],
+        tipotarea: [],
         movimientos: [],
         map: [],
         markers: [],
@@ -155,8 +177,12 @@ var columns = [{
     name: "TaskNumber",
     searchable: false
 }, {
-    data: "EmployeeNumber",
-    name: "EmployeeNumber",
+    data: "created_at",
+    name: "created_at",
+    searchable: false
+}, {
+    data: "DueDate",
+    name: "DueDate",
     searchable: false
 }, {
     data: "trabajador",
@@ -247,7 +273,7 @@ $(document).ready(function () {
     //Roles.all();
     datatable = $('#' + tabla).DataTable(dataTable);
     //$('#st-detalle a').on('shown.bs.tab', function(e){
-
+    Listas.all();
     $('#modal-tarea').on('shown.bs.modal', function (event) {
         //if ($(this)[0].hash=='#mapa') {
         //pintarMapa();

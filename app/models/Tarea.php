@@ -24,4 +24,13 @@ class Tarea extends Eloquent
     public function scopeTrabajador($query){
         return $query->leftjoin('trabajadores as t', 'tareas.EmployeeNumber', '=', 't.EmployeeNumber');
     }
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y');
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        return Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y');
+    }
 }
