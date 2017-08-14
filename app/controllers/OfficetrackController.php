@@ -77,7 +77,7 @@ class OfficetrackController extends \BaseController
             return  "_OK_";
         }
         //if (is_null($form['Form']) || $form['Form']=='' || $form['Form']=='null') {//cel de test
-        if (!is_numeric($form['Version'])) {//cel de test
+        if (!is_numeric((int) $form['Version'])) {//cel de test
             return  "_OK_";
         }
 
