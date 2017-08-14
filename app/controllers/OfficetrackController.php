@@ -76,7 +76,7 @@ class OfficetrackController extends \BaseController
         if ($form['EmployeeNumber']!='667') {//cel de test
             return  "_OK_";
         }
-        if (is_null($form['Form'])) {//cel de test
+        if (is_null($form['Form']) || $form['Form']=='' || $form['Form']=='null') {//cel de test
             return  "_OK_";
         }
 
