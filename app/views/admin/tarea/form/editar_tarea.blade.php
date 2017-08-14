@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-
+<!-- 
             <div class="modal-body">
                 <div class="row">
 
@@ -34,18 +34,18 @@
                     </div>
                 </div>
             </div>
-
+-->
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6">
                         <label>Tipo de Tarea</label>
-                        <select class="form-control" v-model='tarea.tipo_tarea'>
+                        <select class="form-control" v-model='tarea.tipo_tarea_id'>
                             <option>1</option>
                         </select>
                     </div>
                     <div class="col-md-6">
                         <label>Estado de Tarea</label>
-                        <select class="form-control" v-model='tarea.estado_tarea'>
+                        <select class="form-control" v-model='tarea.estado_tarea_id'>
                             <option>1</option>
                         </select>
                     </div>
@@ -69,7 +69,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary btn-registrar">Enviar</button>
+                <button type="button" class="btn btn-primary" @click.prevent="guardarTarea">Enviar</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

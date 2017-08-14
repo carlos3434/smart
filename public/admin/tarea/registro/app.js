@@ -13,8 +13,7 @@ var Tareas = {
         axios.get(url + '/' + id, headerAxios).then(function (response) {
             vm.tarea = response.data;
             vm.movimientos = response.data.movimientos;
-            pintarMapa();
-            //roles();
+            pintarMarkers();
         }).catch(function (e) {
             vm.errors.push(e);
         });
@@ -22,8 +21,6 @@ var Tareas = {
     /** guardar nuevo
     */
     store: function store() {
-        //vm.user.fecha_nacimiento =  $('input[name=fecha_nacimiento]').val();
-        //vm.user.roles = $('#roles').val();
 
         axios.post(url, vm.tarea, headerAxios).then(function (response) {
             reload();
@@ -35,8 +32,6 @@ var Tareas = {
     /** guardar existente
     */
     update: function update(id) {
-        //vm.user.fecha_nacimiento =  $('input[name=fecha_nacimiento]').val();
-        //vm.user.roles = $('#roles').val();
         axios.put(url + '/' + id, vm.tarea, headerAxios).then(function (response) {
             reload();
             $("#modal-tarea").modal('hide');
@@ -52,104 +47,9 @@ var Tareas = {
         });
     }
 };
-/*
-var $validator = $("#wizard-1").validate({
-  
-  rules: {
-    email: {
-      required: true,
-      email: "Your email address must be in the format of name@domain.com"
-    },
-    fname: {
-      required: true
-    },
-    lname: {
-      required: true
-    },
-    country: {
-      required: true
-    },
-    city: {
-      required: true
-    },
-    postal: {
-      required: true,
-      minlength: 4
-    },
-    wphone: {
-      required: true,
-      minlength: 10
-    },
-    hphone: {
-      required: true,
-      minlength: 10
-    }
-  },
-  
-  messages: {
-    fname: "Please specify your First name",
-    lname: "Please specify your Last name",
-    email: {
-      required: "We need your email address to contact you",
-      email: "Your email address must be in the format of name@domain.com"
-    }
-  },
-  
-  highlight: function (element) {
-    $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-  },
-  unhighlight: function (element) {
-    $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
-  },
-  errorElement: 'span',
-  errorClass: 'help-block',
-  errorPlacement: function (error, element) {
-    if (element.parent('.input-group').length) {
-      error.insertAfter(element.parent());
-    } else {
-      error.insertAfter(element);
-    }
-  }
-});
-
-$('#bootstrap-wizard-1').bootstrapWizard({
-  'tabClass': 'form-wizard',
-  'onNext': function (tab, navigation, index) {
-    var $valid = $("#wizard-1").valid();
-    if (!$valid) {
-      $validator.focusInvalid();
-      return false;
-    } else {
-      $('#bootstrap-wizard-1').find('.form-wizard').children('li').eq(index - 1).addClass(
-        'complete');
-      $('#bootstrap-wizard-1').find('.form-wizard').children('li').eq(index - 1).find('.step')
-      .html('<i class="fa fa-check"></i>');
-    }
-  }
-});
-
-
-// fuelux wizard
-var wizard = $('.wizard').wizard();
-
-wizard.on('finished', function (e, data) {
-  //$("#fuelux-wizard").submit();
-  //console.log("submitted!");
-  $.smallBox({
-    title: "Congratulations! Your form was submitted",
-    content: "<i class='fa fa-clock-o'></i> <i>1 seconds ago...</i>",
-    color: "#5F895F",
-    iconSmall: "fa fa-check bounce animated",
-    timeout: 4000
-  });
-  
-});
-*/
 var vm = new Vue({
     el: '#main',
     data: {
-        //user:{},
-        //roles: [],
         errors: [],
         tarea: [],
         accion: '',
@@ -163,9 +63,9 @@ var vm = new Vue({
     },
     methods: {
         /**boton de modal Guardar*/
-        guardarUser: function guardarUser() {
+        guardarTarea: function guardarTarea() {
             if (vm.accion == 'nuevo') {
-                Tareas.store();
+                Tareas.store(vm.tarea);
             } else {
                 Tareas.update(vm.tarea.id);
             }
@@ -175,7 +75,8 @@ var vm = new Vue({
             $("#modal-tarea").modal();
             vm.accion = 'nuevo';
             vm.tarea = {};
-            $selectRoles.val([]).trigger("change");
+            vm.movimientos = {};
+            //$selectRoles.val([]).trigger("change");
         },
         roles: function roles() {
             Roles.all();
@@ -211,11 +112,13 @@ removeMarkers = function removeMarkers() {
     }
     vm.markers = [];
 };
-addMarker = function addMarker(coordy, coordx, label, icon) {
-    var location = new gm.LatLng(coordy, coordx);
+
+addMarker = function addMarker(location, label, icon, drag) {
+    //var location = new gm.LatLng(coordy, coordx);
     var marker = new gm.Marker({
         position: location,
         //icon: icon,
+        draggable: drag,
         map: vm.map
     });
     vm.markers.push(marker);
@@ -349,7 +252,30 @@ $(document).ready(function () {
         //if ($(this)[0].hash=='#mapa') {
         //pintarMapa();
         //}
-        Tareas.get(vm.tarea.id);
+        clearMapa();
+        iniciarMapa();
+        if (vm.accion == 'nuevo') {
+            // addMarker( coordy, coordx, label, icon,true);
+            /*
+                        var myLatlng = new google.maps.LatLng(22,79);
+                        var myOptions = {
+                          zoom: 5,
+                          center: myLatlng,
+                          mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+            
+                        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+            
+                        addMarker(myLatlng, 'Default Marker', map);
+            
+                        map.addListener('click',function(event) {
+                            addMarker(event.latLng, 'Click Generated Marker', map);
+                        };*/
+
+        } else {
+
+            Tareas.get(vm.tarea.id);
+        }
     });
 });
 /**
@@ -370,32 +296,41 @@ activar = function activar(id) {
 reload = function reload() {
     datatable.ajax.reload(null, false);
 };
-pintarMapa = function pintarMapa() {
+clearMapa = function clearMapa() {
     try {
         markerSpiderfier.clearMarkers();
     } catch (c) {}
     removeMarkers();
-    vm.map = new gm.Map(document.getElementById("mapa_tarea"), mapOptions);
-    markerSpiderfier = new OverlappingMarkerSpiderfier(vm.map, spiderConfig);
+};
 
+iniciarMapa = function iniciarMapa() {
+    vm.map = new gm.Map(document.getElementById("mapa_tarea"), mapOptions);
+
+    vm.map.addListener('click', function (event) {
+        icon = "/img/icons/tap.png";
+        //var myLatLng = event.latLng;
+        vm.tarea.coordy = event.latLng.lat();
+        vm.tarea.coordx = event.latLng.lng();
+
+        removeMarkers();
+        addMarker(event.latLng, 'Click Generated Marker', icon, true);
+    });
     vm.bounds = new gm.LatLngBounds();
+    markerSpiderfier = new OverlappingMarkerSpiderfier(vm.map, spiderConfig);
+};
+
+pintarMarkers = function pintarMarkers() {
+    //vm.bounds = new gm.LatLngBounds();
     //var icon = "img/icons/tec_0e8499.png";
     for (var i = vm.movimientos.length - 1; i >= 0; i--) {
         var coordx = parseFloat(vm.movimientos[i].coordx);
         var coordy = parseFloat(vm.movimientos[i].coordy);
         icon = "/img/icons/tap.png";
         label = "<label><b>TAP</b></label>";
-        addMarker(coordy, coordx, label, icon);
+        var location = new gm.LatLng(coordy, coordx);
+        addMarker(location, label, icon, false);
     }
     var markerCluster = new MarkerClusterer(vm.map, vm.markers);
     markerCluster.setMaxZoom(config.minZoom);
     vm.map.fitBounds(vm.bounds);
 };
-/*
-roles=function(){
-    var rolesUser=[];
-    for ( i = vm.user.roles.length - 1; i >= 0; i--) {
-        rolesUser.push(vm.user.roles[i].id);
-    }
-    $selectRoles.val(rolesUser).trigger("change");
-};*/

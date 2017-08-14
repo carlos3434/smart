@@ -36,6 +36,30 @@ Route::group(["before" => "auth"], function() {
     });
 
 });*/
+Route::get('colores', function () {
+/*
+            $sql = "SELECT p.id, p.nombre, cp.stock, cp.precio, tp.nombre as tipo
+                    FROM calendario_platos cp
+                    JOIN calendarios  c  ON cp.calendario_id = c.id
+                    JOIN platos  p  ON cp.plato_id = p.id
+                    JOIN tipo_platos  tp ON p.tipo_platos_id  =  tp.id
+                    WHERE fecha='2017-05-08' AND p.categoria_platos_id=1";
+            $menu = DB::select($sql);
+            $sql = "SELECT p.id, p.nombre, cp.stock, cp.precio, tp.nombre as tipo
+                    FROM calendario_platos cp
+                    JOIN calendarios  c  ON cp.calendario_id = c.id
+                    JOIN platos  p  ON cp.plato_id = p.id
+                    JOIN tipo_platos  tp ON p.tipo_platos_id  =  tp.id
+                    WHERE fecha='2017-05-08' AND p.categoria_platos_id=2";
+            $carta = DB::select($sql);
+            $data=[
+                'mesas' => $mesas,
+                'menu'  => $menu,
+                'carta' => $carta
+            ];*/
+            $colores=[12, 19, 3, 5, 2, 3];
+            return Response::json($colores);
+        });
 
 Route::get('envio', 'OfficetrackController@getEnvio');
 Route::post('ot', 'OfficetrackController@getServer');
@@ -171,7 +195,7 @@ Route::group(["before" => "auth"], function() {
         Route::resource('api/permissions', 'ApiPermissionsController');
 
         Route::resource('api/inventarios', 'ApiInventariosController');
-        Route::resource('api/tareas', 'ApiTareaController');
+        //Route::resource('api/tareas', 'ApiTareaController');
 
         Route::resource('api/tareas', 'ApiTareasController');
     });

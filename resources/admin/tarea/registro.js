@@ -14,9 +14,9 @@ let vm = new Vue({
     },
     methods: {
         /**boton de modal Guardar*/
-        guardarUser: function () {
+        guardarTarea: function () {
             if (vm.accion=='nuevo') {
-                Tareas.store();
+                Tareas.store(vm.tarea);
             } else {
                 Tareas.update(vm.tarea.id);
             }
@@ -26,7 +26,8 @@ let vm = new Vue({
             $("#modal-tarea").modal();
             vm.accion = 'nuevo';
             vm.tarea = {};
-            $selectRoles.val([]).trigger("change");
+            vm.movimientos = {};
+            //$selectRoles.val([]).trigger("change");
         },
         roles: function(){
             Roles.all();
@@ -62,11 +63,13 @@ removeMarkers = function() {
     }
     vm.markers=[];
 };
-addMarker=function(coordy,coordx,label,icon){
-    var location = new gm.LatLng(coordy, coordx);
+
+addMarker=function(location,label,icon,drag){
+    //var location = new gm.LatLng(coordy, coordx);
     var marker = new gm.Marker({
         position: location,
         //icon: icon,
+        draggable: drag,
         map: vm.map
     });
     vm.markers.push(marker);
@@ -217,7 +220,30 @@ $(document).ready(function() {
         //if ($(this)[0].hash=='#mapa') {
             //pintarMapa();
         //}
-        Tareas.get(vm.tarea.id);
+        clearMapa();
+        iniciarMapa();
+        if (vm.accion=='nuevo') {
+           // addMarker( coordy, coordx, label, icon,true);
+/*
+            var myLatlng = new google.maps.LatLng(22,79);
+            var myOptions = {
+              zoom: 5,
+              center: myLatlng,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+
+            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+            addMarker(myLatlng, 'Default Marker', map);
+
+            map.addListener('click',function(event) {
+                addMarker(event.latLng, 'Click Generated Marker', map);
+            };*/
+
+        } else {
+
+            Tareas.get(vm.tarea.id);
+        }
     });
 });
 /**
@@ -238,23 +264,41 @@ activar=function(id){
 reload=function(){
     datatable.ajax.reload(null,false);
 };
-pintarMapa=function () {
+clearMapa=function(){
     try { markerSpiderfier.clearMarkers(); }catch(c){}
     removeMarkers();
+};
+
+iniciarMapa=function () {
     vm.map = new gm.Map(
         document.getElementById("mapa_tarea"),
         mapOptions
     );
-    markerSpiderfier = new OverlappingMarkerSpiderfier(vm.map, spiderConfig);
 
+    vm.map.addListener('click',function(event) {
+        icon = "/img/icons/tap.png";
+        //var myLatLng = event.latLng;
+        vm.tarea.coordy = event.latLng.lat();
+        vm.tarea.coordx = event.latLng.lng();
+
+        removeMarkers();
+        addMarker(event.latLng, 'Click Generated Marker',icon, true);
+    });
     vm.bounds = new gm.LatLngBounds();
+    markerSpiderfier = new OverlappingMarkerSpiderfier(vm.map, spiderConfig);
+};
+
+
+pintarMarkers=function () {
+    //vm.bounds = new gm.LatLngBounds();
     //var icon = "img/icons/tec_0e8499.png";
     for (var i = vm.movimientos.length - 1; i >= 0; i--) {
         var coordx = parseFloat(vm.movimientos[i].coordx);
         var coordy = parseFloat(vm.movimientos[i].coordy);
         icon = "/img/icons/tap.png";
         label = "<label><b>TAP</b></label>";
-        addMarker( coordy, coordx, label, icon);
+        var location = new gm.LatLng(coordy, coordx);
+        addMarker( location, label, icon,false);
     }
     var markerCluster = new MarkerClusterer(vm.map, vm.markers);
     markerCluster.setMaxZoom(config.minZoom);

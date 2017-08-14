@@ -24,22 +24,33 @@ class ApiTareasController extends Controller
 
     public function store()
     {
-        $role = new Tarea(Input::except('submodulos'));
-        if ($role->save()){
+        $user = Tarea::create(Input::all());
+        
+        if (!is_null($user)) {
+            //enviar a officetrack
+            $dueDate = date("YmdHis", strtotime("2017-08-10 23:59:59"));
 
-        } else {
-            return Response::json( $role->validationErrors );
-        }
-        if (Input::has('submodulos')) {
-            foreach (Input::get('submodulos') as $submodulo) {
-                foreach ($submodulo['permisos'] as $permisos) {
-                    if ($permisos['estado']=='true') {
-                        $role->attachPermission($permisos);
-                    }
-                }
+            $trama['TaskNumber'] = Input::get('TaskNumber');
+            $trama['EmployeeNumber'] = Input::get('EmployeeNumber');
+            $trama['DueDateAsYYYYMMDDHHMMSS'] = $dueDate;
+            $trama['Duration'] = 0.75;
+            $trama['Notes'] = "";
+            $trama['Description']=Input::get('Description');
+
+            $trama['CustomerName'] = '/ DELGADO DE LA FLOR DE PIEROLA, MONICA CECILIA';
+            $trama['Location'] = [
+                "East"      => Input::get('coordx'),//lng X
+                "North"     => Input::get('coordy'),//lat Y
+                "Address"   => 'AV LA MERCED 625 UR UR MONTAGNE, Piso: 1 Int: 102 Mzn:  Lt: '
+            ];
+            $ot = new Officetrack;
+            $response = $ot->envio($trama);
+            if($response->CreateOrUpdateTaskResult=='OK'){
+                
+                return Response::json("ok");
             }
         }
-        return Response::json($role);
+        return $user;
     }
 
     public function show($id)
@@ -56,37 +67,6 @@ class ApiTareasController extends Controller
         $role = Tarea::findOrFail($id);
         $respuestaUpdate = $role->update(Input::all());
 
-        $permisos=[];
-        if (Input::has('permissions')) {
-            $permissions = Input::get('permissions');
-        //if ($request->has('roles_user')) {
-           $rst= $role->permissions()->getRelatedIds();
-//dd($permissions);
-           //$role->perms()->sync([1,2,3,4,5]);
-//           $role->perms()->sync($permissions);
-           //$role->attachPermission($permissions);
-            //$role->permissions()->sync($permissions);
-            //$user->roles()->getRelatedIds();
-        }
-        
-        if (Input::has('submodulos')) {
-            $submodulos = Input::get('submodulos');
-            $ids= array_column($submodulos, 'id');
-            //dd($submodulos,$rst);
-            foreach ($submodulos as $submodulo) {
-                if (isset($submodulo['permisos'])) {
-                    # code...
-                    foreach ($submodulo['permisos'] as $permiso) {
-                        if ($permiso['estado']=='true') {
-                            array_push($permisos,$permiso['id']);
-                        }
-                    }
-                }
-            }
-           //dd($permisos);
-            $role->permissions()->sync($permisos);
-            //$role->attachPermissions($permisos);
-        }
         return Response::json($respuestaUpdate);
     }
 
