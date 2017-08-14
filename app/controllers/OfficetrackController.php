@@ -95,7 +95,7 @@ class OfficetrackController extends \BaseController
         //buscar id de tarea
         $mov = Movimiento::where('TaskNumber',$form['TaskNumber'])->first();
         if (is_null($mov)) {
-            echo "OK";
+            //echo "OK";
             //$form['movimiento_id']=1;
             //Formulario::create($form);
             return  "_OK_";
@@ -103,13 +103,15 @@ class OfficetrackController extends \BaseController
         //buscar si hay formulario con  movimiento_id   $mov->id
         $form = Formulario::where('movimiento_id',$mov->id)->first();
         if (!is_null($form)) {
-            Log::info([$mov->id]);
+            //Log::info([$mov->id]);
             return  "_OK_";
         }
         $mov->coordy=$y;
         $mov->coordx=$x;
         $mov->save();
         $form['movimiento_id']=$mov->id;
+        Log::useDailyFiles(storage_path().'/logs/officetrack.log');
+        Log::info([$form]);
         $formulario = Formulario::create($form);
         if ($formulario) {
             //imagenes
