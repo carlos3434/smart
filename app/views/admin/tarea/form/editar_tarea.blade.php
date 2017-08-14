@@ -126,15 +126,15 @@
                                     <tbody>
                                         <tr>
                                             <td>Formulario </td>
-                                            <td>@{{vm.formulario.Form}}</td>
+                                            <td>@{{formulario.Form}}</td>
                                         </tr>
                                         <tr>
                                             <td>Description</td>
-                                            <td>@{{vm.formulario.Description}}</td>
+                                            <td>@{{formulario.Description}}</td>
                                         </tr>
                                         <tr>
                                             <td>Fecha</td>
-                                            <td>@{{vm.formulario.created_at}}</td>
+                                            <td>@{{formulario.created_at}}</td>
                                         </tr>
                                         <tr>
                                             <td>
