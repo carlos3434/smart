@@ -95,6 +95,9 @@ class OfficetrackController extends \BaseController
             Formulario::create($form);
             return  "_OK_";
         }
+        $mov->coordy=$y;
+        $mov->coordx=$x;
+        $mov->save();
         $form['movimiento_id']=$mov->id;
         $formulario = Formulario::create($form);
         if ($formulario) {
@@ -108,7 +111,7 @@ class OfficetrackController extends \BaseController
                     fwrite($ifp, base64_decode($value->Data));
                     fclose($ifp);
                     $imagen =[
-                        'url' => $nombreImagen
+                        'url' => 'img/test/'.$nombreImagen
                     ];
                     $imagenes[]=new Imagen($imagen);
                 }

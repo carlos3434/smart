@@ -8,6 +8,8 @@ let vm = new Vue({
         estadotarea:[],
         tipotarea:[],
         movimientos:[],
+        formulario:[],
+        imagenes:[],
         map:[],
         markers:[],
         bounds:[],

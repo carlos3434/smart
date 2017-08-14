@@ -91,34 +91,63 @@
                     </div>
                     <div id="tab_movimientos" class="tab-pane fade in active">
                         <div class="modal-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>Address</th>
-                                        <th>coordx</th>
-                                        <th>coordy</th>
-                                        <th>fecha</th>
-                                        <th>[]</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                     <tr v-for='index in movimientos'>
-                                        <td>@{{index.id}}</td>
-                                        <td>@{{index.Address}}</td>
-                                        <td>@{{index.coordx}} metros</td>
-                                        <td>@{{index.coordy}}</td>
-                                        <td>@{{index.created_at}}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-sm btn-primary" @click.prevent="verFormulario(index.id)">
-                                                <i class="fa fa-eye fa-lg"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Address</th>
+                                            <th>coordx</th>
+                                            <th>coordy</th>
+                                            <th>fecha</th>
+                                            <th>[]</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for='index in movimientos'>
+                                            <td>@{{index.id}}</td>
+                                            <td>@{{index.Address}}</td>
+                                            <td>@{{index.coordx}} metros</td>
+                                            <td>@{{index.coordy}}</td>
+                                            <td>@{{index.created_at}}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-primary" @click.prevent="verFormulario(index.id)">
+                                                    <i class="fa fa-eye fa-lg"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
+                        <div class="modal-body">
+                            <div class="col-sm-12 table-responsive">
+                                <table id="t_paso_officetrack_tareas" class="table table-bordered table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td>Formulario </td>
+                                            <td>@{{vm.formulario.Form}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Description</td>
+                                            <td>@{{vm.formulario.Description}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Fecha</td>
+                                            <td>@{{vm.formulario.created_at}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <template v-for="imagen in imagenes">
+                                                    <a class="fancybox-button" rel="fancybox-button">
+                                                        <img :src="imagen.url" style="width:250px;height:250px;">
+                                                    </a>
+                                                </template>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
