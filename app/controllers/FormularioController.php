@@ -12,7 +12,7 @@ class FormularioController extends Controller
     {
         
         return Response::json(
-            Formulario::where('movimiento_id',Input::get('movimiento_id'))->with('imagenes')->get()
+            Formulario::where('movimiento_id',Input::get('movimiento_id'))->with('imagenes')->first()
         );
     }
 }
