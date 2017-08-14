@@ -97,7 +97,8 @@ class OfficetrackController extends \BaseController
         }
         //buscar si hay formulario con  movimiento_id   $mov->id
         $form = Formulario::where('movimiento_id',$mov->id)->first();
-        if ($form) {
+        if (!is_null($form)) {
+            Log::info([$mov->id]);
             return  "_OK_";
         }
         $mov->coordy=$y;
