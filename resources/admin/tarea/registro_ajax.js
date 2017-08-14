@@ -93,3 +93,50 @@ var Listas ={
         });
     }
 };
+var Formulario={
+    get:function(id){
+        headerAxios.params= {
+            movimiento_id: id
+        };
+        axios.get(
+            'formularios/lista',
+            headerAxios
+        )
+        .then(response => {
+            //Tarea.detalleHtml(obj.datos,paso);
+            //reccorrer imagenes
+            for (var i = 0; i < response.data.imagenes.length; i++) {
+                console.log(response.data.imagenes[i]);
+            }
+            /*
+            html+='<a class="fancybox-button" rel="fancybox-button" href="data:image/jpg;base64,'+casa_img1+'" title="Img CASA 1">';
+            html+="     <img src='data:image/jpg;base64,"+casa_img1+"' style='width:250px;height:250px;'  />";
+            html+='</a>';*/
+            console.log(response);
+        })
+        .catch(e => {
+            vm.errors.push(e);
+        });
+/*
+        $.ajax({
+            url         : 'formularios/lista',
+            type        : 'POST',
+            cache       : false,
+            dataType    : 'json',
+            data        : variables,
+            beforeSend : function() {
+                $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+            },
+            success : function(obj) {
+                if(obj.rst==1){
+                    Tarea.detalleHtml(obj.datos,paso);
+                }
+                $(".overlay,.loading-img").remove();
+            },
+            error: function(){
+                $(".overlay,.loading-img").remove();
+                Psi.mensaje('danger', 'Ocurrio una interrupción en el proceso, Favor de intentar nuevamente.', 6000);
+            }
+        });*/
+    }
+};

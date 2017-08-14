@@ -34,6 +34,10 @@ let vm = new Vue({
         roles: function(){
             Roles.all();
         },
+        verFormulario:function(id){
+            //var variables={movimiento_id:id};
+            Formulario.get(id);
+        },
     },
 });
 var gm = google.maps;
@@ -250,6 +254,17 @@ $(document).ready(function() {
         } else {
 
             Tareas.get(vm.tarea.id);
+        }
+    });
+    $('#nav_modal a').on('shown.bs.tab', function(e){
+        if ($(this)[0].hash=='#tab_datos') {
+            $('#footer_datos').show();
+            $('#footer_movimientos').hide();
+            console.log("tab_datos");
+        } else if ($(this)[0].hash=='#tab_movimientos'){
+            $('#footer_datos').hide();
+            $('#footer_movimientos').show();
+            console.log("tab_movimientos");
         }
     });
 });

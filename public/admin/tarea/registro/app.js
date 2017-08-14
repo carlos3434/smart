@@ -67,6 +67,48 @@ var Listas = {
         });
     }
 };
+var Formulario = {
+    get: function get(id) {
+        headerAxios.params = {
+            movimiento_id: id
+        };
+        axios.get('formularios/lista', headerAxios).then(function (response) {
+            //Tarea.detalleHtml(obj.datos,paso);
+            //reccorrer imagenes
+            for (var i = 0; i < response.data.imagenes.length; i++) {
+                console.log(response.data.imagenes[i]);
+            }
+            /*
+            html+='<a class="fancybox-button" rel="fancybox-button" href="data:image/jpg;base64,'+casa_img1+'" title="Img CASA 1">';
+            html+="     <img src='data:image/jpg;base64,"+casa_img1+"' style='width:250px;height:250px;'  />";
+            html+='</a>';*/
+            console.log(response);
+        }).catch(function (e) {
+            vm.errors.push(e);
+        });
+        /*
+                $.ajax({
+                    url         : 'formularios/lista',
+                    type        : 'POST',
+                    cache       : false,
+                    dataType    : 'json',
+                    data        : variables,
+                    beforeSend : function() {
+                        $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
+                    },
+                    success : function(obj) {
+                        if(obj.rst==1){
+                            Tarea.detalleHtml(obj.datos,paso);
+                        }
+                        $(".overlay,.loading-img").remove();
+                    },
+                    error: function(){
+                        $(".overlay,.loading-img").remove();
+                        Psi.mensaje('danger', 'Ocurrio una interrupción en el proceso, Favor de intentar nuevamente.', 6000);
+                    }
+                });*/
+    }
+};
 var vm = new Vue({
     el: '#main',
     data: {
@@ -102,6 +144,10 @@ var vm = new Vue({
         },
         roles: function roles() {
             Roles.all();
+        },
+        verFormulario: function verFormulario(id) {
+            //var variables={movimiento_id:id};
+            Formulario.get(id);
         }
     }
 });
@@ -301,6 +347,17 @@ $(document).ready(function () {
         } else {
 
             Tareas.get(vm.tarea.id);
+        }
+    });
+    $('#nav_modal a').on('shown.bs.tab', function (e) {
+        if ($(this)[0].hash == '#tab_datos') {
+            $('#footer_datos').show();
+            $('#footer_movimientos').hide();
+            console.log("tab_datos");
+        } else if ($(this)[0].hash == '#tab_movimientos') {
+            $('#footer_datos').hide();
+            $('#footer_movimientos').show();
+            console.log("tab_movimientos");
         }
     });
 });

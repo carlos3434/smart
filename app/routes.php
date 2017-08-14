@@ -188,6 +188,7 @@ Route::group(["before" => "auth"], function() {
         Route::controller('tipotarea', 'TipoTareaController');
         Route::controller('modulos', 'ModulosController');
         Route::controller('permissions', 'PermissionsController');
+        Route::controller('formularios', 'FormularioController');
         Route::resource('pedido', 'PedidoController');
 
         //api's
