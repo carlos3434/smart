@@ -100,8 +100,11 @@ class OfficetrackController extends \BaseController
             return  "_OK_";
         }
         if ($form['Version']=='17') {
-            $mov = new Movimiento($mov);
-            $mov->save();
+            $new_mov = $mov->replicate();
+            $new_mov->push();
+            $mov = $new_mov;
+            //$mov = new Movimiento($mov);
+            //$mov->save();
         }
         //buscar si hay formulario con  movimiento_id   $mov->id
         //$formulario = Formulario::where('movimiento_id',$mov->id)->first();
