@@ -300,7 +300,7 @@ pintarMarkers=function () {
         var coordx = parseFloat(vm.movimientos[i].coordx);
         var coordy = parseFloat(vm.movimientos[i].coordy);
         icon = "/img/icons/tap.png";
-        label = "<label><b>TAP</b></label>";
+        label = "<label><b>"+vm.movimientos[i].created_at+"</b></label>";
         var location = new gm.LatLng(coordy, coordx);
         addMarker( location, label, icon,false);
     }
