@@ -32,7 +32,7 @@
             </div>
             <div class="col-xs-12 col-sm-5 col-md-5 col-lg-8">
                 @if (Entrust::can('create-users'))
-                <button type="button" @click.prevent="storeUser" class="btn btn-primary">Nuevo</button>
+                <button type="button" @click.prevent="abrirNuevoModal" class="btn btn-primary">Nuevo</button>
                 @endif
             </div>
         </div>
@@ -79,6 +79,7 @@
 
         @push('formulario')
             @include( 'admin.tarea.form.editar_tarea' )
+            @include( 'admin.tarea.form.nuevo_tarea' )
         @endpush
 
     </div>

@@ -73,14 +73,13 @@ class OfficetrackController extends \BaseController
             //'Files->File'       =>      $formObj->Files->File->Data,             //base64
         ];
         //filtrar solo 667
-        if ($form['EmployeeNumber']!='667') {//cel de test
+        if ($form['EmployeeNumber']!='667'&& $form['EmployeeNumber']!='666' && $form['EmployeeNumber']!='70') {//cel de test
             return  "_OK_";
         }
-        //if (is_null($form['Form']) || $form['Form']=='' || $form['Form']=='null') {//cel de test
-        if ( $form['Version']=='30' || $form['Version']=='17') {//cel de test
+        /*if ( $form['Version']=='30' || $form['Version']=='17') {//cel de test
         } else {
             return  "_OK_";
-        }
+        }*/
 
         if ( isset($formObj->Form->Fields) &&
             isset($formObj->Form->Fields->Field) &&
@@ -109,8 +108,8 @@ class OfficetrackController extends \BaseController
         $mov->coordx=$x;
         $mov->save();
         $form['movimiento_id']=$mov->id;
-        Log::useDailyFiles(storage_path().'/logs/officetrack.log');
-        Log::info([$form]);
+        //Log::useDailyFiles(storage_path().'/logs/officetrack.log');
+        //Log::info([$form]);
         $formulario = Formulario::create($form);
         if ($formulario) {
             //imagenes

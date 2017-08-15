@@ -17,27 +17,31 @@ let vm = new Vue({
         nomarkers:[],
     },
     methods: {
-        /**boton de modal Guardar*/
-        guardarTarea: function () {
-            if (vm.accion=='nuevo') {
-                Tareas.store(vm.tarea);
-            } else {
-                Tareas.update(vm.tarea.id);
-            }
+        guardarNuevo:function(){
+            vm.tarea.DueDate =  $('input[name=DueDate_nuevo]').val();
+            vm.tarea.estado_tarea_id = $('#estado_tarea_id').val();
+            vm.tarea.tipo_tarea_id = $('#tipo_tarea_id').val();
+            vm.tarea.EmployeeNumber = $('#EmployeeNumber').val();
+            Tareas.store();
+        },
+        guardarEditar:function(){
+            vm.tarea.DueDate =  $('input[name=DueDate_editar]').val();
+            vm.tarea.estado_tarea_id = $('#estado_tarea_id').val();
+            vm.tarea.tipo_tarea_id = $('#tipo_tarea_id').val();
+            vm.tarea.EmployeeNumber = $('#EmployeeNumber').val();
+            Tareas.update();
         },
         /**boton llama a modal, nuevo user */
-        storeUser: function () {
-            $("#modal-tarea").modal();
+        abrirNuevoModal: function () {
+            $("#"+nuevo_modal).modal();
             vm.accion = 'nuevo';
             vm.tarea = {};
             vm.movimientos = {};
-            //$selectRoles.val([]).trigger("change");
         },
         roles: function(){
             Roles.all();
         },
         verFormulario:function(id){
-            //var variables={movimiento_id:id};
             Formulario.get(id);
         },
     },
@@ -73,7 +77,6 @@ removeMarkers = function() {
 };
 
 addMarker=function(location,label,icon,drag){
-    //var location = new gm.LatLng(coordy, coordx);
     var marker = new gm.Marker({
         position: location,
         //icon: icon,
@@ -98,6 +101,8 @@ addMarker=function(location,label,icon,drag){
 
 ////////////////////////////
 var tabla='tabla_registro_tarea';
+var editar_modal='editar_modal';//modal-tarea
+var nuevo_modal='nuevo_modal';
 
 /* BASIC ;*/
 var responsiveHelper_datatable_tabletools = undefined;
@@ -225,48 +230,28 @@ var dataTable={
 var datatable;
 $(document).ready(function() {
     pageSetUp();
-    //Roles.all();
+
     datatable = $('#'+tabla).DataTable(dataTable);
-    //$('#st-detalle a').on('shown.bs.tab', function(e){
+
     Listas.all();
-    $('#modal-tarea').on('shown.bs.modal', function (event) {
-        //if ($(this)[0].hash=='#mapa') {
-            //pintarMapa();
-        //}
+    $('#'+editar_modal).on('shown.bs.modal', function (event) {
         clearMapa();
-        iniciarMapa();
-        if (vm.accion=='nuevo') {
-           // addMarker( coordy, coordx, label, icon,true);
-/*
-            var myLatlng = new google.maps.LatLng(22,79);
-            var myOptions = {
-              zoom: 5,
-              center: myLatlng,
-              mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-
-            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-            addMarker(myLatlng, 'Default Marker', map);
-
-            map.addListener('click',function(event) {
-                addMarker(event.latLng, 'Click Generated Marker', map);
-            };*/
-
-        } else {
-
-            Tareas.get(vm.tarea.id);
-        }
+        iniciarMapa('editar_mapa_tarea');
+        addClickMarker();
+        Tareas.get(vm.tarea.id);
+    });
+    $('#'+nuevo_modal).on('shown.bs.modal', function (event) {
+        clearMapa();
+        iniciarMapa('nuevo_mapa_tarea');
+        addClickMarker();
     });
     $('#nav_modal a').on('shown.bs.tab', function(e){
         if ($(this)[0].hash=='#tab_datos') {
             $('#footer_datos').show();
             $('#footer_movimientos').hide();
-            console.log("tab_datos");
         } else if ($(this)[0].hash=='#tab_movimientos'){
             $('#footer_datos').hide();
             $('#footer_movimientos').show();
-            console.log("tab_movimientos");
         }
     });
 });
@@ -276,8 +261,7 @@ $(document).ready(function() {
 editar=function(id){
     vm.tarea.id=id;
     vm.accion='editar';
-    $("#modal-tarea").modal();
-    //Tareas.get(id);
+    $("#"+editar_modal).modal();
 };
 desactivar=function(id){
     reload();
@@ -293,18 +277,17 @@ clearMapa=function(){
     removeMarkers();
 };
 
-iniciarMapa=function () {
+iniciarMapa=function (id) {
     vm.map = new gm.Map(
-        document.getElementById("mapa_tarea"),
+        document.getElementById(id),
         mapOptions
     );
-
+};
+addClickMarker=function (id) {
     vm.map.addListener('click',function(event) {
         icon = "/img/icons/tap.png";
-        //var myLatLng = event.latLng;
         vm.tarea.coordy = event.latLng.lat();
         vm.tarea.coordx = event.latLng.lng();
-
         removeMarkers();
         addMarker(event.latLng, 'Click Generated Marker',icon, true);
     });
@@ -312,10 +295,7 @@ iniciarMapa=function () {
     markerSpiderfier = new OverlappingMarkerSpiderfier(vm.map, spiderConfig);
 };
 
-
 pintarMarkers=function () {
-    //vm.bounds = new gm.LatLngBounds();
-    //var icon = "img/icons/tec_0e8499.png";
     for (var i = vm.movimientos.length - 1; i >= 0; i--) {
         var coordx = parseFloat(vm.movimientos[i].coordx);
         var coordy = parseFloat(vm.movimientos[i].coordy);

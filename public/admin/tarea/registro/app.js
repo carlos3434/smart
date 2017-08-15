@@ -21,24 +21,19 @@ var Tareas = {
     /** guardar nuevo
     */
     store: function store() {
-        vm.tarea.DueDate = $('input[name=DueDate]').val();
-        vm.tarea.estado_tarea_id = $('#estado_tarea_id').val();
-        vm.tarea.tipo_tarea_id = $('#tipo_tarea_id').val();
-        vm.tarea.EmployeeNumber = $('#EmployeeNumber').val();
         axios.post(url, vm.tarea, headerAxios).then(function (response) {
             reload();
-            $("#modal-tarea").modal('hide');
+            $("#" + nuevo_modal).modal('hide');
         }).catch(function (e) {
             vm.errors.push(e);
         });
     },
     /** guardar existente
     */
-    update: function update(id) {
-        vm.tarea.DueDate = $('input[name=DueDate]').val();
-        axios.put(url + '/' + id, vm.tarea, headerAxios).then(function (response) {
+    update: function update() {
+        axios.put(url + '/' + vm.tarea.id, vm.tarea, headerAxios).then(function (response) {
             reload();
-            $("#modal-tarea").modal('hide');
+            $("#" + editar_modal).modal('hide');
         }).catch(function (e) {
             vm.errors.push(e);
         });
@@ -59,9 +54,6 @@ var Listas = {
             vm.trabajadores = trabajadores.data;
             vm.estadotarea = estadotarea.data;
             vm.tipotarea = tipotarea.data;
-            /*$selectRoles = $('#roles').select2({
-                dropdownParent: $('#userModal')
-            });*/
         })).catch(function (e) {
             _this.errors.push(e);
         });
@@ -73,43 +65,11 @@ var Formulario = {
             movimiento_id: id
         };
         axios.get('formularios/lista', headerAxios).then(function (response) {
-            //Tarea.detalleHtml(obj.datos,paso);
-            //reccorrer imagenes
             vm.formulario = response.data;
             vm.imagenes = response.data.imagenes;
-            /*
-            for (var i = 0; i < response.data.imagenes.length; i++) {
-                console.log(response.data.imagenes[i]);
-            }*/
-            /*
-            html+='<a class="fancybox-button" rel="fancybox-button" href="data:image/jpg;base64,'+casa_img1+'" title="Img CASA 1">';
-            html+="     <img src='data:image/jpg;base64,"+casa_img1+"' style='width:250px;height:250px;'  />";
-            html+='</a>';*/
-            console.log(response);
         }).catch(function (e) {
             vm.errors.push(e);
         });
-        /*
-                $.ajax({
-                    url         : 'formularios/lista',
-                    type        : 'POST',
-                    cache       : false,
-                    dataType    : 'json',
-                    data        : variables,
-                    beforeSend : function() {
-                        $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
-                    },
-                    success : function(obj) {
-                        if(obj.rst==1){
-                            Tarea.detalleHtml(obj.datos,paso);
-                        }
-                        $(".overlay,.loading-img").remove();
-                    },
-                    error: function(){
-                        $(".overlay,.loading-img").remove();
-                        Psi.mensaje('danger', 'Ocurrio una interrupción en el proceso, Favor de intentar nuevamente.', 6000);
-                    }
-                });*/
     }
 };
 var vm = new Vue({
@@ -131,27 +91,31 @@ var vm = new Vue({
         nomarkers: []
     },
     methods: {
-        /**boton de modal Guardar*/
-        guardarTarea: function guardarTarea() {
-            if (vm.accion == 'nuevo') {
-                Tareas.store(vm.tarea);
-            } else {
-                Tareas.update(vm.tarea.id);
-            }
+        guardarNuevo: function guardarNuevo() {
+            vm.tarea.DueDate = $('input[name=DueDate_nuevo]').val();
+            vm.tarea.estado_tarea_id = $('#estado_tarea_id').val();
+            vm.tarea.tipo_tarea_id = $('#tipo_tarea_id').val();
+            vm.tarea.EmployeeNumber = $('#EmployeeNumber').val();
+            Tareas.store();
+        },
+        guardarEditar: function guardarEditar() {
+            vm.tarea.DueDate = $('input[name=DueDate_editar]').val();
+            vm.tarea.estado_tarea_id = $('#estado_tarea_id').val();
+            vm.tarea.tipo_tarea_id = $('#tipo_tarea_id').val();
+            vm.tarea.EmployeeNumber = $('#EmployeeNumber').val();
+            Tareas.update();
         },
         /**boton llama a modal, nuevo user */
-        storeUser: function storeUser() {
-            $("#modal-tarea").modal();
+        abrirNuevoModal: function abrirNuevoModal() {
+            $("#" + nuevo_modal).modal();
             vm.accion = 'nuevo';
             vm.tarea = {};
             vm.movimientos = {};
-            //$selectRoles.val([]).trigger("change");
         },
         roles: function roles() {
             Roles.all();
         },
         verFormulario: function verFormulario(id) {
-            //var variables={movimiento_id:id};
             Formulario.get(id);
         }
     }
@@ -187,7 +151,6 @@ removeMarkers = function removeMarkers() {
 };
 
 addMarker = function addMarker(location, label, icon, drag) {
-    //var location = new gm.LatLng(coordy, coordx);
     var marker = new gm.Marker({
         position: location,
         //icon: icon,
@@ -212,6 +175,8 @@ addMarker = function addMarker(location, label, icon, drag) {
 
 ////////////////////////////
 var tabla = 'tabla_registro_tarea';
+var editar_modal = 'editar_modal'; //modal-tarea
+var nuevo_modal = 'nuevo_modal';
 
 /* BASIC ;*/
 var responsiveHelper_datatable_tabletools = undefined;
@@ -321,48 +286,28 @@ var dataTable = {
 var datatable;
 $(document).ready(function () {
     pageSetUp();
-    //Roles.all();
+
     datatable = $('#' + tabla).DataTable(dataTable);
-    //$('#st-detalle a').on('shown.bs.tab', function(e){
+
     Listas.all();
-    $('#modal-tarea').on('shown.bs.modal', function (event) {
-        //if ($(this)[0].hash=='#mapa') {
-        //pintarMapa();
-        //}
+    $('#' + editar_modal).on('shown.bs.modal', function (event) {
         clearMapa();
-        iniciarMapa();
-        if (vm.accion == 'nuevo') {
-            // addMarker( coordy, coordx, label, icon,true);
-            /*
-                        var myLatlng = new google.maps.LatLng(22,79);
-                        var myOptions = {
-                          zoom: 5,
-                          center: myLatlng,
-                          mapTypeId: google.maps.MapTypeId.ROADMAP
-                        };
-            
-                        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-            
-                        addMarker(myLatlng, 'Default Marker', map);
-            
-                        map.addListener('click',function(event) {
-                            addMarker(event.latLng, 'Click Generated Marker', map);
-                        };*/
-
-        } else {
-
-            Tareas.get(vm.tarea.id);
-        }
+        iniciarMapa('editar_mapa_tarea');
+        addClickMarker();
+        Tareas.get(vm.tarea.id);
+    });
+    $('#' + nuevo_modal).on('shown.bs.modal', function (event) {
+        clearMapa();
+        iniciarMapa('nuevo_mapa_tarea');
+        addClickMarker();
     });
     $('#nav_modal a').on('shown.bs.tab', function (e) {
         if ($(this)[0].hash == '#tab_datos') {
             $('#footer_datos').show();
             $('#footer_movimientos').hide();
-            console.log("tab_datos");
         } else if ($(this)[0].hash == '#tab_movimientos') {
             $('#footer_datos').hide();
             $('#footer_movimientos').show();
-            console.log("tab_movimientos");
         }
     });
 });
@@ -372,8 +317,7 @@ $(document).ready(function () {
 editar = function editar(id) {
     vm.tarea.id = id;
     vm.accion = 'editar';
-    $("#modal-tarea").modal();
-    //Tareas.get(id);
+    $("#" + editar_modal).modal();
 };
 desactivar = function desactivar(id) {
     reload();
@@ -391,15 +335,14 @@ clearMapa = function clearMapa() {
     removeMarkers();
 };
 
-iniciarMapa = function iniciarMapa() {
-    vm.map = new gm.Map(document.getElementById("mapa_tarea"), mapOptions);
-
+iniciarMapa = function iniciarMapa(id) {
+    vm.map = new gm.Map(document.getElementById(id), mapOptions);
+};
+addClickMarker = function addClickMarker(id) {
     vm.map.addListener('click', function (event) {
         icon = "/img/icons/tap.png";
-        //var myLatLng = event.latLng;
         vm.tarea.coordy = event.latLng.lat();
         vm.tarea.coordx = event.latLng.lng();
-
         removeMarkers();
         addMarker(event.latLng, 'Click Generated Marker', icon, true);
     });
@@ -408,8 +351,6 @@ iniciarMapa = function iniciarMapa() {
 };
 
 pintarMarkers = function pintarMarkers() {
-    //vm.bounds = new gm.LatLngBounds();
-    //var icon = "img/icons/tec_0e8499.png";
     for (var i = vm.movimientos.length - 1; i >= 0; i--) {
         var coordx = parseFloat(vm.movimientos[i].coordx);
         var coordy = parseFloat(vm.movimientos[i].coordy);
