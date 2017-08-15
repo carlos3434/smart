@@ -1,156 +1,125 @@
-var Tareas={
-    getAll:function(data,callback){
-        data.per_page=data.length;
-        data.page=(data.start+data.length)/data.length;
-        data.filter=data.search.value;
+var Tareas = {
+    getAll: function getAll(data, callback) {
+        data.per_page = data.length;
+        data.page = (data.start + data.length) / data.length;
+        data.filter = data.search.value;
         $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
-        $.get(url, data, function(response) {
+        $.get(url, data, function (response) {
             callback(response);
             $(".overlay,.loading-img").remove();
         });
     },
-    get:function(id){
-        axios.get(
-            url+'/'+id,
-            headerAxios
-        )
-        .then(response => {
+    get: function get(id) {
+        axios.get(url + '/' + id, headerAxios).then(function (response) {
             vm.tarea = response.data;
             vm.movimientos = response.data.movimientos;
             pintarMarkers();
-        })
-        .catch(e => {
+        }).catch(function (e) {
             vm.errors.push(e);
         });
     },
     /** guardar nuevo
     */
-    store:function(){
-        axios.post(
-            url,
-            vm.tarea,
-            headerAxios
-        )
-        .then(response => {
+    store: function store() {
+        axios.post(url, vm.tarea, headerAxios).then(function (response) {
             reload();
-            $("#"+nuevo_modal).modal('hide');
-        })
-        .catch(e => {
+            $("#" + nuevo_modal).modal('hide');
+        }).catch(function (e) {
             vm.errors.push(e);
         });
     },
     /** guardar existente
     */
-    update:function(){
-        axios.put(
-            url+'/'+vm.tarea.id,
-            vm.tarea,
-            headerAxios
-        )
-        .then(response => {
+    update: function update() {
+        axios.put(url + '/' + vm.tarea.id, vm.tarea, headerAxios).then(function (response) {
             reload();
-            $("#"+editar_modal).modal('hide');
-        })
-        .catch(e => {
+            $("#" + editar_modal).modal('hide');
+        }).catch(function (e) {
             vm.errors.push(e);
         });
     },
-    destroy:function(id){
-        axios.delete(
-            url+'/'+id,
-            headerAxios
-        )
-        .then(response => {
+    destroy: function destroy(id) {
+        axios.delete(url + '/' + id, headerAxios).then(function (response) {
             user = response;
-        })
-        .catch(e => {
+        }).catch(function (e) {
             vm.errors.push(e);
         });
     }
 };
-var Listas ={
-    all:function(){
-        axios.all([
-            axios.get('trabajadores/lista',headerAxios),
-            axios.get('estadotarea/lista',headerAxios),
-            axios.get('tipotarea/lista',headerAxios)
-        ])
-        .then(axios.spread(function (trabajadores,estadotarea,tipotarea) {
+var Listas = {
+    all: function all() {
+        var _this = this;
+
+        axios.all([axios.get('trabajadores/lista', headerAxios), axios.get('estadotarea/lista', headerAxios), axios.get('tipotarea/lista', headerAxios)]).then(axios.spread(function (trabajadores, estadotarea, tipotarea) {
             vm.trabajadores = trabajadores.data;
             vm.estadotarea = estadotarea.data;
             vm.tipotarea = tipotarea.data;
-        }))
-        .catch(e => {
-          this.errors.push(e);
+        })).catch(function (e) {
+            _this.errors.push(e);
         });
     }
 };
-var Formulario={
-    get:function(id){
-        var header =headerAxios;
-        header.params= {
+var Formulario = {
+    get: function get(id) {
+        var header = headerAxios;
+        header.params = {
             movimiento_id: id
         };
-        axios.get(
-            'formularios/lista',
-            header
-        )
-        .then(response => {
+        axios.get('formularios/lista', header).then(function (response) {
             vm.formulario = response.data;
             vm.imagenes = response.data.imagenes;
-        })
-        .catch(e => {
+        }).catch(function (e) {
             vm.errors.push(e);
         });
     }
 };
-let vm = new Vue({
+var vm = new Vue({
     el: '#main',
     data: {
         errors: [],
         tarea: [],
-        accion:'',
-        trabajadores:[],
-        estadotarea:[],
-        tipotarea:[],
-        movimientos:[],
-        formulario:[],
-        imagenes:[],
-        map:[],
-        markers:[],
-        bounds:[],
-        line:[],
-        nomarkers:[],
+        accion: '',
+        trabajadores: [],
+        estadotarea: [],
+        tipotarea: [],
+        movimientos: [],
+        formulario: [],
+        imagenes: [],
+        map: [],
+        markers: [],
+        bounds: [],
+        line: [],
+        nomarkers: []
     },
     methods: {
-        guardarNuevo:function(){
-            vm.tarea.DueDate =  $('input[name=DueDate_nuevo]').val();
+        guardarNuevo: function guardarNuevo() {
+            vm.tarea.DueDate = $('input[name=DueDate_nuevo]').val();
             vm.tarea.estado_tarea_id = $('#estado_tarea_id').val();
             vm.tarea.tipo_tarea_id = $('#tipo_tarea_id').val();
             vm.tarea.EmployeeNumber = $('#EmployeeNumber').val();
             Tareas.store();
         },
-        guardarEditar:function(){
-            vm.tarea.DueDate =  $('input[name=DueDate_editar]').val();
+        guardarEditar: function guardarEditar() {
+            vm.tarea.DueDate = $('input[name=DueDate_editar]').val();
             vm.tarea.estado_tarea_id = $('#estado_tarea_id').val();
             vm.tarea.tipo_tarea_id = $('#tipo_tarea_id').val();
             vm.tarea.EmployeeNumber = $('#EmployeeNumber').val();
             Tareas.update();
         },
         /**boton llama a modal, nuevo user */
-        abrirNuevoModal: function () {
-            $("#"+nuevo_modal).modal();
+        abrirNuevoModal: function abrirNuevoModal() {
+            $("#" + nuevo_modal).modal();
             vm.accion = 'nuevo';
             vm.tarea = {};
             vm.movimientos = {};
         },
-        roles: function(){
+        roles: function roles() {
             Roles.all();
         },
-        verFormulario:function(id){
+        verFormulario: function verFormulario(id) {
             Formulario.get(id);
-        },
-    },
+        }
+    }
 });
 var gm = google.maps;
 
@@ -175,14 +144,14 @@ var mapOptions = {
 };
 var markerSpiderfier;
 var infoWindows = [];
-removeMarkers = function() {
+removeMarkers = function removeMarkers() {
     for (var i = 0; i < vm.markers.length; i++) {
         vm.markers[i].setMap(null);
     }
-    vm.markers=[];
+    vm.markers = [];
 };
 
-addMarker=function(location,label,icon,drag){
+addMarker = function addMarker(location, label, icon, drag) {
     var marker = new gm.Marker({
         position: location,
         //icon: icon,
@@ -191,24 +160,24 @@ addMarker=function(location,label,icon,drag){
     });
     vm.markers.push(marker);
     vm.bounds.extend(location);
-    marker.infowindow = new gm.InfoWindow({content: label});
+    marker.infowindow = new gm.InfoWindow({ content: label });
 
-    gm.event.addListener(marker,'click', function() {
-        if(infoWindows.length>0){
-            for (var j=0;j<infoWindows.length;j++) {
+    gm.event.addListener(marker, 'click', function () {
+        if (infoWindows.length > 0) {
+            for (var j = 0; j < infoWindows.length; j++) {
                 infoWindows[j].close();
             }
         }
-        this.infowindow.open(vm.map,this);
+        this.infowindow.open(vm.map, this);
         infoWindows.push(this.infowindow);
     });
     markerSpiderfier.addMarker(marker);
 };
 
 ////////////////////////////
-var tabla='tabla_registro_tarea';
-var editar_modal='editar_modal';//modal-tarea
-var nuevo_modal='nuevo_modal';
+var tabla = 'tabla_registro_tarea';
+var editar_modal = 'editar_modal'; //modal-tarea
+var nuevo_modal = 'nuevo_modal';
 
 /* BASIC ;*/
 var responsiveHelper_datatable_tabletools = undefined;
@@ -216,146 +185,128 @@ var responsiveHelper_datatable_tabletools = undefined;
 var $selectRoles;
 
 var breakpointDefinition = {
-    tablet : 1024,
-    phone : 480
+    tablet: 1024,
+    phone: 480
 };
 
-var columns=[
-    {
-        data: "TaskNumber",
-        name: "TaskNumber",
-        searchable:false
+var columns = [{
+    data: "TaskNumber",
+    name: "TaskNumber",
+    searchable: false
+}, {
+    data: "created_at",
+    name: "created_at",
+    searchable: false
+}, {
+    data: "DueDate",
+    name: "DueDate",
+    searchable: false
+}, {
+    data: "trabajador",
+    name: "trabajador",
+    searchable: false
+}, {
+    data: "Description",
+    name: "Description",
+    searchable: false
+}, {
+    data: "tipo",
+    name: "tipo",
+    searchable: false
+}, {
+    data: "estado",
+    name: "estado",
+    searchable: false
+}, {
+    name: "created_at",
+    searchable: false,
+    data: function data(row, type, val, meta) {
+        return '<td><button type="button" onClick="editar(' + row.id + ')" class="btn btn-primary">Editar</button></td>';
     },
-    {
-        data: "created_at",
-        name: "created_at",
-        searchable:false
+    "defaultContent": ''
+}, {
+    name: "deleted_at",
+    searchable: false,
+    data: function data(row, type, val, meta) {
+        estado = '<button type="button"  onClick="activar(' + row.id + ')" class="btn btn-success">Inactivo</button>';
+        if (row.deleted_at === null) {
+            estado = '<button type="button" onClick="desactivar(' + row.id + ')" class="btn btn-success">Activo</button>';
+        }
+        return estado;
     },
-    {
-        data: "DueDate",
-        name: "DueDate",
-        searchable:false
-    },
-    {
-        data: "trabajador",
-        name: "trabajador",
-        searchable:false
-    },
-    {
-        data: "Description",
-        name: "Description",
-        searchable:false
-    },
-    {
-        data: "tipo",
-        name: "tipo",
-        searchable:false
-    },
-    {
-        data: "estado",
-        name: "estado",
-        searchable:false
-    },
-    {
-        name: "created_at",
-        searchable:false,
-        data: function ( row, type, val, meta ) {
-            return '<td><button type="button" onClick="editar('+row.id+')" class="btn btn-primary">Editar</button></td>';
-        },
-        "defaultContent": '',
-    },
-    {
-        name: "deleted_at",
-        searchable:false,
-        data: function ( row, type, val, meta ) {
-            estado='<button type="button"  onClick="activar('+row.id+')" class="btn btn-success">Inactivo</button>';
-            if (row.deleted_at===null){
-                estado='<button type="button" onClick="desactivar('+row.id+')" class="btn btn-success">Activo</button>';
-            }
-            return estado;
-        },
-        defaultContent: '',
-    }
-];
+    defaultContent: ''
+}];
 var url = "api/tareas";
 var tableTools = {
-    "aButtons": [
-        "copy",
-        "csv",
-        "xls",
-        {
-            "sExtends": "pdf",
-            "sTitle": "SmartAdmin_PDF",
-            "sPdfMessage": "SmartAdmin PDF Export",
-            "sPdfSize": "letter"
-        },
-        {
-            "sExtends": "print",
-            "sMessage": "Generated by SmartAdmin <i>(press Esc to close)</i>"
-        }
-    ],
+    "aButtons": ["copy", "csv", "xls", {
+        "sExtends": "pdf",
+        "sTitle": "SmartAdmin_PDF",
+        "sPdfMessage": "SmartAdmin PDF Export",
+        "sPdfSize": "letter"
+    }, {
+        "sExtends": "print",
+        "sMessage": "Generated by SmartAdmin <i>(press Esc to close)</i>"
+    }],
     "sSwfPath": "js/plugin/datatables/swf/copy_csv_xls_pdf.swf"
 };
-var dataTable={
+var dataTable = {
     "processing": true,
     "serverSide": true,
     "stateSave": true,
     "searching": true,
     "ordering": true,
-    "stateLoadCallback": function (settings) {
+    "stateLoadCallback": function stateLoadCallback(settings) {
         //$("body").append('<div class="overlay"></div><div class="loading-img"></div>');
     },
-    "stateSaveCallback": function (settings) { // Cuando finaliza el ajax
+    "stateSaveCallback": function stateSaveCallback(settings) {// Cuando finaliza el ajax
         //$(".overlay,.loading-img").remove();
     },
-    ajax: function(data, callback, settings) {
-        Tareas.getAll(data,callback);
+    ajax: function ajax(data, callback, settings) {
+        Tareas.getAll(data, callback);
     },
-    "columns":columns,
-    "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>"+
-            "t"+
-            "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+    "columns": columns,
+    "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>" + "t" + "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
     "oLanguage": {
         "sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
     },
     "oTableTools": tableTools,
-    "autoWidth" : true,
-    "preDrawCallback" : function() {
+    "autoWidth": true,
+    "preDrawCallback": function preDrawCallback() {
         // Initialize the responsive datatables helper once.
         if (!responsiveHelper_datatable_tabletools) {
-            responsiveHelper_datatable_tabletools = new ResponsiveDatatablesHelper($('#'+tabla), breakpointDefinition);
+            responsiveHelper_datatable_tabletools = new ResponsiveDatatablesHelper($('#' + tabla), breakpointDefinition);
         }
     },
-    "rowCallback" : function(nRow,data) {
+    "rowCallback": function rowCallback(nRow, data) {
         responsiveHelper_datatable_tabletools.createExpandIcon(nRow);
     },
-    "drawCallback" : function(oSettings) {
+    "drawCallback": function drawCallback(oSettings) {
         responsiveHelper_datatable_tabletools.respond();
     }
 };
 var datatable;
-$(document).ready(function() {
+$(document).ready(function () {
     pageSetUp();
 
-    datatable = $('#'+tabla).DataTable(dataTable);
+    datatable = $('#' + tabla).DataTable(dataTable);
 
     Listas.all();
-    $('#'+editar_modal).on('shown.bs.modal', function (event) {
+    $('#' + editar_modal).on('shown.bs.modal', function (event) {
         clearMapa();
         iniciarMapa('editar_mapa_tarea');
         addClickMarker();
         Tareas.get(vm.tarea.id);
     });
-    $('#'+nuevo_modal).on('shown.bs.modal', function (event) {
+    $('#' + nuevo_modal).on('shown.bs.modal', function (event) {
         clearMapa();
         iniciarMapa('nuevo_mapa_tarea');
         addClickMarker();
     });
-    $('#nav_modal a').on('shown.bs.tab', function(e){
-        if ($(this)[0].hash=='#tab_datos') {
+    $('#nav_modal a').on('shown.bs.tab', function (e) {
+        if ($(this)[0].hash == '#tab_datos') {
             $('#footer_datos').show();
             $('#footer_movimientos').hide();
-        } else if ($(this)[0].hash=='#tab_movimientos'){
+        } else if ($(this)[0].hash == '#tab_movimientos') {
             $('#footer_datos').hide();
             $('#footer_movimientos').show();
         }
@@ -364,51 +315,50 @@ $(document).ready(function() {
 /**
    
 */
-editar=function(id){
-    vm.tarea.id=id;
-    vm.accion='editar';
-    $("#"+editar_modal).modal();
+editar = function editar(id) {
+    vm.tarea.id = id;
+    vm.accion = 'editar';
+    $("#" + editar_modal).modal();
 };
-desactivar=function(id){
+desactivar = function desactivar(id) {
     reload();
 };
-activar=function(id){
+activar = function activar(id) {
     reload();
 };
-reload=function(){
-    datatable.ajax.reload(null,false);
+reload = function reload() {
+    datatable.ajax.reload(null, false);
 };
-clearMapa=function(){
-    try { markerSpiderfier.clearMarkers(); }catch(c){}
+clearMapa = function clearMapa() {
+    try {
+        markerSpiderfier.clearMarkers();
+    } catch (c) {}
     removeMarkers();
 };
 
-iniciarMapa=function (id) {
-    vm.map = new gm.Map(
-        document.getElementById(id),
-        mapOptions
-    );
+iniciarMapa = function iniciarMapa(id) {
+    vm.map = new gm.Map(document.getElementById(id), mapOptions);
 };
-addClickMarker=function (id) {
-    vm.map.addListener('click',function(event) {
+addClickMarker = function addClickMarker(id) {
+    vm.map.addListener('click', function (event) {
         icon = "/img/icons/tap.png";
         vm.tarea.coordy = event.latLng.lat();
         vm.tarea.coordx = event.latLng.lng();
         removeMarkers();
-        addMarker(event.latLng, 'Click Generated Marker',icon, true);
+        addMarker(event.latLng, 'Click Generated Marker', icon, true);
     });
     vm.bounds = new gm.LatLngBounds();
     markerSpiderfier = new OverlappingMarkerSpiderfier(vm.map, spiderConfig);
 };
 
-pintarMarkers=function () {
+pintarMarkers = function pintarMarkers() {
     for (var i = vm.movimientos.length - 1; i >= 0; i--) {
         var coordx = parseFloat(vm.movimientos[i].coordx);
         var coordy = parseFloat(vm.movimientos[i].coordy);
         icon = "/img/icons/tap.png";
-        label = "<label><b>"+vm.movimientos[i]created_at+"</b></label>";
+        label = "<label><b>" + vm.movimientos[i].created_at + "</b></label>";
         var location = new gm.LatLng(coordy, coordx);
-        addMarker( location, label, icon,false);
+        addMarker(location, label, icon, false);
     }
     var markerCluster = new MarkerClusterer(vm.map, vm.markers);
     markerCluster.setMaxZoom(config.minZoom);
