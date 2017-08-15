@@ -18,6 +18,10 @@ var Tareas={
             vm.tarea = response.data;
             vm.movimientos = response.data.movimientos;
             pintarMarkers();
+            $EmployeeNumber.val(vm.tarea.EmployeeNumber).trigger("change");
+            $tipo_tarea_id.val(vm.tarea.tipo_tarea_id).trigger("change");
+            $estado_tarea_id.val(vm.tarea.estado_tarea_id).trigger("change");
+
         })
         .catch(e => {
             vm.errors.push(e);

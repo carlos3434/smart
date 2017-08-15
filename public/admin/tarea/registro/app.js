@@ -14,6 +14,9 @@ var Tareas = {
             vm.tarea = response.data;
             vm.movimientos = response.data.movimientos;
             pintarMarkers();
+            $EmployeeNumber.val(vm.tarea.EmployeeNumber).trigger("change");
+            $tipo_tarea_id.val(vm.tarea.tipo_tarea_id).trigger("change");
+            $estado_tarea_id.val(vm.tarea.estado_tarea_id).trigger("change");
         }).catch(function (e) {
             vm.errors.push(e);
         });
@@ -182,7 +185,9 @@ var nuevo_modal = 'nuevo_modal';
 /* BASIC ;*/
 var responsiveHelper_datatable_tabletools = undefined;
 
-var $selectRoles;
+var $EmployeeNumber;
+var $tipo_tarea_id;
+var $estado_tarea_id;
 
 var breakpointDefinition = {
     tablet: 1024,
@@ -287,7 +292,9 @@ var dataTable = {
 var datatable;
 $(document).ready(function () {
     pageSetUp();
-
+    $EmployeeNumber = $('#EmployeeNumber').select2();
+    $tipo_tarea_id = $('#tipo_tarea_id').select2();
+    $estado_tarea_id = $('#estado_tarea_id').select2();
     datatable = $('#' + tabla).DataTable(dataTable);
 
     Listas.all();
