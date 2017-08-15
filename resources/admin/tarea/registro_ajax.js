@@ -87,12 +87,13 @@ var Listas ={
 };
 var Formulario={
     get:function(id){
-        headerAxios.params= {
+        var header =headerAxios;
+        header.params= {
             movimiento_id: id
         };
         axios.get(
             'formularios/lista',
-            headerAxios
+            header
         )
         .then(response => {
             vm.formulario = response.data;

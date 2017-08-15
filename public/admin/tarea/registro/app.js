@@ -61,10 +61,11 @@ var Listas = {
 };
 var Formulario = {
     get: function get(id) {
-        headerAxios.params = {
+        var header = headerAxios;
+        header.params = {
             movimiento_id: id
         };
-        axios.get('formularios/lista', headerAxios).then(function (response) {
+        axios.get('formularios/lista', header).then(function (response) {
             vm.formulario = response.data;
             vm.imagenes = response.data.imagenes;
         }).catch(function (e) {
