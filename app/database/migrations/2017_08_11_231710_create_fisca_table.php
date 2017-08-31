@@ -37,8 +37,8 @@ class CreateFiscaTable extends Migration
             $table->string('num_doc',50);
             $table->string('ape_nombres',50);
 
-            $table->integer('fiscalizacione_id')->unsigned();
-            $table->foreign('fiscalizacione_id')->references('id')->on('fiscalizaciones')
+            $table->integer('fiscalizacion_id')->unsigned();
+            $table->foreign('fiscalizacion_id')->references('id')->on('fiscalizaciones')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
@@ -61,8 +61,8 @@ class CreateFiscaTable extends Migration
             $table->string('lote',50);
             $table->string('telefono',50);
 
-            $table->integer('fiscalizacione_id')->unsigned();
-            $table->foreign('fiscalizacione_id')->references('id')->on('fiscalizaciones')
+            $table->integer('fiscalizacion_id')->unsigned();
+            $table->foreign('fiscalizacion_id')->references('id')->on('fiscalizaciones')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
@@ -88,8 +88,8 @@ class CreateFiscaTable extends Migration
             $table->string('cod_uso',50);
             $table->string('uso_propiedad',50);
 
-            $table->integer('fiscalizacione_id')->unsigned();
-            $table->foreign('fiscalizacione_id')->references('id')->on('fiscalizaciones')
+            $table->integer('fiscalizacion_id')->unsigned();
+            $table->foreign('fiscalizacion_id')->references('id')->on('fiscalizaciones')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
@@ -115,8 +115,8 @@ class CreateFiscaTable extends Migration
             $table->string('condicion',50);
             $table->string('desc_condicion',50);
 
-            $table->integer('fiscalizacione_id')->unsigned();
-            $table->foreign('fiscalizacione_id')->references('id')->on('fiscalizaciones')
+            $table->integer('fiscalizacion_id')->unsigned();
+            $table->foreign('fiscalizacion_id')->references('id')->on('fiscalizaciones')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
@@ -137,8 +137,8 @@ class CreateFiscaTable extends Migration
             $table->string('ubicacion_parques',50);
             $table->string('clasificacion_predio',50);
 
-            $table->integer('fiscalizacione_id')->unsigned();
-            $table->foreign('fiscalizacione_id')->references('id')->on('fiscalizaciones')
+            $table->integer('fiscalizacion_id')->unsigned();
+            $table->foreign('fiscalizacion_id')->references('id')->on('fiscalizaciones')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
@@ -164,8 +164,8 @@ class CreateFiscaTable extends Migration
             $table->string('area_construida_verificada',50);
             $table->string('uca',50);
 
-            $table->integer('fiscalizacione_id')->unsigned();
-            $table->foreign('fiscalizacione_id')->references('id')->on('fiscalizaciones')
+            $table->integer('fiscalizacion_id')->unsigned();
+            $table->foreign('fiscalizacion_id')->references('id')->on('fiscalizaciones')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
@@ -186,8 +186,8 @@ class CreateFiscaTable extends Migration
             $table->string('total',50);
             $table->string('valor_soles',50);
 
-            $table->integer('fiscalizacione_id')->unsigned();
-            $table->foreign('fiscalizacione_id')->references('id')->on('fiscalizaciones')
+            $table->integer('fiscalizacion_id')->unsigned();
+            $table->foreign('fiscalizacion_id')->references('id')->on('fiscalizaciones')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
@@ -204,8 +204,8 @@ class CreateFiscaTable extends Migration
             $table->string('domicilio_fiscal',50);
             $table->string('porcentaje_condominio',50);
 
-            $table->integer('fiscalizacione_id')->unsigned();
-            $table->foreign('fiscalizacione_id')->references('id')->on('fiscalizaciones')
+            $table->integer('fiscalizacion_id')->unsigned();
+            $table->foreign('fiscalizacion_id')->references('id')->on('fiscalizaciones')
                 ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
