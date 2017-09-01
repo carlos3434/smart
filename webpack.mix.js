@@ -56,6 +56,13 @@ mix.babel(
     ],
     'public/admin/tarea/registro/app.js'
 ).version();
+mix.babel(
+    [
+    'resources/admin/fiscalizacion/bandeja_ajax.js',
+    'resources/admin/fiscalizacion/bandeja.js'
+    ],
+    'public/admin/fiscalizacion/bandeja/app.js'
+).version();
 
 mix.babel(
     [

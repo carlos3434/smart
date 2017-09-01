@@ -145,6 +145,12 @@ Route::group(["before" => "auth"], function() {
         Route::get('charts', function () {
             return View::make('charts');
         });
+        Route::get('admin.estadistica.sueldo', function () {
+            return View::make('admin.estadistica.sueldo');
+        });
+        Route::get('admin.fiscalizacion.bandeja', function () {
+            return View::make('admin.fiscalizacion.bandeja');
+        });
         Route::get('admin.tarea.registro', function () {
             return View::make('admin.tarea.registro');
         });
@@ -202,5 +208,6 @@ Route::group(["before" => "auth"], function() {
         //Route::resource('api/tareas', 'ApiTareaController');
 
         Route::resource('api/tareas', 'ApiTareasController');
+        Route::resource('api/fiscalizaciones', 'ApiFiscalizacionesController');
     });
 });

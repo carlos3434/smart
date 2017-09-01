@@ -1,25 +1,8 @@
 var Users = {
     getAll: function getAll(data, callback) {
-        // make a regular ajax request using data.start and data.length
         data.per_page = data.length;
         data.page = (data.start + data.length) / data.length;
         data.filter = data.search.value;
-        /*$.ajax({
-            "url": url,
-            "type": "GET",
-            "data" : data,
-            'beforeSend': function (request) {
-                console.log("before");
-                $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
-            },
-            "success":function(response){
-                callback(response);
-                $(".overlay,.loading-img").remove();
-            },
-            "error":function(data){
-                $(".overlay,.loading-img").remove();
-            }
-        });*/
         $("body").append('<div class="overlay"></div><div class="loading-img"></div>');
         $.get(url, data, function (response) {
             callback(response);
