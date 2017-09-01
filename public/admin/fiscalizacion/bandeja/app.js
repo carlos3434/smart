@@ -195,32 +195,28 @@ var breakpointDefinition = {
 };
 
 var columns = [{
-    data: "TaskNumber",
-    name: "TaskNumber",
+    data: "fichaNro",
+    name: "fichaNro",
     searchable: false
 }, {
-    data: "created_at",
-    name: "created_at",
+    data: "ape_nom",
+    name: "ape_nom",
     searchable: false
 }, {
-    data: "DueDate",
-    name: "DueDate",
+    data: "dni",
+    name: "dni",
     searchable: false
 }, {
-    data: "trabajador",
-    name: "trabajador",
+    data: "FirstName",
+    name: "FirstName",
     searchable: false
 }, {
-    data: "Description",
-    name: "Description",
+    data: "GroupName",
+    name: "GroupName",
     searchable: false
 }, {
-    data: "tipo",
-    name: "tipo",
-    searchable: false
-}, {
-    data: "estado",
-    name: "estado",
+    data: "observaciones",
+    name: "observaciones",
     searchable: false
 }, {
     name: "created_at",
