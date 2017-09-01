@@ -1,6 +1,6 @@
 <?php
 
-class Datos extends \Eloquent
+class Dato extends \Eloquent
 {
 
     protected $table = 'datos';

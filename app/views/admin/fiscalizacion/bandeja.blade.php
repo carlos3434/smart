@@ -55,12 +55,11 @@
                                     <thead>
                                         <tr>
                                             <th>Código</th>
-                                            <th>Registro</th>
-                                            <th>Vencimiento</th>
-                                            <th>trabajador</th>
+                                            <th>usuario</th>
+                                            <th>DNI</th>
+                                            <th>Usuario</th>
+                                            <th>Grupo</th>
                                             <th>Observación</th>
-                                            <th>Tipo</th>
-                                            <th>Estado</th>
                                             <th>[]</th>
                                             <th>[]</th>
                                         </tr>
