@@ -219,7 +219,11 @@ var columns = [{
     name: "observaciones",
     searchable: false
 }, {
-    name: "created_at",
+    data: "created_at",
+    name: "registro",
+    searchable: false
+}, {
+    name: "edicion",
     searchable: false,
     data: function data(row, type, val, meta) {
         return '<td><button type="button" onClick="editar(' + row.id + ')" class="btn btn-primary">Editar</button></td>';

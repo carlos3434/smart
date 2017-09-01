@@ -60,6 +60,7 @@
                                             <th>Usuario</th>
                                             <th>Grupo</th>
                                             <th>Observación</th>
+                                            <th>registro</th>
                                             <th>[]</th>
                                             <th>[]</th>
                                         </tr>
