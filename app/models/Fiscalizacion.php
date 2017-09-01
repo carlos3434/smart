@@ -42,7 +42,7 @@ class Fiscalizacion extends \Eloquent
     }
     public function datos()
     {
-        return $this->hasMany('Datos');
+        return $this->hasMany('Dato');
     }
 
 
