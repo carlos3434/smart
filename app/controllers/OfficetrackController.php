@@ -277,10 +277,10 @@ class OfficetrackController extends \BaseController
 
     private function registrarVerifActuaTrib($form)
     {
-        Log::useDailyFiles(storage_path().'/logs/tributaria.log');
+        //Log::useDailyFiles(storage_path().'/logs/tributaria.log');
         $form = json_encode($form);
 
-        Log::info( ["inicio"]);
+        //Log::info( ["inicio"]);
 
         $form = json_decode($form);
         //operador
@@ -764,7 +764,6 @@ class OfficetrackController extends \BaseController
             }
         }
         if ($fiscalizacion) {
-            $ubicacion = $fichaNro = $observaciones = $ape_nom = $dni = '';
             $fiscalizacion->ubicacion = $ubicacion;
             $fiscalizacion->fichaNro = $fichaNro;
             $fiscalizacion->observaciones = $observaciones;
@@ -772,7 +771,7 @@ class OfficetrackController extends \BaseController
             $fiscalizacion->dni = $dni;
             $fiscalizacion->save();
         }
-        Log::info( ["fin"]);
+        //Log::info( ["fin"]);
     }
 
 }
