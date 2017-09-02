@@ -7,7 +7,15 @@ let vm = new Vue({
         trabajadores:[],
         estadotarea:[],
         tipotarea:[],
-        movimientos:[],
+        construcciones:[],
+        datos:[],
+        domicilios:[],
+        instalaciones:[],
+        prediouno:[],
+        prediodos:[],
+        prediotres:[],
+        propietarios:[],
+
         formulario:[],
         imagenes:[],
         map:[],
@@ -36,7 +44,7 @@ let vm = new Vue({
             $("#"+nuevo_modal).modal();
             vm.accion = 'nuevo';
             vm.tarea = {};
-            vm.movimientos = {};
+            vm.construcciones = {};
         },
         roles: function(){
             Roles.all();
@@ -250,13 +258,13 @@ $(document).ready(function() {
         addClickMarker();
     });
     $('#nav_modal a').on('shown.bs.tab', function(e){
-        if ($(this)[0].hash=='#tab_datos') {
+        /*if ($(this)[0].hash=='#tab_datos') {
             $('#footer_datos').show();
             $('#footer_movimientos').hide();
         } else if ($(this)[0].hash=='#tab_movimientos'){
             $('#footer_datos').hide();
             $('#footer_movimientos').show();
-        }
+        }*/
     });
 });
 /**
@@ -300,7 +308,7 @@ addClickMarker=function (id) {
 };
 
 pintarMarkers=function () {
-    for (var i = vm.movimientos.length - 1; i >= 0; i--) {
+    /*for (var i = vm.movimientos.length - 1; i >= 0; i--) {
         var coordx = parseFloat(vm.movimientos[i].coordx);
         var coordy = parseFloat(vm.movimientos[i].coordy);
         icon = "/img/icons/tap.png";
@@ -310,5 +318,5 @@ pintarMarkers=function () {
     }
     var markerCluster = new MarkerClusterer(vm.map, vm.markers);
     markerCluster.setMaxZoom(config.minZoom);
-    vm.map.fitBounds(vm.bounds);
+    vm.map.fitBounds(vm.bounds);*/
 };

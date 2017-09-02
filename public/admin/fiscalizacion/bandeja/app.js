@@ -12,7 +12,16 @@ var Tareas = {
     get: function get(id) {
         axios.get(url + '/' + id, headerAxios).then(function (response) {
             vm.tarea = response.data;
-            vm.movimientos = response.data.movimientos;
+
+            vm.construcciones = response.data.construcciones;
+            vm.datos = response.data.datos;
+            vm.domicilios = response.data.domicilios;
+            vm.instalaciones = response.data.instalaciones;
+            vm.prediouno = response.data.prediouno;
+            vm.prediodos = response.data.prediodos;
+            vm.prediotres = response.data.prediotres;
+            vm.propietarios = response.data.propietarios;
+
             pintarMarkers();
             $EmployeeNumber.val(vm.tarea.EmployeeNumber).trigger("change");
             $tipo_tarea_id.val(vm.tarea.tipo_tarea_id).trigger("change");
@@ -85,7 +94,15 @@ var vm = new Vue({
         trabajadores: [],
         estadotarea: [],
         tipotarea: [],
-        movimientos: [],
+        construcciones: [],
+        datos: [],
+        domicilios: [],
+        instalaciones: [],
+        prediouno: [],
+        prediodos: [],
+        prediotres: [],
+        propietarios: [],
+
         formulario: [],
         imagenes: [],
         map: [],
@@ -114,7 +131,7 @@ var vm = new Vue({
             $("#" + nuevo_modal).modal();
             vm.accion = 'nuevo';
             vm.tarea = {};
-            vm.movimientos = {};
+            vm.construcciones = {};
         },
         roles: function roles() {
             Roles.all();
@@ -310,13 +327,13 @@ $(document).ready(function () {
         addClickMarker();
     });
     $('#nav_modal a').on('shown.bs.tab', function (e) {
-        if ($(this)[0].hash == '#tab_datos') {
+        /*if ($(this)[0].hash=='#tab_datos') {
             $('#footer_datos').show();
             $('#footer_movimientos').hide();
-        } else if ($(this)[0].hash == '#tab_movimientos') {
+        } else if ($(this)[0].hash=='#tab_movimientos'){
             $('#footer_datos').hide();
             $('#footer_movimientos').show();
-        }
+        }*/
     });
 });
 /**
@@ -359,15 +376,15 @@ addClickMarker = function addClickMarker(id) {
 };
 
 pintarMarkers = function pintarMarkers() {
-    for (var i = vm.movimientos.length - 1; i >= 0; i--) {
+    /*for (var i = vm.movimientos.length - 1; i >= 0; i--) {
         var coordx = parseFloat(vm.movimientos[i].coordx);
         var coordy = parseFloat(vm.movimientos[i].coordy);
         icon = "/img/icons/tap.png";
-        label = "<label><b>" + vm.movimientos[i].created_at + "</b></label>";
+        label = "<label><b>"+vm.movimientos[i].created_at+"</b></label>";
         var location = new gm.LatLng(coordy, coordx);
-        addMarker(location, label, icon, false);
+        addMarker( location, label, icon,false);
     }
     var markerCluster = new MarkerClusterer(vm.map, vm.markers);
     markerCluster.setMaxZoom(config.minZoom);
-    vm.map.fitBounds(vm.bounds);
+    vm.map.fitBounds(vm.bounds);*/
 };

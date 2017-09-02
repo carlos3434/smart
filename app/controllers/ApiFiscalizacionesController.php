@@ -5,17 +5,7 @@ class ApiFiscalizacionesController extends Controller
 
     public function index()
     {
-        $tareas = Fiscalizacion::with(
-            'propietarios',
-            'domicilios',
-            'prediouno',
-            'prediodos',
-            'prediotres',
-            'construcciones',
-            'instalaciones',
-            'datos'
-            )
-                ->searchPaginateAndOrder();
+        $tareas = Fiscalizacion::searchPaginateAndOrder();
 
         return Response::json($tareas);
     }
@@ -57,7 +47,17 @@ class ApiFiscalizacionesController extends Controller
 
     public function show($id)
     {
-        return Tarea::with('movimientos')->findOrFail($id);
+        return Fiscalizacion::with(
+            'propietarios',
+            'domicilios',
+            'prediouno',
+            'prediodos',
+            'prediotres',
+            'construcciones',
+            'instalaciones',
+            'datos'
+            )->findOrFail($id);
+        //return Tarea::with('movimientos')->findOrFail($id);
     }
 
     public function edit($id)
