@@ -607,7 +607,7 @@ class OfficetrackController extends \BaseController
         $form = json_decode($form);
         //operador
         $EmployeeNumber = $FirstName = $GroupName='';
-        $ficha_p = $codigo_p = $contador = $ubica = $observaciones = $anexo01_p_anexo = $nombres_declarantes = $dni_declaramtes = $nombres_propietarios = $dni_propietario = $nombres_fiscalizador = $dni_fiscalizador = '';
+        $ficha_p = $codigo_p = $contador = $ubica = $observaciones = $anexo01_p_anexo = $anexo02_p_anexo = $anexo03_p_anexo = $nombres_declarantes = $dni_declaramtes = $nombres_propietarios = $dni_propietario = $nombres_fiscalizador = $dni_fiscalizador = '';
 
         if (isset($form->Employee->EmployeeNumber) )    $EmployeeNumber = $form->Employee->EmployeeNumber;
         if (isset($form->Employee->FirstName) )    $FirstName = $form->Employee->FirstName;
@@ -630,6 +630,7 @@ class OfficetrackController extends \BaseController
                 if ( $value->Id=='parte07_obs_p' && isset($value->Value))    $observaciones = $value->Value;
                 if ( $value->Id=='anexo01_p_anexo' && isset($value->Value))    $anexo01_p_anexo = $value->Value;
                 if ( $value->Id=='anexo02_p_anexo' && isset($value->Value))    $anexo02_p_anexo = $value->Value;
+                if ( $value->Id=='anexo03_p_anexo' && isset($value->Value))    $anexo03_p_anexo = $value->Value;
 
                 if ( $value->Id=='nombres_declarantes' && isset($value->Value))    $nombres_declarantes = $value->Value;
                 if ( $value->Id=='dni_declaramtes' && isset($value->Value))    $dni_declaramtes = $value->Value;
@@ -935,6 +936,7 @@ class OfficetrackController extends \BaseController
             $fiscalizacion->observaciones = $observaciones;
             $fiscalizacion->anexo01_p_anexo =$anexo01_p_anexo;
             $fiscalizacion->anexo02_p_anexo =$anexo02_p_anexo;
+            //$fiscalizacion->anexo03_p_anexo =$anexo03_p_anexo;
             $fiscalizacion->firma_declarante ='';
             $fiscalizacion->nombres_declarantes = $nombres_declarantes;
             $fiscalizacion->dni_declarantes = $dni_declaramtes;
