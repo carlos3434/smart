@@ -1,9 +1,9 @@
 <?php
 
-class Prediodos extends \Eloquent
+class Ubicacion extends \Eloquent
 {
 
-    protected $table = 'prediodos';
+    protected $table = 'ubicaciones';
     protected $dates = ['created_at','updated_at','deleted_at'];
 
     protected $guarded =[];

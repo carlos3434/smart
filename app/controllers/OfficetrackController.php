@@ -64,7 +64,7 @@ class OfficetrackController extends \BaseController
             //$this->error->saveError($exc);
         }
         $formObj = simplexml_load_string($forms);
-        if ($formObj->Form->Version=='12') {
+        if ($formObj->Form->Version=='80') {
             $this->registrarVerifActuaTrib($formObj);
             return  "_OK_";
         }
@@ -132,10 +132,6 @@ class OfficetrackController extends \BaseController
             $form['EmployeeNumber']!='666' &&
             $form['EmployeeNumber']!='70' &&
             $form['EmployeeNumber']!='123456') {//cel de test
-            return  "_OK_";
-        }
-        if ($form['Version']=='12') {
-            $this->registrarVerifActuaTrib($form);
             return  "_OK_";
         }
         /*if ( $form['Version']=='30' || $form['Version']=='17') {//cel de test
@@ -274,7 +270,333 @@ class OfficetrackController extends \BaseController
         $errors = libxml_get_errors();
         return empty($errors);
     }
+    //I. IDENTIFICACIÓN DEL PROPIETARIO
+    private function parte01($value)
+    {
+        $documento = $identidad = $nombres= '';
+        if (isset($value[0]->Id) && $value[0]->Id == 'doc_parte01' )    $documento = $value[0]->Value;
+        if (isset($value[1]->Id) && $value[1]->Id == 'identidad_parte01' )    $identidad = $value[1]->Value;
+        if (isset($value[2]->Id) && $value[2]->Id == 'nombres_parte01' )    $nombres = $value[2]->Value;
 
+        return  [
+            'tipo_documento' => $documento,
+            'numero_documento' => $identidad,
+            'nombres' => $nombres
+        ];
+    }
+    //2 DOMICILIO FISCAL DEL CONTRIBUYENTE 
+    private function parte02($value)
+    {
+        $postal = $distrito = $codvia = $via = $nombrevia = $numero = $depa = $mzna = $lote = $fono = '';
+        if (isset($value[0]->Id) && $value[0]->Id == 'postal_parte02' )    $postal = $value[0]->Value;
+        if (isset($value[1]->Id) && $value[1]->Id == 'distrito_parte02' )    $distrito = $value[1]->Value;
+        if (isset($value[2]->Id) && $value[2]->Id == 'codvia_parte02' )    $codvia = $value[2]->Value;
+        if (isset($value[3]->Id) && $value[3]->Id == 'via_parte02' )    $via = $value[3]->Value;
+        if (isset($value[4]->Id) && $value[4]->Id == 'nombrevia_parte02' )    $nombrevia = $value[4]->Value;
+        if (isset($value[5]->Id) && $value[5]->Id == 'numero_parte02' )    $numero = $value[5]->Value;
+        if (isset($value[6]->Id) && $value[6]->Id == 'depa_parte02' )    $depa = $value[6]->Value;
+        if (isset($value[7]->Id) && $value[7]->Id == 'mzna_parte02' )    $mzna = $value[7]->Value;
+        if (isset($value[8]->Id) && $value[8]->Id == 'lote_parte02' )    $lote = $value[8]->Value;
+        if (isset($value[9]->Id) && $value[9]->Id == 'fono_parte02' )    $fono = $value[9]->Value;
+
+        return  [
+            'postal'    => $postal,
+            'distrito'  => $distrito,
+            'codigo_via'    => $codvia,
+            'via'   => $via,
+            'nombre_via' => $nombrevia,
+            'numero_monicipal'    => $numero,
+            'departamento'  => $depa,
+            'manzana'  => $mzna,
+            'lote'  => $lote,
+            'telefono'  => $fono
+        ];
+    }
+    //3 UBICACIÓN DEL PREDIO
+    private function parte03($value)
+    {
+        $cuso = $uso = $curbano = $centropoblado = $dcentropoblado = $cvia = $via = $nvia = $numero = $block = $depa = $mzna = $lote = $sublote = $Adeclarada = $Averificada = $Acomun = $Apropia = $Lfachada = $ubicacion = $clacificacion = '';
+        if (isset($value[0]->Id) && $value[0]->Id == 'cuso_parte03' )    $cuso = $value[0]->Value;
+        if (isset($value[1]->Id) && $value[1]->Id == 'uso_parte03' )    $uso = $value[1]->Value;
+        if (isset($value[2]->Id) && $value[2]->Id == 'curbano_parte03' )    $curbano = $value[2]->Value;
+        if (isset($value[3]->Id) && $value[3]->Id == 'centropoblado_parte03' )    $centropoblado = $value[3]->Value;
+        if (isset($value[4]->Id) && $value[4]->Id == 'dcentropoblado_parte03' )    $dcentropoblado = $value[4]->Value;
+        if (isset($value[5]->Id) && $value[5]->Id == 'cvia_parte03' )    $cvia = $value[5]->Value;
+        if (isset($value[6]->Id) && $value[6]->Id == 'via_parte03' )    $via = $value[6]->Value;
+        if (isset($value[7]->Id) && $value[7]->Id == 'nvia_parte03' )    $nvia = $value[7]->Value;
+        if (isset($value[8]->Id) && $value[8]->Id == 'numero_parte03' )    $numero = $value[8]->Value;
+        if (isset($value[9]->Id) && $value[9]->Id == 'block_parte03' )    $block = $value[9]->Value;
+        if (isset($value[10]->Id) && $value[10]->Id == 'depa_parte03' )    $depa = $value[10]->Value;
+        if (isset($value[11]->Id) && $value[11]->Id == 'mzna_parte03' )    $mzna = $value[11]->Value;
+        if (isset($value[12]->Id) && $value[12]->Id == 'lote_parte03' )    $lote = $value[12]->Value;
+        if (isset($value[13]->Id) && $value[13]->Id == 'sublote_parte03' )    $sublote = $value[13]->Value;
+        if (isset($value[14]->Id) && $value[14]->Id == 'Adeclarada_parte03' )    $Adeclarada = $value[14]->Value;
+        if (isset($value[15]->Id) && $value[15]->Id == 'Averificada_parte03' )    $Averificada = $value[15]->Value;
+        if (isset($value[16]->Id) && $value[16]->Id == 'Acomun_parte03' )    $Acomun = $value[16]->Value;
+        if (isset($value[17]->Id) && $value[17]->Id == 'Apropia_parte03' )    $Apropia = $value[17]->Value;
+        if (isset($value[18]->Id) && $value[18]->Id == 'Lfachada_parte03' )    $Lfachada = $value[18]->Value;
+        if (isset($value[19]->Id) && $value[19]->Id == 'ubicacion_parte03' )    $ubicacion = $value[19]->Value;
+        if (isset($value[20]->Id) && $value[20]->Id == 'clacificacion_parte03' )    $clacificacion = $value[20]->Value;
+
+        return  [
+            'codigo_uso'  => $cuso,
+            'uso_propiedad'   => $uso,
+            'codigo_urbano'   => $curbano,
+            'cod_centro_poblado' => $centropoblado,
+            'desc_centro_poblado'    => $dcentropoblado,
+            'cod_via'  => $cvia,
+            'via'   => $via,
+            'nombre_via'  => $nvia,
+            'numero'    => $numero,
+            'block' => $block,
+            'departamento'  => $depa,
+            'manzana'  => $mzna,
+            'lote'  => $lote,
+            'sublote'   => $sublote,
+            'area_declarada'    => $Adeclarada,
+            'area_verificada'   => $Averificada,
+            'area_comun'    => $Acomun,
+            'area_propia'   => $Apropia,
+            'longitud_fachada'  => $Lfachada,
+            'ubicacion' => $ubicacion,
+            'clasificacion' => $clacificacion
+        ];
+    }
+    //construcciones
+    private function parte04($value)
+    {
+        $pisoA=$fconstruccion=$mconstruccion=$Econservacion=$econstruccion=$muros=$techos=$pisoB=$puertas=$revestimiento=$baños=$instalacionE=$aconstruida=$Averificada=$uca='';
+        if (isset($value[0]->Id) && $value[0]->Id == 'pisoA_parte04' )    $pisoA = $value[0]->Value;
+        if (isset($value[1]->Id) && $value[1]->Id == 'fconstruccion_parte04' )    $fconstruccion = $value[1]->Value;
+        if (isset($value[2]->Id) && $value[2]->Id == 'mconstruccion_parte04' )    $mconstruccion = $value[2]->Value;
+        if (isset($value[3]->Id) && $value[3]->Id == 'Econservacion_parte04' )    $Econservacion = $value[3]->Value;
+        if (isset($value[4]->Id) && $value[4]->Id == 'econstruccion_parte04' )    $econstruccion = $value[4]->Value;
+        if (isset($value[5]->Id) && $value[5]->Id == 'muros_parte04' )    $muros = $value[5]->Value;
+        if (isset($value[6]->Id) && $value[6]->Id == 'techos_parte04' )    $techos = $value[6]->Value;
+        if (isset($value[7]->Id) && $value[7]->Id == 'pisoB_parte04' )    $pisoB = $value[7]->Value;
+        if (isset($value[8]->Id) && $value[8]->Id == 'puertas_parte04' )    $puertas = $value[8]->Value;
+        if (isset($value[9]->Id) && $value[9]->Id == 'revestimiento_parte04' )    $revestimiento = $value[9]->Value;
+        if (isset($value[10]->Id) && $value[10]->Id == 'baños_parte04' )    $baños = $value[10]->Value;
+        if (isset($value[11]->Id) && $value[11]->Id == 'instalacionE_parte04' )    $instalacionE = $value[11]->Value;
+        if (isset($value[12]->Id) && $value[12]->Id == 'aconstruida_parte04' )    $aconstruida = $value[12]->Value;
+        if (isset($value[13]->Id) && $value[13]->Id == 'Averificada_parte04' )    $Averificada = $value[13]->Value;
+        if (isset($value[14]->Id) && $value[14]->Id == 'uca_parte04' )    $uca = $value[14]->Value;
+
+        return  [
+            'piso' => $pisoA,
+            'fecha_construccion' => $fconstruccion,
+            'materiales_construccion' => $mconstruccion,
+            'estado_conservacion' => $Econservacion,
+            'estado_construccion' => $econstruccion,
+            'muros_columnas' => $muros,
+            'techos' => $techos,
+            'pisos' => $pisoB,
+            'puertas_ventanas' => $puertas,
+            'revestimientos' => $revestimiento,
+            'banios' => $baños,
+            'instalaciones_electricas' => $instalacionE,
+            'area_construida_declarada' => $aconstruida,
+            'area_construida_verificada' => $Averificada,
+            'uca' => $uca
+        ];
+    }
+    //5 OTRAS INSTALACIONES FIJAS Y PERMANENTES
+    private function parte05($value)
+    {
+        $cod = $dotrainstalacion = $ftermino = $unidad = $materialP = $estadoC = $largo = $ancho = $alto = $total = $valorS = '';
+
+        if (isset($value[0]->Id) && $value[0]->Id == 'cod_parte05' )    $cod = $value[0]->Value;
+        if (isset($value[1]->Id) && $value[1]->Id == 'dotrainstalacion_parte05' )    $dotrainstalacion = $value[1]->Value;
+        if (isset($value[2]->Id) && $value[2]->Id == 'ftermino_parte05' )    $ftermino = $value[2]->Value;
+        if (isset($value[3]->Id) && $value[3]->Id == 'unidad_parte05' )    $unidad = $value[3]->Value;
+        if (isset($value[4]->Id) && $value[4]->Id == 'materialP_parte05' )    $materialP = $value[4]->Value;
+        if (isset($value[5]->Id) && $value[5]->Id == 'estadoC_parte05' )    $estadoC = $value[5]->Value;
+        if (isset($value[6]->Id) && $value[6]->Id == 'largo_parte05' )    $largo = $value[6]->Value;
+        if (isset($value[7]->Id) && $value[7]->Id == 'ancho_parte05' )    $ancho = $value[7]->Value;
+        if (isset($value[8]->Id) && $value[8]->Id == 'alto_parte05' )    $alto = $value[8]->Value;
+        if (isset($value[9]->Id) && $value[9]->Id == 'total_parte05' )    $total = $value[9]->Value;
+        if (isset($value[10]->Id) && $value[10]->Id == 'valorS_parte05' )    $valorS = $value[10]->Value;
+
+        return  [
+            'codigo' => $cod,
+            'desc_instalacion' => $dotrainstalacion,
+            'fecha_termino' => $ftermino,
+            'unidad_medida' => $unidad,
+            'material_predominante' => $materialP,
+            'estado_conservacion' => $estadoC,
+            'largo' => $largo,
+            'ancho' => $ancho,
+            'alto' => $alto,
+            'total' => $total,
+            'valor_soles' => $valorS
+        ];
+    }
+    //6 DATOS RELACIONADOS A LOS CONDOMINANTES
+    private function parte06($value)
+    {
+        $nro = $cod = $doc = $nombres = $domicilio = $porcentaje = '';
+
+        if (isset($value[0]->Id) && $value[0]->Id == 'nro_parte06' )    $nro = $value[0]->Value;
+        if (isset($value[1]->Id) && $value[1]->Id == 'cod_parte06' )    $cod = $value[1]->Value;
+        if (isset($value[2]->Id) && $value[2]->Id == 'doc_parte06' )    $doc = $value[2]->Value;
+        if (isset($value[3]->Id) && $value[3]->Id == 'nombres_parte06' )    $nombres = $value[3]->Value;
+        if (isset($value[4]->Id) && $value[4]->Id == 'domicilio_parte06' )    $domicilio = $value[4]->Value;
+        if (isset($value[5]->Id) && $value[5]->Id == 'porcentaje_parte06' )    $porcentaje = $value[5]->Value;
+
+        return  [
+            'numero' => $nro,
+            'codigo_contribuyente' => $cod,
+            'num_doc_identidad' => $doc,
+            'nombres' => $nombres,
+            'domicilio_fiscal' => $domicilio,
+            'porcentaje_condominio' => $porcentaje
+        ];
+    }
+    //anexo01_parte10
+    private function autorizacion($id, $value)
+    {
+        $codigo = $descripcion = '';
+
+        if (isset($value[0]->Id) && $value[0]->Id == $id.'_cactividad' )    $codigo = $value[0]->Value;
+        if (isset($value[1]->Id) && $value[1]->Id == $id.'_dactividad' )    $descripcion = $value[1]->Value;
+
+        return  [
+            'codigo' => $codigo,
+            'descripcion' => $descripcion
+        ];
+    }
+    //anexo01_Ubicacion
+    private function ubicacion($id, $value)
+    {
+        $autorizada = $verficada = '';
+
+        if (isset($value[0]->Id) && $value[0]->Id == $id.'_Aautorizada' )    $autorizada = $value[0]->Value;
+        if (isset($value[1]->Id) && $value[1]->Id == $id.'_Averficada' )    $verficada = $value[1]->Value;
+
+        return  [
+            'autorizada' => $autorizada,
+            'verficada' => $verficada
+        ];
+    }
+    //anexo01_masdatos
+    private function masdatos($id, $value)
+    {
+        $expediente = $licencia = $expedicion = $vencimiento = $actividad = '';
+
+        if (isset($value[0]->Id) && $value[0]->Id == $id.'_Nexpediente' )    $expediente = $value[0]->Value;
+        if (isset($value[1]->Id) && $value[1]->Id == $id.'_Nlicencia' )    $licencia = $value[1]->Value;
+        if (isset($value[2]->Id) && $value[2]->Id == $id.'_fexpedicion' )    $expedicion = $value[2]->Value;
+        if (isset($value[3]->Id) && $value[3]->Id == $id.'_fvencimiento' )    $vencimiento = $value[3]->Value;
+        if (isset($value[4]->Id) && $value[4]->Id == $id.'_Iactividad' )    $actividad = $value[4]->Value;
+
+        return  [
+            'expediente' => $expediente,
+            'licencia' => $licencia,
+            'expedicion' => $expedicion,
+            'vencimiento' => $vencimiento,
+            'actividad' => $actividad
+        ];
+    }
+    //anexo01_Aanuncio
+    private function anuncio($id, $value)
+    {
+        $codigo = $descripcion = $lados = $autor = $verificacion = $expediente = $licencia = $expedicion = $vencimiento = '';
+        if (isset($value[0]->Id) && $value[0]->Id == $id.'_CTanuncio' )    $codigo = $value[0]->Value;
+        if (isset($value[1]->Id) && $value[1]->Id == $id.'_DTanuncio' )    $descripcion = $value[1]->Value;
+        if (isset($value[2]->Id) && $value[2]->Id == $id.'_Nlados' )    $lados = $value[2]->Value;
+        if (isset($value[3]->Id) && $value[3]->Id == $id.'_AAanucio' )    $autor = $value[3]->Value;
+        if (isset($value[4]->Id) && $value[4]->Id == $id.'_AVanuncio' )    $verificacion = $value[4]->Value;
+        if (isset($value[5]->Id) && $value[5]->Id == $id.'_Nexpediente' )    $expediente = $value[5]->Value;
+        if (isset($value[6]->Id) && $value[6]->Id == $id.'_Nlicencia' )    $licencia = $value[6]->Value;
+        if (isset($value[7]->Id) && $value[7]->Id == $id.'_Fexpedicion' )    $expedicion = $value[7]->Value;
+        if (isset($value[8]->Id) && $value[8]->Id == $id.'_Fvencimiento' )    $vencimiento = $value[8]->Value;
+
+        return  [
+            'codigo' => $codigo,
+            'descripcion' => $descripcion,
+            'lados' => $lados,
+            'autor' => $autor,
+            'verificacion' => $verificacion,
+            'expediente' => $expediente,
+            'licencia' => $licencia,
+            'expedicion' => $expedicion,
+            'vencimiento' => $vencimiento
+        ];
+    }
+    //anexo01_bien_comun
+    private function biencomun($id, $value)
+    {
+        $codigo = $descripcion = $titulo = $verificada = '';
+        if (isset($value[0]->Id) && $value[0]->Id == $id.'_Cuso' )    $codigo = $value[0]->Value;
+        if (isset($value[1]->Id) && $value[1]->Id == $id.'_Upredio' )    $descripcion = $value[1]->Value;
+        if (isset($value[2]->Id) && $value[2]->Id == $id.'_Atitulo' )    $titulo = $value[2]->Value;
+        if (isset($value[3]->Id) && $value[3]->Id == $id.'_Averificada' )    $verificada = $value[3]->Value;
+
+        return  [
+            'codigo' => $codigo,
+            'descripcion' => $descripcion,
+            'titulo' => $titulo,
+            'verificada' => $verificada
+        ];
+    }
+    //anexo01_Ccomunes
+    private function comunes($id, $value)
+    {
+        $piso = $construccion = $material = $conservacion = $estado = $muros = $techos = $pisos = $puertas = $revestimiento = $banios = $electricas = $declarada = $verificada = $uca = '';
+        if (isset($value[0]->Id) && $value[0]->Id == $id.'_pisoA' )    $piso = $value[0]->Value;
+        if (isset($value[1]->Id) && $value[1]->Id == $id.'_Fconstruccion' )    $construccion = $value[1]->Value;
+        if (isset($value[2]->Id) && $value[2]->Id == $id.'_Mconstruccion' )    $material = $value[2]->Value;
+        if (isset($value[3]->Id) && $value[3]->Id == $id.'_Econservacion' )    $conservacion = $value[3]->Value;
+        if (isset($value[4]->Id) && $value[4]->Id == $id.'_Econstruccion' )    $estado = $value[4]->Value;
+        if (isset($value[5]->Id) && $value[5]->Id == $id.'_Muros' )    $muros = $value[5]->Value;
+        if (isset($value[6]->Id) && $value[6]->Id == $id.'_Techos' )    $techos = $value[6]->Value;
+        if (isset($value[7]->Id) && $value[7]->Id == $id.'_PisosB' )    $pisos = $value[7]->Value;
+        if (isset($value[8]->Id) && $value[8]->Id == $id.'_Puertas' )    $puertas = $value[8]->Value;
+        if (isset($value[9]->Id) && $value[9]->Id == $id.'_Revestimiento' )    $revestimiento = $value[9]->Value;
+        if (isset($value[10]->Id) && $value[10]->Id == $id.'_Baños' )    $banios = $value[10]->Value;
+        if (isset($value[11]->Id) && $value[11]->Id == $id.'_Ielectricas' )    $electricas = $value[11]->Value;
+        if (isset($value[12]->Id) && $value[12]->Id == $id.'_ACdeclarada' )    $declarada = $value[12]->Value;
+        if (isset($value[13]->Id) && $value[13]->Id == $id.'_ACverficada' )    $verificada = $value[13]->Value;
+        if (isset($value[14]->Id) && $value[14]->Id == $id.'_uca' )    $uca = $value[14]->Value;
+
+        return  [
+            'piso' => $piso,
+            'construccion' => $construccion,
+            'material' => $material,
+            'conservacion' => $conservacion,
+            'estado' => $estado,
+            'muros' => $muros,
+            'techos' => $techos,
+            'pisos' => $pisos,
+            'puertas' => $puertas,
+            'revestimiento' => $revestimiento,
+            'banios' => $banios,
+            'electricas' => $electricas,
+            'declarada' => $declarada,
+            'verificada' => $verificada,
+            'uca' => $uca
+        ];
+    }
+    //anexo01_Tdocumentos
+    private function documentos($id, $value)
+    {
+        $numero = '';
+        if (isset($value[0]->Id) && $value[0]->Id == $id.'_numero' )    $numero = $value[0]->Value;
+
+        return  [
+            'numero' => $numero
+        ];
+    }
+    //anexo01_Opropietario
+    private function propietario($id, $value)
+    {
+        $propietario = '';
+        if (isset($value[0]->Id) && $value[0]->Id == $id.'_s_n' )    $propietario = $value[0]->Value;
+
+        return  [
+            'propietario' => $propietario
+        ];
+    }
     private function registrarVerifActuaTrib($form)
     {
         //Log::useDailyFiles(storage_path().'/logs/tributaria.log');
@@ -284,14 +606,13 @@ class OfficetrackController extends \BaseController
 
         $form = json_decode($form);
         //operador
-        $Email = $EmployeeNumber = $FirstName = $GroupName='';
-        $ubicacion = $fichaNro = $observaciones = $ape_nom = $dni = '';
-        if (isset($form->Employee->Email) )    $Email = $form->Employee->Email;
+        $EmployeeNumber = $FirstName = $GroupName='';
+        $ficha_p = $codigo_p = $contador = $ubica = $observaciones = $anexo01_p_anexo = $nombres_declarantes = $dni_declaramtes = $nombres_propietarios = $dni_propietario = $nombres_fiscalizador = $dni_fiscalizador = '';
+
         if (isset($form->Employee->EmployeeNumber) )    $EmployeeNumber = $form->Employee->EmployeeNumber;
         if (isset($form->Employee->FirstName) )    $FirstName = $form->Employee->FirstName;
         if (isset($form->Employee->Group->Name) )    $GroupName = $form->Employee->Group->Name;
         $fisca =[
-            'Email' => $Email,
             'EmployeeNumber' => $EmployeeNumber,
             'FirstName' => $FirstName,
             'GroupName' => $GroupName,
@@ -302,476 +623,330 @@ class OfficetrackController extends \BaseController
             
             foreach ($form->Form->Fields->Field as $key => $value) 
             {
-                if ( $value->Id=='UBICACIÓN (Presionar Imagen)')
-                {
-                    if (isset($value->Value))    $ubicacion = $value->Value;
-                }
-                if ( $value->Id=='Ficha Nro')
-                {
-                    if (isset($value->Value))    $fichaNro = $value->Value;
-                }
-                if ( $value->Id=='OBSERVACIONES')
-                {
-                    if (isset($value->Value))    $observaciones = $value->Value;
-                }
-                //declarante
-                if ( $value->Id=='APELLIDO Y NOMBRES')
-                {
-                    if (isset($value->Value))    $ape_nom = $value->Value;
-                }
-                if ( $value->Id=='DNI')
-                {
-                    if (isset($value->Value))    $dni = $value->Value;
-                }
-                //propietario
-                if ( $value->Id=='APELLIDO Y NOMBRES')
-                {
-                    if (isset($value->Value))    $ape_nom = $value->Value;
-                }
-                if ( $value->Id=='DNI')
-                {
-                    if (isset($value->Value))    $dni = $value->Value;
-                }
-                //fiscalizador
-                if ( $value->Id=='APELLIDO Y NOMBRES')
-                {
-                    if (isset($value->Value))    $ape_nom = $value->Value;
-                }
-                if ( $value->Id=='DNI')
-                {
-                    if (isset($value->Value))    $dni = $value->Value;
-                }
-                //1
-                if ( $value->Id=='IDENTIFICACIÓN DEL PROPIETARIO')
-                {
-                    //recorrer los propietarios
-                    if (isset($value->Rows->Row))
-                    {
-                        foreach ($value->Rows->Row as $k => $v)
-                        {
-                            $codigo = $tipo_doc = $num_doc = $ape_nombres ='';
-                            //si son varios registros viene como objeto
-                            if ( is_object($v) ) {
-                                if (isset($v->Field[0]->Value) )    $codigo = $v->Field[0]->Value;
-                                if (isset($v->Field[1]->Value) )    $tipo_doc = $v->Field[1]->Value;
-                                if (isset($v->Field[2]->Value) )    $num_doc = $v->Field[2]->Value;
-                                if (isset($v->Field[3]->Value) )    $ape_nombres = $v->Field[3]->Value;
-                            } else {
-                                if ( isset($v[0]->Value ))    $codigo = $v[0]->Value;
-                                if ( isset($v[1]->Value ))    $tipo_doc = $v[1]->Value;
-                                if ( isset($v[2]->Value ))    $num_doc = $v[2]->Value;
-                                if ( isset($v[3]->Value ))    $ape_nombres = $v[3]->Value;
+                if ( $value->Id=='ficha_p' && isset($value->Value))    $ficha_p = $value->Value;
+                if ( $value->Id=='codigo_p' && isset($value->Value))    $codigo_p = $value->Value;
+                //if ( $value->Id=='contador' && isset($value->Value))    $contador = $value->Value;
+                if ( $value->Id=='ubica' && isset($value->Value))    $ubica = $value->Value;
+                if ( $value->Id=='parte07_obs_p' && isset($value->Value))    $observaciones = $value->Value;
+                if ( $value->Id=='anexo01_p_anexo' && isset($value->Value))    $anexo01_p_anexo = $value->Value;
+                if ( $value->Id=='anexo02_p_anexo' && isset($value->Value))    $anexo02_p_anexo = $value->Value;
+
+                if ( $value->Id=='nombres_declarantes' && isset($value->Value))    $nombres_declarantes = $value->Value;
+                if ( $value->Id=='dni_declaramtes' && isset($value->Value))    $dni_declaramtes = $value->Value;
+                if ( $value->Id=='nombres_propietarios' && isset($value->Value))    $nombres_propietarios = $value->Value;
+                if ( $value->Id=='dni_propietario' && isset($value->Value))    $dni_propietario = $value->Value;
+                if ( $value->Id=='nombres_fiscalizador' && isset($value->Value))    $nombres_fiscalizador = $value->Value;
+                if ( $value->Id=='dni_fiscalizador' && isset($value->Value))    $dni_fiscalizador = $value->Value;
+
+                //if ( $value->Id=='5' && isset($value->Value))    $fichaNro = $value->Value;
+                
+                //1 IDENTIFICACIÓN DEL PROPIETARIO
+                if ( $value->Id=='parte01' && isset($value->Rows->Row)) {
+                    foreach ($value->Rows->Row as $k => $v) {
+                        $parte01 = [];
+                        if ( is_object($v) ) {
+                            foreach ($v as $field) {
+                                $parte01 = $this->parte01($field);
                             }
-                            $propietarios =[
-                                "codigo" => $codigo,
-                                "tipo_doc" => $tipo_doc,
-                                "num_doc" => $num_doc,
-                                "ape_nombres" => $ape_nombres
-                            ];
-                            $Propietario[]=new Propietario($propietarios);
+                        } else {
+                            $parte01 = $this->parte01($v);
                         }
-                        $fiscalizacion->propietarios()->saveMany($Propietario);
+                        if (count($parte01)>0) {
+                            $Propietario[]=new Propietario($parte01);
+                        }
                     }
+                    $fiscalizacion->propietarios()->saveMany($Propietario);
                 }
-                //2
-                if ( $value->Id=='DOMICILIO FISCAL DEL CONTRIBUYENTE ')
-                {
-                    //recorrer los propietarios
-                    if (isset($value->Rows->Row))
-                    {
-                        foreach ($value->Rows->Row as $k => $v)
-                        {
-                            $cod_postal=$distrito=$cod_urbano=$conjunto_urbano=$cod_via=$via=$num_municipal=$departamento=$manzana=$lote=$telefono='';
-                            //si son varios registros viene como objeto
-                            if ( is_object($v) ) {
-                                if (isset($v->Field[0]->Value) )     $cod_postal = $v->Field[0]->Value;
-                                if (isset($v->Field[1]->Value) )     $distrito = $v->Field[1]->Value;
-                                if (isset($v->Field[2]->Value) )     $cod_urbano = $v->Field[2]->Value;
-                                if (isset($v->Field[3]->Value) )     $conjunto_urbano = $v->Field[3]->Value;
-                                if (isset($v->Field[4]->Value) )     $cod_via = $v->Field[4]->Value;
-                                if (isset($v->Field[5]->Value) )     $via = $v->Field[5]->Value;
-                                if (isset($v->Field[6]->Value) )     $num_municipal = $v->Field[6]->Value;
-                                if (isset($v->Field[7]->Value) )     $departamento = $v->Field[7]->Value;
-                                if (isset($v->Field[8]->Value) )     $manzana = $v->Field[8]->Value;
-                                if (isset($v->Field[9]->Value) )     $lote = $v->Field[9]->Value;
-                                if (isset($v->Field[10]->Value) )    $telefono = $v->Field[10]->Value;
-                            } else {
-                                if ( isset($v[0]->Value ))     $cod_postal = $v[0]->Value;
-                                if ( isset($v[1]->Value ))     $distrito = $v[1]->Value;
-                                if ( isset($v[2]->Value ))     $cod_urbano = $v[2]->Value;
-                                if ( isset($v[3]->Value ))     $conjunto_urbano = $v[3]->Value;
-                                if ( isset($v[4]->Value ))     $cod_via = $v[4]->Value;
-                                if ( isset($v[5]->Value ))     $via = $v[5]->Value;
-                                if ( isset($v[6]->Value ))     $num_municipal = $v[6]->Value;
-                                if ( isset($v[7]->Value ))     $departamento = $v[7]->Value;
-                                if ( isset($v[8]->Value ))     $manzana = $v[8]->Value;
-                                if ( isset($v[9]->Value ))     $lote = $v[9]->Value;
-                                if ( isset($v[10]->Value ))    $telefono = $v[10]->Value;
+                //2 DOMICILIO FISCAL DEL CONTRIBUYENTE 
+                if ( $value->Id=='parte02' && isset($value->Rows->Row)) {
+                    foreach ($value->Rows->Row as $k => $v) {
+                        $parte02 = [];
+                        if ( is_object($v) ) {
+                            foreach ($v as $field) {
+                                $parte02 = $this->parte02($field);
                             }
-                            $propietarios =[
-                                "cod_postal" => $cod_postal,
-                                "distrito" => $distrito,
-                                "cod_urbano" => $cod_urbano,
-                                "conjunto_urbano" => $conjunto_urbano,
-                                "cod_via" => $cod_via,
-                                "via" => $via,
-                                "num_municipal" => $num_municipal,
-                                "departamento" => $departamento,
-                                "manzana" => $manzana,
-                                "lote" => $lote,
-                                "telefono" => $telefono
-                            ];
-                            $Domicilio[]=new Domicilio($propietarios);
+                        } else {
+                            $parte02 = $this->parte02($v);
                         }
-                        $fiscalizacion->domicilios()->saveMany($Domicilio);
+                        if (count($parte02)>0) {
+                            $Domicilio[]=new Domicilio($parte02);
+                        }
                     }
+                    $fiscalizacion->domicilios()->saveMany($Domicilio);
                 }
-                //3
-                if ( $value->Id=='UBICACIÓN DEL PREDIO I')
-                {
-                    //recorrer los propietarios
-                    if (isset($value->Rows->Row))
-                    {
-                        foreach ($value->Rows->Row as $k => $v)
-                        {
-                            $cod_predio=$departamento=$provincia=$distrito=$sector=$manzana=$lote=$edifica=$entrada=$peso=$unidad=$dc=$cod_uso=$uso_propiedad='';
-                            //si son varios registros viene como objeto
-                            if ( is_object($v) ) {
-                                if (isset($v->Field[0]->Value) )     $cod_predio = $v->Field[0]->Value;
-                                if (isset($v->Field[1]->Value) )     $departamento = $v->Field[1]->Value;
-                                if (isset($v->Field[2]->Value) )     $provincia = $v->Field[2]->Value;
-                                if (isset($v->Field[3]->Value) )     $distrito = $v->Field[3]->Value;
-                                if (isset($v->Field[4]->Value) )     $sector = $v->Field[4]->Value;
-                                if (isset($v->Field[5]->Value) )     $manzana = $v->Field[5]->Value;
-                                if (isset($v->Field[6]->Value) )     $lote = $v->Field[6]->Value;
-                                if (isset($v->Field[7]->Value) )     $edifica = $v->Field[7]->Value;
-                                if (isset($v->Field[8]->Value) )     $entrada = $v->Field[8]->Value;
-                                if (isset($v->Field[9]->Value) )     $peso = $v->Field[9]->Value;
-                                if (isset($v->Field[10]->Value) )    $unidad = $v->Field[10]->Value;
-                                if (isset($v->Field[11]->Value) )    $dc = $v->Field[11]->Value;
-                                if (isset($v->Field[12]->Value) )    $cod_uso = $v->Field[12]->Value;
-                                if (isset($v->Field[13]->Value) )    $uso_propiedad = $v->Field[13]->Value;
-                            } else {
-                                if ( isset($v[0]->Value ))     $cod_predio = $v[0]->Value;
-                                if ( isset($v[1]->Value ))     $departamento = $v[1]->Value;
-                                if ( isset($v[2]->Value ))     $provincia = $v[2]->Value;
-                                if ( isset($v[3]->Value ))     $distrito = $v[3]->Value;
-                                if ( isset($v[4]->Value ))     $sector = $v[4]->Value;
-                                if ( isset($v[5]->Value ))     $manzana = $v[5]->Value;
-                                if ( isset($v[6]->Value ))     $lote = $v[6]->Value;
-                                if ( isset($v[7]->Value ))     $edifica = $v[7]->Value;
-                                if ( isset($v[8]->Value ))     $entrada = $v[8]->Value;
-                                if ( isset($v[9]->Value ))     $peso = $v[9]->Value;
-                                if ( isset($v[10]->Value ))    $unidad = $v[10]->Value;
-                                if ( isset($v[11]->Value ))    $dc = $v[11]->Value;
-                                if ( isset($v[12]->Value ))    $cod_uso = $v[12]->Value;
-                                if ( isset($v[13]->Value ))    $uso_propiedad = $v[13]->Value;
+                //3 UBICACIÓN DEL PREDIO
+                if ( $value->Id=='parte03' && isset($value->Rows->Row)) {
+                    foreach ($value->Rows->Row as $k => $v) {
+                        $parte03 = [];
+                        if ( is_object($v) ) {
+                            foreach ($v as $field) {
+                                $parte03 = $this->parte03($field);
                             }
-                            $propietarios =[
-                                "cod_predio" => $cod_predio,
-                                "departamento" => $departamento,
-                                "provincia" => $provincia,
-                                "distrito" => $distrito,
-                                "sector" => $sector,
-                                "manzana" => $manzana,
-                                "lote" => $lote,
-                                "edifica" => $edifica,
-                                "entrada" => $entrada,
-                                "peso" => $peso,
-                                "unidad" => $unidad,
-                                "dc" => $dc,
-                                "cod_uso" => $cod_uso,
-                                "uso_propiedad" => $uso_propiedad
-                            ];
-                            $Prediouno[]=new Prediouno($propietarios);
+                        } else {
+                            $parte03 = $this->parte03($v);
                         }
-                        $fiscalizacion->prediouno()->saveMany($Prediouno);
+                        if (count($parte03)>0) {
+                            $Prediouno[]=new Ubicacion($parte03);
+                        }
                     }
+                    $fiscalizacion->ubicaciones()->saveMany($Prediouno);
                 }
-
-
-                if ( $value->Id=='UBICACIÓN DEL PREDIO II')
-                {
-                    //recorrer los propietarios
-                    if (isset($value->Rows->Row))
-                    {
-                        foreach ($value->Rows->Row as $k => $v)
-                        {
-                            $codigo_urbano=$centro_poblado=$desc_centro_poblado=$cod_via=$via=$numero=$block=$manzana=$lote=$sublote=$fecha_compra=$fecha_exon=$num_resolucion_municipal=$condicion=$desc_condicion='';
-                            //si son varios registros viene como objeto
-                            if ( is_object($v) ) {
-                                if (isset($v->Field[0]->Value) )     $codigo_urbano = $v->Field[0]->Value;
-                                if (isset($v->Field[1]->Value) )     $centro_poblado = $v->Field[1]->Value;
-                                if (isset($v->Field[2]->Value) )     $desc_centro_poblado = $v->Field[2]->Value;
-                                if (isset($v->Field[3]->Value) )     $cod_via = $v->Field[3]->Value;
-                                if (isset($v->Field[4]->Value) )     $via = $v->Field[4]->Value;
-                                if (isset($v->Field[5]->Value) )     $numero = $v->Field[5]->Value;
-                                if (isset($v->Field[6]->Value) )     $block = $v->Field[6]->Value;
-                                if (isset($v->Field[7]->Value) )     $manzana = $v->Field[7]->Value;
-                                if (isset($v->Field[8]->Value) )     $lote = $v->Field[8]->Value;
-                                if (isset($v->Field[9]->Value) )     $sublote = $v->Field[9]->Value;
-                                if (isset($v->Field[10]->Value) )    $fecha_compra = $v->Field[10]->Value;
-                                if (isset($v->Field[11]->Value) )    $fecha_exon = $v->Field[11]->Value;
-                                if (isset($v->Field[12]->Value) )    $num_resolucion_municipal = $v->Field[12]->Value;
-                                if (isset($v->Field[13]->Value) )    $condicion = $v->Field[13]->Value;
-                                if (isset($v->Field[14]->Value) )    $desc_condicion = $v->Field[14]->Value;
-                            } else {
-                                if ( isset($v[0]->Value ))     $codigo_urbano = $v[0]->Value;
-                                if ( isset($v[1]->Value ))     $centro_poblado = $v[1]->Value;
-                                if ( isset($v[2]->Value ))     $desc_centro_poblado = $v[2]->Value;
-                                if ( isset($v[3]->Value ))     $cod_via = $v[3]->Value;
-                                if ( isset($v[4]->Value ))     $via = $v[4]->Value;
-                                if ( isset($v[5]->Value ))     $numero = $v[5]->Value;
-                                if ( isset($v[6]->Value ))     $block = $v[6]->Value;
-                                if ( isset($v[7]->Value ))     $manzana = $v[7]->Value;
-                                if ( isset($v[8]->Value ))     $lote = $v[8]->Value;
-                                if ( isset($v[9]->Value ))     $sublote = $v[9]->Value;
-                                if ( isset($v[10]->Value ))    $fecha_compra = $v[10]->Value;
-                                if ( isset($v[11]->Value ))    $fecha_exon = $v[11]->Value;
-                                if ( isset($v[12]->Value ))    $num_resolucion_municipal = $v[12]->Value;
-                                if ( isset($v[13]->Value ))    $condicion = $v[13]->Value;
-                                if ( isset($v[14]->Value ))    $desc_condicion = $v[14]->Value;
+                //4 CONSTRUCCIONES EDIFICADA
+                if ( $value->Id=='parte04' && isset($value->Rows->Row)) {
+                    foreach ($value->Rows->Row as $k => $v) {
+                        $parte04 = [];
+                        if ( is_object($v) ) {
+                            foreach ($v as $field) {
+                                $parte04 = $this->parte04($field);
                             }
-                            $propietarios =[
-                                "codigo_urbano" => $codigo_urbano,
-                                "centro_poblado" => $centro_poblado,
-                                "desc_centro_poblado" => $desc_centro_poblado,
-                                "cod_via" => $cod_via,
-                                "via" => $via,
-                                "numero" => $numero,
-                                "block" => $block,
-                                "manzana" => $manzana,
-                                "lote" => $lote,
-                                "sublote" => $sublote,
-                                "fecha_compra" => $fecha_compra,
-                                "fecha_exon" => $fecha_exon,
-                                "num_resolucion_municipal" => $num_resolucion_municipal,
-                                "condicion" => $condicion,
-                                "desc_condicion" => $desc_condicion
-                            ];
-                             $Prediodos[]=new Prediodos($propietarios);
+                        } else {
+                            $parte04 = $this->parte04($v);
                         }
-                        $fiscalizacion->prediodos()->saveMany($Prediodos);
+                        if (count($parte04)>0) {
+                            $Construccion[]=new Construccion($parte04);
+                        }
                     }
+                    $fiscalizacion->construcciones()->saveMany($Construccion);
                 }
-
-
-                if ( $value->Id=='UBICACIÓN DEL PREDIO III')
-                {
-                    //recorrer los propietarios
-                    if (isset($value->Rows->Row))
-                    {
-                        foreach ($value->Rows->Row as $k => $v)
-                        {
-                            $sum_luz=$sum_agua=$area_terreno_cecla=$area_terreno_verifica=$area_terreno_comun=$area_terreno_propia=$longitud_fachada=$ubicacion_parques=$clasificacion_predio='';
-                            //si son varios registros viene como objeto
-                            if ( is_object($v) ) {
-                                if (isset($v->Field[0]->Value) )     $sum_luz = $v->Field[0]->Value;
-                                if (isset($v->Field[1]->Value) )     $sum_agua = $v->Field[1]->Value;
-                                if (isset($v->Field[2]->Value) )     $area_terreno_cecla = $v->Field[2]->Value;
-                                if (isset($v->Field[3]->Value) )     $area_terreno_verifica = $v->Field[3]->Value;
-                                if (isset($v->Field[4]->Value) )     $area_terreno_comun = $v->Field[4]->Value;
-                                if (isset($v->Field[5]->Value) )     $area_terreno_propia = $v->Field[5]->Value;
-                                if (isset($v->Field[6]->Value) )     $longitud_fachada = $v->Field[6]->Value;
-                                if (isset($v->Field[7]->Value) )     $ubicacion_parques = $v->Field[7]->Value;
-                                if (isset($v->Field[8]->Value) )     $clasificacion_predio = $v->Field[8]->Value;
-                            } else {
-                                if ( isset($v[0]->Value ))     $sum_luz = $v[0]->Value;
-                                if ( isset($v[1]->Value ))     $sum_agua = $v[1]->Value;
-                                if ( isset($v[2]->Value ))     $area_terreno_cecla = $v[2]->Value;
-                                if ( isset($v[3]->Value ))     $area_terreno_verifica = $v[3]->Value;
-                                if ( isset($v[4]->Value ))     $area_terreno_comun = $v[4]->Value;
-                                if ( isset($v[5]->Value ))     $area_terreno_propia = $v[5]->Value;
-                                if ( isset($v[6]->Value ))     $longitud_fachada = $v[6]->Value;
-                                if ( isset($v[7]->Value ))     $ubicacion_parques = $v[7]->Value;
-                                if ( isset($v[8]->Value ))     $clasificacion_predio = $v[8]->Value;
+                //5 OTRAS INSTALACIONES FIJAS Y PERMANENTES
+                if ( $value->Id=='parte05' && isset($value->Rows->Row)) {
+                    foreach ($value->Rows->Row as $k => $v) {
+                        $parte05 = [];
+                        if ( is_object($v) ) {
+                            foreach ($v as $field) {
+                                $parte05 = $this->parte05($field);
                             }
-                            $propietarios =[
-                                "sum_luz" => $sum_luz,
-                                "sum_agua" => $sum_agua,
-                                "area_terreno_cecla" => $area_terreno_cecla,
-                                "area_terreno_verifica" => $area_terreno_verifica,
-                                "area_terreno_comun" => $area_terreno_comun,
-                                "area_terreno_propia" => $area_terreno_propia,
-                                "longitud_fachada" => $longitud_fachada,
-                                "ubicacion_parques" => $ubicacion_parques,
-                                "clasificacion_predio" => $clasificacion_predio
-                            ];
-                            $Prediotres[]=new Prediotres($propietarios);
+                        } else {
+                            $parte05 = $this->parte05($v);
                         }
-                        $fiscalizacion->prediotres()->saveMany($Prediotres);
+                        if (count($parte05)>0) {
+                            $Instalacion[]=new Instalacion($parte05);
+                        }
                     }
+                    $fiscalizacion->instalaciones()->saveMany($Instalacion);
                 }
-
-
-                if ( $value->Id=='CONSTRUCCIONES EDIFICADAS(Llenar cada línea por cada: Piso,Sótano,Mezanine y por otra construcción verificada)')
-                {
-                    //recorrer los propietarios
-                    if (isset($value->Rows->Row))
-                    {
-                        foreach ($value->Rows->Row as $k => $v)
-                        {
-                            $piso =$fecha_construccion =$materiales_construccion =$estado_conservacion =$estado_construccion =$muros_columnas =$techos =$pisos =$puertas_ventanas =$revestimientos =$banios =$instalaciones_electricas =$area_construida_declarada =$area_construida_verificada =$uca ='';
-                            //si son varios registros viene como objeto
-                            if ( is_object($v) ) {
-                                if (isset($v->Field[0]->Value) )     $piso = $v->Field[0]->Value;
-                                if (isset($v->Field[1]->Value) )     $fecha_construccion = $v->Field[1]->Value;
-                                if (isset($v->Field[2]->Value) )     $materiales_construccion = $v->Field[2]->Value;
-                                if (isset($v->Field[3]->Value) )     $estado_conservacion = $v->Field[3]->Value;
-                                if (isset($v->Field[4]->Value) )     $estado_construccion = $v->Field[4]->Value;
-                                if (isset($v->Field[5]->Value) )     $muros_columnas = $v->Field[5]->Value;
-                                if (isset($v->Field[6]->Value) )     $techos = $v->Field[6]->Value;
-                                if (isset($v->Field[7]->Value) )     $pisos = $v->Field[7]->Value;
-                                if (isset($v->Field[8]->Value) )     $puertas_ventanas = $v->Field[8]->Value;
-                                if (isset($v->Field[9]->Value) )     $revestimientos = $v->Field[9]->Value;
-                                if (isset($v->Field[10]->Value) )    $banios = $v->Field[10]->Value;
-                                if (isset($v->Field[11]->Value) )    $instalaciones_electricas = $v->Field[11]->Value;
-                                if (isset($v->Field[12]->Value) )    $area_construida_declarada = $v->Field[12]->Value;
-                                if (isset($v->Field[13]->Value) )    $area_construida_verificada = $v->Field[13]->Value;
-                                if (isset($v->Field[14]->Value) )    $uca = $v->Field[14]->Value;
-                            } else {
-                                if ( isset($v[0]->Value ))     $piso = $v[0]->Value;
-                                if ( isset($v[1]->Value ))     $fecha_construccion = $v[1]->Value;
-                                if ( isset($v[2]->Value ))     $materiales_construccion = $v[2]->Value;
-                                if ( isset($v[3]->Value ))     $estado_conservacion = $v[3]->Value;
-                                if ( isset($v[4]->Value ))     $estado_construccion = $v[4]->Value;
-                                if ( isset($v[5]->Value ))     $muros_columnas = $v[5]->Value;
-                                if ( isset($v[6]->Value ))     $techos = $v[6]->Value;
-                                if ( isset($v[7]->Value ))     $pisos = $v[7]->Value;
-                                if ( isset($v[8]->Value ))     $puertas_ventanas = $v[8]->Value;
-                                if ( isset($v[9]->Value ))     $revestimientos = $v[9]->Value;
-                                if ( isset($v[10]->Value ))    $banios = $v[10]->Value;
-                                if ( isset($v[11]->Value ))    $instalaciones_electricas = $v[11]->Value;
-                                if ( isset($v[12]->Value ))    $area_construida_declarada = $v[12]->Value;
-                                if ( isset($v[13]->Value ))    $area_construida_verificada = $v[13]->Value;
-                                if ( isset($v[14]->Value ))    $uca = $v[14]->Value;
+                //6 DATOS RELACIONADOS A LOS CONDOMINANTES
+                if ( $value->Id=='parte06' && isset($value->Rows->Row) ) {
+                    foreach ($value->Rows->Row as $k => $v) {
+                        $parte06 = [];
+                        if ( is_object($v) ) {
+                            foreach ($v as $field) {
+                                $parte06 = $this->parte06($field);
                             }
-                            $propietarios =[
-                                "piso" => $piso,
-                                "fecha_construccion" => $fecha_construccion,
-                                "materiales_construccion" => $materiales_construccion,
-                                "estado_conservacion" => $estado_conservacion,
-                                "estado_construccion" => $estado_construccion,
-                                "muros_columnas" => $muros_columnas,
-                                "techos" => $techos,
-                                "pisos" => $pisos,
-                                "puertas_ventanas" => $puertas_ventanas,
-                                "revestimientos" => $revestimientos,
-                                "banios" => $banios,
-                                "instalaciones_electricas" => $instalaciones_electricas,
-                                "area_construida_declarada" => $area_construida_declarada,
-                                "area_construida_verificada" => $area_construida_verificada,
-                                "uca" => $uca
-                            ];
-                            $Construccion[]=new Construccion($propietarios);
+                        } else {
+                            $parte06 = $this->parte06($v);
                         }
-                        $fiscalizacion->construcciones()->saveMany($Construccion);
+                        if (count($parte06)>0) {
+                            $Datos[]=new Dato($parte06);
+                        }
                     }
+                    $fiscalizacion->datos()->saveMany($Datos);
                 }
-
-                if ( $value->Id=='OTRAS INSTALACIONES FIJAS Y PERMANENTES')
-                {
-                    //recorrer los propietarios
-                    if (isset($value->Rows->Row))
-                    {
-                        foreach ($value->Rows->Row as $k => $v)
-                        {
-                            $codigo=$desc_instalacion=$fecha_termino=$unidad_medida=$material_predominante=$estado_conservacion=$largo=$ancho=$alto=$total=$valor_soles='';
-                            //si son varios registros viene como objeto
-                            if ( is_object($v) ) {
-                                if (isset($v->Field[0]->Value) )     $codigo = $v->Field[0]->Value;
-                                if (isset($v->Field[1]->Value) )     $desc_instalacion = $v->Field[1]->Value;
-                                if (isset($v->Field[2]->Value) )     $fecha_termino = $v->Field[2]->Value;
-                                if (isset($v->Field[3]->Value) )     $unidad_medida = $v->Field[3]->Value;
-                                if (isset($v->Field[4]->Value) )     $material_predominante = $v->Field[4]->Value;
-                                if (isset($v->Field[5]->Value) )     $estado_conservacion = $v->Field[5]->Value;
-                                if (isset($v->Field[6]->Value) )     $largo = $v->Field[6]->Value;
-                                if (isset($v->Field[7]->Value) )     $ancho = $v->Field[7]->Value;
-                                if (isset($v->Field[8]->Value) )     $alto = $v->Field[8]->Value;
-                                if (isset($v->Field[9]->Value) )     $total = $v->Field[9]->Value;
-                                if (isset($v->Field[10]->Value) )    $valor_soles = $v->Field[10]->Value;
-                            } else {
-                                if ( isset($v[0]->Value ))     $codigo = $v[0]->Value;
-                                if ( isset($v[1]->Value ))     $desc_instalacion = $v[1]->Value;
-                                if ( isset($v[2]->Value ))     $fecha_termino = $v[2]->Value;
-                                if ( isset($v[3]->Value ))     $unidad_medida = $v[3]->Value;
-                                if ( isset($v[4]->Value ))     $material_predominante = $v[4]->Value;
-                                if ( isset($v[5]->Value ))     $estado_conservacion = $v[5]->Value;
-                                if ( isset($v[6]->Value ))     $largo = $v[6]->Value;
-                                if ( isset($v[7]->Value ))     $ancho = $v[7]->Value;
-                                if ( isset($v[8]->Value ))     $alto = $v[8]->Value;
-                                if ( isset($v[9]->Value ))     $total = $v[9]->Value;
-                                if ( isset($v[10]->Value ))    $valor_soles = $v[10]->Value;
+                
+                //X. AUTORIZACIÓN MUNICIPAL DE FUNCIONAMIENTO
+                if ( ($value->Id=='anexo01_autorizacion' || 
+                    $value->Id=='anexo02_autorizacion' ||
+                    $value->Id=='anexo03_autorizacion') && isset($value->Rows->Row) ) {
+                    list($anexo,$nombre) = explode("_", $value->Id);
+                    $anexo = substr($anexo, -1);
+                    foreach ($value->Rows->Row as $k => $v) {
+                        $autorizacion = [];
+                        if ( is_object($v) ) {
+                            foreach ($v as $field) {
+                                $autorizacion = $this->autorizacion($value->Id,$field);
                             }
-                            $propietarios =[
-                                "codigo" => $codigo,
-                                "desc_instalacion" => $desc_instalacion,
-                                "fecha_termino" => $fecha_termino,
-                                "unidad_medida" => $unidad_medida,
-                                "material_predominante" => $material_predominante,
-                                "estado_conservacion" => $estado_conservacion,
-                                "largo" => $largo,
-                                "ancho" => $ancho,
-                                "alto" => $alto,
-                                "total" => $total,
-                                "valor_soles" => $valor_soles
-                            ];
-                            $Instalacion[]=new Instalacion($propietarios);
+                        } else {
+                            $autorizacion = $this->autorizacion($value->Id,$v);
                         }
-                        $fiscalizacion->instalaciones()->saveMany($Instalacion);
-                }   
-                }
-                if ( $value->Id=='DATOS RELACIONADOS A LOS CONDOMINANTES')
-                {
-                    //recorrer los propietarios
-                    if (isset($value->Rows->Row))
-                    {
-                        foreach ($value->Rows->Row as $k => $v)
-                        {
-                            $codigo = $tipo_doc = $num_doc = $ape_nombres ='';
-
-                            $codigo_contribuyente=$num_doc_identidad=$ape_nom_razon_social_condominio=$domicilio_fiscal=$porcentaje_condominio='';
-                            //si son varios registros viene como objeto
-                            if ( is_object($v) ) {
-                                if (isset($v->Field[0]->Value) )     $numero = $v->Field[0]->Value;
-                                if (isset($v->Field[1]->Value) )     $codigo_contribuyente = $v->Field[1]->Value;
-                                if (isset($v->Field[2]->Value) )     $num_doc_identidad = $v->Field[2]->Value;
-                                if (isset($v->Field[3]->Value) )     $ape_nom_razon_social_condominio = $v->Field[3]->Value;
-                                if (isset($v->Field[4]->Value) )     $domicilio_fiscal = $v->Field[4]->Value;
-                                if (isset($v->Field[5]->Value) )     $porcentaje_condominio = $v->Field[5]->Value;
-                            } else {
-                                if ( isset($v[0]->Value ))     $numero = $v[0]->Value;
-                                if ( isset($v[1]->Value ))     $codigo_contribuyente = $v[1]->Value;
-                                if ( isset($v[2]->Value ))     $num_doc_identidad = $v[2]->Value;
-                                if ( isset($v[3]->Value ))     $ape_nom_razon_social_condominio = $v[3]->Value;
-                                if ( isset($v[4]->Value ))     $domicilio_fiscal = $v[4]->Value;
-                                if ( isset($v[5]->Value ))     $porcentaje_condominio = $v[5]->Value;
-                            }
-                            $propietarios =[
-                                "numero" => $numero,
-                                "codigo_contribuyente" => $codigo_contribuyente,
-                                "num_doc_identidad" => $num_doc_identidad,
-                                "ape_nom_razon_social_condominio" => $ape_nom_razon_social_condominio,
-                                "domicilio_fiscal" => $domicilio_fiscal,
-                                "porcentaje_condominio" => $porcentaje_condominio
-                            ];
-                            $Datos[]=new Datos($propietarios);
+                        if (count($autorizacion)>0) {
+                            $autorizacion['anexo_id'] = $anexo;
+                            $Datos[]=new Aautorizacion($autorizacion);
                         }
-                        $fiscalizacion->datos()->saveMany($Datos);
                     }
+                    $fiscalizacion->a_autorizaciones()->saveMany($Datos);
                 }
-
+                //anexo01_Ubicacion
+                if ( ($value->Id=='anexo01_Ubicacion' ||
+                    $value->Id=='anexo02_Ubicacion' ||
+                    $value->Id=='anexo03_Ubicacion') && isset($value->Rows->Row) ) {
+                    list($anexo,$nombre) = explode("_", $value->Id);
+                    $anexo = substr($anexo, -1);
+                    foreach ($value->Rows->Row as $k => $v) {
+                        $ubicacion = [];
+                        if ( is_object($v) ) {
+                            foreach ($v as $field) {
+                                $this->ubicacion($value->Id, $field);
+                            }
+                        } else {
+                            $ubicacion = $this->ubicacion($value->Id,$v);
+                        }
+                        if (count($ubicacion)>0) {
+                            $ubicacion['anexo_id'] = $anexo;
+                            $Datos[]=new Aubicacion($ubicacion);
+                        }
+                    }
+                    $fiscalizacion->a_ubicaciones()->saveMany($Datos);
+                }
+                //anexo01_masdatos
+                if ( ($value->Id=='anexo01_masdatos' ||
+                    $value->Id=='anexo02_masdatos' ||
+                    $value->Id=='anexo03_masdatos') && isset($value->Rows->Row) ) {
+                    list($anexo,$nombre) = explode("_", $value->Id);
+                    $anexo = substr($anexo, -1);
+                    foreach ($value->Rows->Row as $k => $v) {
+                        $masdato = [];
+                        if ( is_object($v) ) {
+                            foreach ($v as $field) {
+                                $masdato = $this->masdatos($value->Id, $field);
+                            }
+                        } else {
+                            $masdato = $this->masdatos($value->Id,$v);
+                        }
+                        if (count($masdato)>0) {
+                            $masdato['anexo_id'] = $anexo;
+                            $Datos[]=new Amasdato($masdato);
+                        }
+                    }
+                    $fiscalizacion->a_masdatos()->saveMany($Datos);
+                }
+                //anexo01_Aanuncio
+                if ( ($value->Id=='anexo01_Aanuncio' ||
+                    $value->Id=='anexo02_Aanuncio' ||
+                    $value->Id=='anexo03_Aanuncio') && isset($value->Rows->Row) ) {
+                    list($anexo,$nombre) = explode("_", $value->Id);
+                    $anexo = substr($anexo, -1);
+                    foreach ($value->Rows->Row as $k => $v) {
+                        $anuncio = [];
+                        if ( is_object($v) ) {
+                            foreach ($v as $field) {
+                                $anuncio = $this->anuncio($value->Id, $field);
+                            }
+                        } else {
+                            $anuncio = $this->anuncio($value->Id,$v);
+                        }
+                        if (count($anuncio)>0) {
+                            $anuncio['anexo_id'] = $anexo;
+                            $Datos[]=new Aanuncio($anuncio);
+                        }
+                    }
+                    $fiscalizacion->a_anuncios()->saveMany($Datos);
+                }
+                //anexo01_bien_comun
+                if ( ($value->Id=='anexo01_bien_comun' ||
+                    $value->Id=='anexo02_bien_comun' ||
+                    $value->Id=='anexo03_bien_comun') && isset($value->Rows->Row) ) {
+                    list($anexo,$nombre) = explode("_", $value->Id);
+                    $anexo = substr($anexo, -1);
+                    foreach ($value->Rows->Row as $k => $v) {
+                        $biencomun = [];
+                        if ( is_object($v) ) {
+                            foreach ($v as $field) {
+                                $biencomun = $this->biencomun($value->Id, $field);
+                            }
+                        } else {
+                            $biencomun = $this->biencomun($value->Id,$v);
+                        }
+                        if (count($biencomun)>0) {
+                            $biencomun['anexo_id'] = $anexo;
+                            $Datos[]=new Abiencomun($biencomun);
+                        }
+                    }
+                    $fiscalizacion->a_biencomun()->saveMany($Datos);
+                }
+                //anexo01_Ccomunes
+                if ( ($value->Id=='anexo01_Ccomunes' ||
+                    $value->Id=='anexo02_Ccomunes' ||
+                    $value->Id=='anexo03_Ccomunes') && isset($value->Rows->Row) ) {
+                    list($anexo,$nombre) = explode("_", $value->Id);
+                    $anexo = substr($anexo, -1);
+                    foreach ($value->Rows->Row as $k => $v) {
+                        $comun = [];
+                        if ( is_object($v) ) {
+                            foreach ($v as $field) {
+                                $comun = $this->comunes($value->Id, $field);
+                            }
+                        } else {
+                            $comun = $this->comunes($value->Id,$v);
+                        }
+                        if (count($comun)>0) {
+                            $comun['anexo_id'] = $anexo;
+                            $Datos[]=new Acomun($comun);
+                        }
+                    }
+                    $fiscalizacion->a_comunes()->saveMany($Datos);
+                }
+                //anexo01_Tdocumentos
+                if ( ($value->Id=='anexo01_Tdocumentos' ||
+                    $value->Id=='anexo02_Tdocumentos' ||
+                    $value->Id=='anexo03_Tdocumentos') && isset($value->Rows->Row) ) {
+                    list($anexo,$nombre) = explode("_", $value->Id);
+                    $anexo = substr($anexo, -1);
+                    foreach ($value->Rows->Row as $k => $v) {
+                        $documento = [];
+                        if ( is_object($v) ) {
+                            foreach ($v as $field) {
+                                $documento = $this->documentos($value->Id, $field);
+                            }
+                        } else {
+                            $documento = $this->documentos($value->Id,$v);
+                        }
+                        if (count($documento)>0) {
+                            $documento['anexo_id'] = $anexo;
+                            $Datos[]=new Adocumento($documento);
+                        }
+                    }
+                    $fiscalizacion->a_documentos()->saveMany($Datos);
+                }
+                //anexo01_Opropietario
+                if ( ($value->Id=='anexo01_Opropietario' ||
+                    $value->Id=='anexo02_Opropietario' ||
+                    $value->Id=='anexo03_Opropietario') && isset($value->Rows->Row) ) {
+                    list($anexo,$nombre) = explode("_", $value->Id);
+                    $anexo = substr($anexo, -1); 
+                    foreach ($value->Rows->Row as $k => $v) {
+                        $propietario = [];
+                        if ( is_object($v) ) {
+                            foreach ($v as $field) {
+                                $propietario = $this->propietario($value->Id, $field);
+                            }
+                        } else {
+                            $propietario = $this->propietario($value->Id,$v);
+                        }
+                        if (count($propietario)>0) {
+                            $propietario['anexo_id'] = $anexo;
+                            $Datos[]=new Apropietario($propietario);
+                        }
+                    }
+                    $fiscalizacion->a_propietarios()->saveMany($Datos);
+                }
             }
         }
         if ($fiscalizacion) {
-            $fiscalizacion->ubicacion = $ubicacion;
-            $fiscalizacion->fichaNro = $fichaNro;
+
+            $fiscalizacion->ficha_p = $ficha_p;
+            $fiscalizacion->codigo_p =$codigo_p;
+            $fiscalizacion->ubica = $ubica;
+            $fiscalizacion->x ='';
+            $fiscalizacion->y ='';
+            $fiscalizacion->foto1 ='';
+            $fiscalizacion->foto2 ='';
+            $fiscalizacion->foto3 ='';
+            $fiscalizacion->foto4 ='';
             $fiscalizacion->observaciones = $observaciones;
-            $fiscalizacion->ape_nom = $ape_nom;
-            $fiscalizacion->dni = $dni;
+            $fiscalizacion->anexo01_p_anexo =$anexo01_p_anexo;
+            $fiscalizacion->anexo02_p_anexo =$anexo02_p_anexo;
+            $fiscalizacion->firma_declarante ='';
+            $fiscalizacion->nombres_declarantes = $nombres_declarantes;
+            $fiscalizacion->dni_declarantes = $dni_declaramtes;
+            $fiscalizacion->firma_propietario ='';
+            $fiscalizacion->nombres_propietarios =$nombres_propietarios;
+            $fiscalizacion->dni_propietario =$dni_propietario;
+            $fiscalizacion->firma_fiscalizador ='';
+            $fiscalizacion->nombres_fiscalizador =$nombres_fiscalizador;
+            $fiscalizacion->dni_fiscalizador =$dni_fiscalizador;
             $fiscalizacion->save();
         }
-        //Log::info( ["fin"]);
+        Log::info( ["fin"]);
     }
 
 }

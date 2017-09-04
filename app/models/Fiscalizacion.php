@@ -20,17 +20,9 @@ class Fiscalizacion extends \Eloquent
     {
         return $this->hasMany('Domicilio');
     }
-    public function prediouno()
+    public function ubicaciones()
     {
-        return $this->hasMany('Prediouno');
-    }
-    public function prediodos()
-    {
-        return $this->hasMany('Prediodos');
-    }
-    public function prediotres()
-    {
-        return $this->hasMany('Prediotres');
+        return $this->hasMany('Ubicacion');
     }
     public function construcciones()
     {
@@ -43,6 +35,39 @@ class Fiscalizacion extends \Eloquent
     public function datos()
     {
         return $this->hasMany('Dato');
+    }
+    //anexos 01
+    public function a_autorizaciones()
+    {
+        return $this->hasMany('Aautorizacion');
+    }
+    public function a_ubicaciones()
+    {
+        return $this->hasMany('Aubicacion');
+    }
+    public function a_masdatos()
+    {
+        return $this->hasMany('Amasdato');
+    }
+    public function a_anuncios()
+    {
+        return $this->hasMany('Aanuncio');
+    }
+    public function a_biencomun()
+    {
+        return $this->hasMany('Abiencomun');
+    }
+    public function a_comunes()
+    {
+        return $this->hasMany('Acomun');
+    }
+    public function a_documentos()
+    {
+        return $this->hasMany('Adocumento');
+    }
+    public function a_propietarios()
+    {
+        return $this->hasMany('Apropietario');
     }
 
 
@@ -72,6 +97,7 @@ class Fiscalizacion extends \Eloquent
         return $query->leftjoin('datos as d', 'fiscalizaciones.id', '=', 'd.fiscalizacion_id');
     }
 
+    /*
     public function getCreatedAtAttribute($date)
     {
         return Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y');
@@ -80,5 +106,5 @@ class Fiscalizacion extends \Eloquent
     public function getUpdatedAtAttribute($date)
     {
         return Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y');
-    }
+    }*/
 }

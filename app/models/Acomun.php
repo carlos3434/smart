@@ -1,9 +1,9 @@
 <?php
 
-class Prediouno extends \Eloquent
+class Acomun extends \Eloquent
 {
 
-    protected $table = 'prediouno';
+    protected $table = 'a_comunes';
     protected $dates = ['created_at','updated_at','deleted_at'];
 
     protected $guarded =[];

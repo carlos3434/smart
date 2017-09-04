@@ -50,12 +50,18 @@ class ApiFiscalizacionesController extends Controller
         return Fiscalizacion::with(
             'propietarios',
             'domicilios',
-            'prediouno',
-            'prediodos',
-            'prediotres',
+            'ubicaciones',
             'construcciones',
             'instalaciones',
-            'datos'
+            'datos',
+            'a_autorizaciones',
+            'a_ubicaciones',
+            'a_masdatos',
+            'a_anuncios',
+            'a_biencomun',
+            'a_comunes',
+            'a_documentos',
+            'a_propietarios'
             )->findOrFail($id);
         //return Tarea::with('movimientos')->findOrFail($id);
     }
