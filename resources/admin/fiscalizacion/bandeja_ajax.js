@@ -16,7 +16,25 @@ var Tareas={
         )
         .then(response => {
             vm.tarea = response.data;
-            
+
+            vm.construcciones = response.data.construcciones;
+            vm.datos = response.data.datos;
+            vm.domicilios = response.data.domicilios;
+            vm.instalaciones = response.data.instalaciones;
+            vm.propietarios = response.data.propietarios;
+            vm.ubicaciones = response.data.ubicaciones;
+
+            vm.a_anuncios = response.data.a_anuncios;
+            vm.a_autorizaciones = response.data.a_autorizaciones;
+            vm.a_biencomun = response.data.a_biencomun;
+            vm.a_comunes = response.data.a_comunes;
+            vm.a_documentos = response.data.a_documentos;
+            vm.a_masdatos = response.data.a_masdatos;
+            vm.a_propietarios = response.data.a_propietarios;
+            vm.a_ubicaciones = response.data.a_ubicaciones;
+
+
+/*
             vm.construcciones = response.data.construcciones;
             vm.datos = response.data.datos;
             vm.domicilios = response.data.domicilios;
@@ -25,7 +43,7 @@ var Tareas={
             vm.prediodos = response.data.prediodos;
             vm.prediotres = response.data.prediotres;
             vm.propietarios = response.data.propietarios;
-
+*/
             pintarMarkers();
             $EmployeeNumber.val(vm.tarea.EmployeeNumber).trigger("change");
             $tipo_tarea_id.val(vm.tarea.tipo_tarea_id).trigger("change");

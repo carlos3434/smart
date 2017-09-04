@@ -12,10 +12,17 @@
                   <li><a data-toggle="tab" href="#tab_datos">datos</a></li>
                   <li><a data-toggle="tab" href="#tab_domicilios">domicilios</a></li>
                   <li><a data-toggle="tab" href="#tab_instalaciones">instalaciones</a></li>
-                  <li><a data-toggle="tab" href="#tab_prediouno">prediouno</a></li>
-                  <li><a data-toggle="tab" href="#tab_prediodos">prediodos</a></li>
-                  <li><a data-toggle="tab" href="#tab_prediotres">prediotres</a></li>
                   <li><a data-toggle="tab" href="#tab_propietarios">propietarios</a></li>
+                  <li><a data-toggle="tab" href="#tab_ubicaciones">ubicaciones</a></li>
+
+                  <li><a data-toggle="tab" href="#tab_a_anuncios">anuncios</a></li>
+                  <li><a data-toggle="tab" href="#tab_a_autorizaciones">autorizaciones</a></li>
+                  <li><a data-toggle="tab" href="#tab_a_biencomun">biencomun</a></li>
+                  <li><a data-toggle="tab" href="#tab_a_comunes">comunes</a></li>
+                  <li><a data-toggle="tab" href="#tab_a_documentos">documentos</a></li>
+                  <li><a data-toggle="tab" href="#tab_a_masdatos">masdatos</a></li>
+                  <li><a data-toggle="tab" href="#tab_a_propietarios">propietarios</a></li>
+                  <li><a data-toggle="tab" href="#tab_a_ubicaciones">ubicaciones</a></li>
                 </ul>
             </div>
 
@@ -149,7 +156,7 @@
                                         <th>numero</th>
                                         <th>codigo_contribuyente</th>
                                         <th>num_doc_identidad</th>
-                                        <th>ape_nom_razon_social_condominio</th>
+                                        <th>nombres</th>
                                         <th>domicilio_fiscal</th>
                                         <th>porcentaje_condominio</th>
                                     </tr>
@@ -158,8 +165,8 @@
                                     <tr v-for='index in datos'>
                                         <td>@{{index.numero}}</td>
                                         <td>@{{index.codigo_contribuyente}}</td>
-                                        <td>@{{index.num_doc_identidad}} metros</td>
-                                        <td>@{{index.ape_nom_razon_social_condominio}}</td>
+                                        <td>@{{index.num_doc_identidad}}</td>
+                                        <td>@{{index.nombres}}</td>
                                         <td>@{{index.domicilio_fiscal}}</td>
                                         <td>@{{index.porcentaje_condominio}}</td>
                                     </tr>
@@ -174,13 +181,12 @@
                             <table class="table table-striped table-bordered table-hover" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>cod_postal</th>
+                                        <th>postal</th>
                                         <th>distrito</th>
-                                        <th>cod_urbano</th>
-                                        <th>conjunto_urbano</th>
-                                        <th>cod_via</th>
+                                        <th>codigo_via</th>
                                         <th>via</th>
-                                        <th>num_municipal</th>
+                                        <th>nombre_via</th>
+                                        <th>numero_monicipal</th>
                                         <th>departamento</th>
                                         <th>manzana</th>
                                         <th>lote</th>
@@ -189,13 +195,12 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for='index in domicilios'>
-                                        <td>@{{index.cod_postal}}</td>
+                                        <td>@{{index.postal}}</td>
                                         <td>@{{index.distrito}}</td>
-                                        <td>@{{index.cod_urbano}} metros</td>
-                                        <td>@{{index.conjunto_urbano}}</td>
-                                        <td>@{{index.cod_via}}</td>
+                                        <td>@{{index.codigo_via}}</td>
                                         <td>@{{index.via}}</td>
-                                        <td>@{{index.num_municipal}}</td>
+                                        <td>@{{index.nombre_via}}</td>
+                                        <td>@{{index.numero_monicipal}}</td>
                                         <td>@{{index.departamento}}</td>
                                         <td>@{{index.manzana}} metros</td>
                                         <td>@{{index.lote}}</td>
@@ -218,6 +223,12 @@
                                         <th>fecha_termino</th>
                                         <th>unidad_medida</th>
                                         <th>material_predominante</th>
+                                        <th>estado_conservacion</th>
+                                        <th>largo</th>
+                                        <th>ancho</th>
+                                        <th>alto</th>
+                                        <th>total</th>
+                                        <th>valor_soles</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -227,136 +238,18 @@
                                         <td>@{{index.fecha_termino}}</td>
                                         <td>@{{index.unidad_medida}}</td>
                                         <td>@{{index.material_predominante}}</td>
+                                        <td>@{{index.estado_conservacion}}</td>
+                                        <td>@{{index.largo}}</td>
+                                        <td>@{{index.ancho}}</td>
+                                        <td>@{{index.alto}}</td>
+                                        <td>@{{index.total}}</td>
+                                        <td>@{{index.valor_soles}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
-                <div id="tab_prediouno" class="tab-pane">
-                    <div class="modal-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>cod_predio</th>
-                                        <th>departamento</th>
-                                        <th>provincia</th>
-                                        <th>distrito</th>
-                                        <th>sector</th>
-                                        <th>manzana</th>
-                                        <th>lote</th>
-                                        <th>edifica</th>
-                                        <th>entrada</th>
-                                        <th>peso</th>
-                                        <th>unidad</th>
-                                        <th>dc</th>
-                                        <th>cod_uso</th>
-                                        <th>uso_propiedad</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for='index in prediouno'>
-                                        <td>@{{index.cod_predio}}</td>
-                                        <td>@{{index.departamento}}</td>
-                                        <td>@{{index.provincia}}</td>
-                                        <td>@{{index.distrito}}</td>
-                                        <td>@{{index.sector}}</td>
-                                        <td>@{{index.manzana}}</td>
-                                        <td>@{{index.lote}}</td>
-                                        <td>@{{index.edifica}}</td>
-                                        <td>@{{index.entrada}}</td>
-                                        <td>@{{index.peso}}</td>
-                                        <td>@{{index.unidad}}</td>
-                                        <td>@{{index.dc}}</td>
-                                        <td>@{{index.cod_uso}}</td>
-                                        <td>@{{index.uso_propiedad}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="tab_prediodos" class="tab-pane">
-                    <div class="modal-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>codigo_urbano</th>
-                                        <th>centro_poblado</th>
-                                        <th>desc_centro_poblado</th>
-                                        <th>cod_via</th>
-                                        <th>via</th>
-                                        <th>numero</th>
-                                        <th>block</th>
-                                        <th>manzana</th>
-                                        <th>lote</th>
-                                        <th>sublote</th>
-                                        <th>fecha_compra</th>
-                                        <th>fecha_exon</th>
-                                        <th>num_resolucion_municipal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for='index in prediodos'>
-                                        <td>@{{index.codigo_urbano}}</td>
-                                        <td>@{{index.centro_poblado}}</td>
-                                        <td>@{{index.desc_centro_poblado}}</td>
-                                        <td>@{{index.cod_via}}</td>
-                                        <td>@{{index.via}}</td>
-                                        <td>@{{index.numero}}</td>
-                                        <td>@{{index.block}}</td>
-                                        <td>@{{index.manzana}}</td>
-                                        <td>@{{index.lote}}</td>
-                                        <td>@{{index.sublote}}</td>
-                                        <td>@{{index.fecha_compra}}</td>
-                                        <td>@{{index.fecha_exon}}</td>
-                                        <td>@{{index.num_resolucion_municipal}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="tab_prediotres" class="tab-pane">
-                    <div class="modal-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>sum_luz</th>
-                                        <th>sum_agua</th>
-                                        <th>area_terreno_cecla</th>
-                                        <th>area_terreno_verifica</th>
-                                        <th>area_terreno_comun</th>
-                                        <th>area_terreno_propia</th>
-                                        <th>longitud_fachada</th>
-                                        <th>ubicacion_parques</th>
-                                        <th>clasificacion_predio</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for='index in prediotres'>
-                                        <td>@{{index.sum_luz}}</td>
-                                        <td>@{{index.sum_agua}}</td>
-                                        <td>@{{index.area_terreno_cecla}}</td>
-                                        <td>@{{index.area_terreno_verifica}}</td>
-                                        <td>@{{index.area_terreno_comun}}</td>
-                                        <td>@{{index.area_terreno_propia}}</td>
-                                        <td>@{{index.longitud_fachada}}</td>
-                                        <td>@{{index.ubicacion_parques}}</td>
-                                        <td>@{{index.clasificacion_predio}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
 
                 <div id="tab_propietarios" class="tab-pane">
                     <div class="modal-body">
@@ -364,24 +257,229 @@
                             <table class="table table-striped table-bordered table-hover" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>codigo</th>
-                                        <th>tipo_doc</th>
-                                        <th>num_doc</th>
-                                        <th>ape_nombres</th>
+                                        <th>tipo_documento</th>
+                                        <th>numero_documento</th>
+                                        <th>nombres</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr v-for='index in propietarios'>
-                                        <td>@{{index.codigo}}</td>
-                                        <td>@{{index.tipo_doc}}</td>
-                                        <td>@{{index.num_doc}}</td>
-                                        <td>@{{index.ape_nombres}}</td>
+                                        <td>@{{index.tipo_documento}}</td>
+                                        <td>@{{index.numero_documento}}</td>
+                                        <td>@{{index.nombres}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+
+                <div id="tab_a_anuncios" class="tab-pane">
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>codigo</th>
+                                        <th>descripcion</th>
+                                        <th>lados</th>
+                                        <th>autor</th>
+                                        <th>verificacion</th>
+                                        <th>expediente</th>
+                                        <th>licencia</th>
+                                        <th>expedicion</th>
+                                        <th>vencimiento</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for='index in a_anuncios'>
+                                        <td>@{{index.codigo}}</td>
+                                        <td>@{{index.descripcion}}</td>
+                                        <td>@{{index.lados}}</td>
+                                        <td>@{{index.autor}}</td>
+                                        <td>@{{index.verificacion}}</td>
+                                        <td>@{{index.expediente}}</td>
+                                        <td>@{{index.licencia}}</td>
+                                        <td>@{{index.expedicion}}</td>
+                                        <td>@{{index.vencimiento}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab_a_autorizaciones" class="tab-pane">
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>codigo</th>
+                                        <th>descripcion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for='index in a_autorizaciones'>
+                                        <td>@{{index.codigo}}</td>
+                                        <td>@{{index.descripcion}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab_a_biencomun" class="tab-pane">
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>codigo</th>
+                                        <th>descripcion</th>
+                                        <th>titulo</th>
+                                        <th>verificada</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for='index in a_biencomun'>
+                                        <td>@{{index.codigo}}</td>
+                                        <td>@{{index.descripcion}}</td>
+                                        <td>@{{index.titulo}}</td>
+                                        <td>@{{index.verificada}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab_a_comunes" class="tab-pane">
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>piso</th>
+                                        <th>construccion</th>
+                                        <th>material</th>
+                                        <th>conservacion</th>
+                                        <th>estado</th>
+                                        <th>muros</th>
+                                        <th>techos</th>
+                                        <th>pisos</th>
+                                        <th>puertas</th>
+                                        <th>revestimiento</th>
+                                        <th>banios</th>
+                                        <th>electricas</th>
+                                        <th>declarada</th>
+                                        <th>verificada</th>
+                                        <th>uca</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for='index in a_comunes'>
+                                        <td>@{{index.piso}}</td>
+                                        <td>@{{index.construccion}}</td>
+                                        <td>@{{index.material}}</td>
+                                        <td>@{{index.conservacion}}</td>
+                                        <td>@{{index.estado}}</td>
+                                        <td>@{{index.muros}}</td>
+                                        <td>@{{index.techos}}</td>
+                                        <td>@{{index.pisos}}</td>
+                                        <td>@{{index.puertas}}</td>
+                                        <td>@{{index.revestimiento}}</td>
+                                        <td>@{{index.banios}}</td>
+                                        <td>@{{index.electricas}}</td>
+                                        <td>@{{index.declarada}}</td>
+                                        <td>@{{index.verificada}}</td>
+                                        <td>@{{index.uca}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab_a_documentos" class="tab-pane">
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>numero</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for='index in a_documentos'>
+                                        <td>@{{index.numero}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab_a_masdatos" class="tab-pane">
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>expediente</th>
+                                        <th>licencia</th>
+                                        <th>expedicion</th>
+                                        <th>vencimiento</th>
+                                        <th>actividad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for='index in a_masdatos'>
+                                        <td>@{{index.expediente}}</td>
+                                        <td>@{{index.licencia}}</td>
+                                        <td>@{{index.expedicion}}</td>
+                                        <td>@{{index.vencimiento}}</td>
+                                        <td>@{{index.actividad}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab_a_propietarios" class="tab-pane">
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>tipo_documento</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for='index in a_propietarios'>
+                                        <td>@{{index.tipo_documento}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab_a_ubicaciones" class="tab-pane">
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>tipo_documento</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for='index in a_ubicaciones'>
+                                        <td>@{{index.tipo_documento}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
 
             <div id="footer_datos" class="modal-footer">
