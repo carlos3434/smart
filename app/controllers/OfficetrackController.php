@@ -599,10 +599,10 @@ class OfficetrackController extends \BaseController
     }
     private function registrarVerifActuaTrib($form)
     {
-        //Log::useDailyFiles(storage_path().'/logs/tributaria.log');
+        Log::useDailyFiles(storage_path().'/logs/tributaria.log');
         $form = json_encode($form);
 
-        //Log::info( ["inicio"]);
+        Log::info( [$form]);
 
         $form = json_decode($form);
         //operador

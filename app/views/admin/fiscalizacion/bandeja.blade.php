@@ -54,13 +54,17 @@
                                 <table id="tabla_registro_tarea" class="table table-striped table-bordered table-hover" width="100%">
                                     <thead>
                                         <tr>
-                                            <th>Código</th>
-                                            <th>usuario</th>
-                                            <th>DNI</th>
+                                            <th>ficha</th>
+                                            <th>codigo</th>
                                             <th>Usuario</th>
-                                            <th>Grupo</th>
-                                            <th>Observación</th>
-                                            <th>registro</th>
+                                            <th>nombres_declarantes</th>
+                                            <th>dni_declarantes</th>
+                                            <th>nombres_propietarios</th>
+                                            <th>dni_propietario</th>
+                                            <th>nombres_fiscalizador</th>
+                                            <th>dni_fiscalizador</th>
+                                            <th>fecha</th>
+                                            <th>observacion</th>
                                             <th>[]</th>
                                             <th>[]</th>
                                         </tr>

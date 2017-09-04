@@ -126,18 +126,13 @@ var breakpointDefinition = {
 
 var columns=[
     {
-        data: "fichaNro",
-        name: "fichaNro",
+        data: "ficha_p",
+        name: "ficha_p",
         searchable:false
     },
     {
-        data: "ape_nom",
-        name: "ape_nom",
-        searchable:false
-    },
-    {
-        data: "dni",
-        name: "dni",
+        data: "codigo_p",
+        name: "codigo_p",
         searchable:false
     },
     {
@@ -146,18 +141,43 @@ var columns=[
         searchable:false
     },
     {
-        data: "GroupName",
-        name: "GroupName",
+        data: "nombres_declarantes",
+        name: "nombres_declarantes",
+        searchable:false
+    },
+    {
+        data: "dni_declarantes",
+        name: "dni_declarantes",
+        searchable:false
+    },
+    {
+        data: "nombres_propietarios",
+        name: "nombres_propietarios",
+        searchable:false
+    },
+    {
+        data: "dni_propietario",
+        name: "dni_propietario",
+        searchable:false
+    },
+    {
+        data: "nombres_fiscalizador",
+        name: "nombres_fiscalizador",
+        searchable:false
+    },
+    {
+        data: "dni_fiscalizador",
+        name: "dni_fiscalizador",
+        searchable:false
+    },
+    {
+        data: "created_at",
+        name: "created_at",
         searchable:false
     },
     {
         data: "observaciones",
         name: "observaciones",
-        searchable:false
-    },
-    {
-        data: "created_at",
-        name: "registro",
         searchable:false
     },
     {
