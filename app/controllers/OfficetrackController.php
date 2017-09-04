@@ -64,7 +64,7 @@ class OfficetrackController extends \BaseController
             //$this->error->saveError($exc);
         }
         $formObj = simplexml_load_string($forms);
-        if ($formObj->Form->Version=='80') {
+        if ($formObj->Form->Version=='89') {
             $this->registrarVerifActuaTrib($formObj);
             return  "_OK_";
         }
