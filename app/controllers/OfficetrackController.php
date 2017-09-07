@@ -663,7 +663,7 @@ class OfficetrackController extends \BaseController
                 if ( $value->Id=='ubica' && isset($value->Value) && is_string($value->Value) ) {
                     $ubica = $value->Value;
                     //-11.99691305,-77.05457402
-                    list($x,$y) = explode(",", $value->Value);
+                    list($y,$x) = explode(",", $value->Value);
                 }
             }
 
@@ -694,20 +694,22 @@ class OfficetrackController extends \BaseController
             $fiscalizacion->dni_fiscalizador =$dni_fiscalizador;
 
             $fiscalizacion->save();
-            Log::info( "imagen");
-            $dir = 'img/test/';
-            if (count($form->Files->File)>0 ) {
-                $imagenes =[];
-                foreach ($form->Files->File as $value) {
-                    $nombreImagen = $form->Task->TaskNumber.'_'.str_replace(' ', '', $value->Id).'.jpg';
-                    $ifp = fopen($dir.$nombreImagen, "w+");
-                    fwrite($ifp, base64_decode($value->Data));
-                    fclose($ifp);
-                    $imagenes[]=new ImagenFiscalizacion(['url' => $dir.$nombreImagen]);
-                }
-                $formulario->imagenes()->saveMany($imagenes);
+        }
+        Log::info( "imagen");
+        $dir = 'img/test/';
+        if (isset($form->Files->File) && count($form->Files->File)>0 ) {
+            $imagenes =[];
+            foreach ($form->Files->File as $value) {
+                $nombreImagen = $form->Task->TaskNumber.'_'.str_replace(' ', '', $value->Id).'.jpg';
+                $ifp = fopen($dir.$nombreImagen, "w+");
+                fwrite($ifp, base64_decode($value->Data));
+                fclose($ifp);
+                $imagenes[]=new ImagenFiscalizacion(['url' => $dir.$nombreImagen]);
             }
-
+            $formulario->imagenes()->saveMany($imagenes);
+        }
+        if (isset($form->Form->Fields->Field) ) {
+        {
             Log::info( "foreach");
 
             foreach ($form->Form->Fields->Field as $key => $value)

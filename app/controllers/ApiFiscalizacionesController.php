@@ -61,7 +61,8 @@ class ApiFiscalizacionesController extends Controller
             'a_biencomun',
             'a_comunes',
             'a_documentos',
-            'a_propietarios'
+            'a_propietarios',
+            'imagenes'
             )->findOrFail($id);
         //return Tarea::with('movimientos')->findOrFail($id);
     }
