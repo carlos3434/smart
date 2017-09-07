@@ -64,7 +64,7 @@ class OfficetrackController extends \BaseController
             //$this->error->saveError($exc);
         }
         $formObj = simplexml_load_string($forms);
-        if ($formObj->Form->Version=='98') {
+        if ($formObj->Form->Name=='Verificación y Actualización Tributaria II') {
             $this->registrarVerifActuaTrib($formObj);
             return  "_OK_";
         }
