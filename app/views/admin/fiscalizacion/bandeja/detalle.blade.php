@@ -31,8 +31,8 @@
                     <div class="modal-body">
                         <div class="row">
                         <div class="col-md-4">
-                            <label>Código</label>
-                            <input type="text" class="form-control" v-model='tarea.TaskNumber'>
+                            <label>Ficha</label>
+                            <input type="text" class="form-control" v-model='tarea.ficha_p'>
                         </div>
                         <div class="col-md-4">
                             <label>Personal</label>
@@ -89,7 +89,7 @@
                             </div>
                             <div class="col-md-9">
                                 <label>Observación</label>
-                                <input type="text" class="form-control" v-model='tarea.Description'>
+                                <input type="text" class="form-control" v-model='tarea.observaciones'>
                             </div>
                         </div>
                     </div>
@@ -493,4 +493,3 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-  

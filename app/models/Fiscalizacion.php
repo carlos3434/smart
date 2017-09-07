@@ -7,11 +7,11 @@ class Fiscalizacion extends \Eloquent
     protected $table = 'fiscalizaciones';
     protected $dates = ['created_at','updated_at','deleted_at'];
     protected $guarded =[];
-    /*
+    
     public function imagenes()
     {
-        return $this->hasMany('Imagen');
-    }*/
+        return $this->hasMany('ImagenFiscalizacion');
+    }
     public function propietarios()
     {
         return $this->hasMany('Propietario');

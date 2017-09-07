@@ -363,6 +363,9 @@ $(document).ready(function () {
             $('#footer_movimientos').show();
         }*/
     });
+    $('#' + nuevo_modal).on('hidden.bs.modal', function (event) {
+        clearMapa();
+    });
 });
 /**
    
@@ -394,8 +397,8 @@ iniciarMapa = function iniciarMapa(id) {
 addClickMarker = function addClickMarker(id) {
     vm.map.addListener('click', function (event) {
         icon = "/img/icons/tap.png";
-        vm.tarea.coordy = event.latLng.lat();
-        vm.tarea.coordx = event.latLng.lng();
+        vm.tarea.y = event.latLng.lat();
+        vm.tarea.x = event.latLng.lng();
         removeMarkers();
         addMarker(event.latLng, 'Click Generated Marker', icon, true);
     });
@@ -404,6 +407,10 @@ addClickMarker = function addClickMarker(id) {
 };
 
 pintarMarkers = function pintarMarkers() {
+    var x = parseFloat(vm.tarea.x);
+    var y = parseFloat(vm.tarea.y);
+    var location = new gm.LatLng(y, x);
+    addMarker(location, '', null, false);
     /*for (var i = vm.movimientos.length - 1; i >= 0; i--) {
         var coordx = parseFloat(vm.movimientos[i].coordx);
         var coordy = parseFloat(vm.movimientos[i].coordy);
@@ -411,8 +418,8 @@ pintarMarkers = function pintarMarkers() {
         label = "<label><b>"+vm.movimientos[i].created_at+"</b></label>";
         var location = new gm.LatLng(coordy, coordx);
         addMarker( location, label, icon,false);
-    }
+    }*/
     var markerCluster = new MarkerClusterer(vm.map, vm.markers);
     markerCluster.setMaxZoom(config.minZoom);
-    vm.map.fitBounds(vm.bounds);*/
+    vm.map.fitBounds(vm.bounds);
 };

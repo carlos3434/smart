@@ -349,6 +349,17 @@ class CreateFiscaTable extends Migration
             $table->softDeletes();
         });
 
+        Schema::create('imagenes_fiscalizacion', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('url',50);
+
+            $table->integer('fiscalizacion_id')->unsigned();
+            $table->foreign('fiscalizacion_id')->references('id')->on('fiscalizaciones')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
