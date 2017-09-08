@@ -276,16 +276,14 @@ class OfficetrackController extends \BaseController
      * 2: Id
      * 3: Data
      */
-    public function imagenes($field)
+    public function imagenes($ficha_p,$field)
     {
-        $Filename = $field->Filename;
-        $Data = $field->Data;
         $dir = 'img/test/';
-        
-        $ifp = fopen($dir.$Filename, "w+");
-        fwrite($ifp, base64_decode($Data));
+        $url = $dir.$ficha_p.$field->Filename;
+        $ifp = fopen($url, "w+");
+        fwrite($ifp, base64_decode($field->Data));
         fclose($ifp);
-        return ['url'=>$dir.$Filename];
+        return ['url'=> $url];
     }
     //I. IDENTIFICACIÓN DEL PROPIETARIO
     private function parte01($value)
@@ -700,10 +698,10 @@ class OfficetrackController extends \BaseController
             Log::info("imagen");
             $imagen = [];
             if ( is_object($form->Files->File)) {
-                $imagen = $this->imagenes($form->Files->File);
+                $imagen = $this->imagenes($ficha_p, $form->Files->File);
             } else {
                 foreach ($form->Files->File as $field) {
-                    $imagen = $this->imagenes($field);
+                    $imagen = $this->imagenes($ficha_p, $field);
                 }
             }
             if (count($imagen)>0) {
@@ -996,12 +994,8 @@ class OfficetrackController extends \BaseController
                     }
                     $fiscalizacion->a_propietarios()->saveMany($Datos);
                 }
-               // Log::info( [ $key ] );
             }
-
-            Log::info("pre");        
         }
-
         Log::info( "fin");
     }
 
