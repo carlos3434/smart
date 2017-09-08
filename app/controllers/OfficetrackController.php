@@ -701,18 +701,15 @@ class OfficetrackController extends \BaseController
         }
         if (isset($form->Files->File) && count($form->Files->File)>0 ) {
             Log::info("imagen");
-            foreach ($form->Files->File as $key => $value) {
-                $imagen =[];
-                if ( is_object($value)) {
-                    foreach ($value as $field) {
-                        $imagen = $this->imagenes($field);
-                    }
-                } else {
-                    $imagen = $this->imagenes($value);
+            if ( is_object($form->Files->File)) {
+                foreach ($form->Files->File as $field) {
+                    $imagen = $this->imagenes($field);
                 }
-                if (count($imagen)>0) {
-                    $ImagenFiscalizacion[]=new ImagenFiscalizacion($imagen);
-                }
+            } else {
+                $imagen = $this->imagenes($form->Files->File);
+            }
+            if (count($imagen)>0) {
+                $ImagenFiscalizacion[]=new ImagenFiscalizacion($imagen);
             }
             $fiscalizacion->imagenes()->saveMany($ImagenFiscalizacion);
         }
