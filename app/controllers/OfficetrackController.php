@@ -637,12 +637,13 @@ class OfficetrackController extends \BaseController
             'FirstName' => $FirstName,
             'GroupName' => $GroupName,
         ];
-        Log::info( "Field");
+        Log::info( "insert");
         $fiscalizacion = Fiscalizacion::create($fisca);
         $Propietario = $Domicilio = $Prediouno = $Prediodos = $Prediotres = $Construccion = $Instalacion = $Datos = [];
 
         if (isset($form->Form->Fields->Field) ) {
 
+            Log::info( "Field");
             foreach ($form->Form->Fields->Field as $key => $value)
             {
                // Log::info( [$value] );
@@ -660,6 +661,7 @@ class OfficetrackController extends \BaseController
                 if ( $value->Id=='dni_propietario' && isset($value->Value) && is_string($value->Value) )    $dni_propietario = $value->Value;
                 if ( $value->Id=='nombres_fiscalizador' && isset($value->Value) && is_string($value->Value) )    $nombres_fiscalizador = $value->Value;
                 if ( $value->Id=='dni_fiscalizador' && isset($value->Value) && is_string($value->Value) )    $dni_fiscalizador = $value->Value;
+                //if ( $value->Id=='5' && isset($value->Value) && is_string($value->Value))    $fichaNro = $value->Value;
                 if ( $value->Id=='ubica' && isset($value->Value) && is_string($value->Value) ) {
                     $ubica = $value->Value;
                     //-11.99691305,-77.05457402
@@ -695,9 +697,9 @@ class OfficetrackController extends \BaseController
 
             $fiscalizacion->save();
         }
-        Log::info( "imagen");
         $dir = 'img/test/';
         if (isset($form->Files->File) && count($form->Files->File)>0 ) {
+            Log::info("imagen");
             $imagenes =[];
             foreach ($form->Files->File as $value) {
                 $nombreImagen = $form->Task->TaskNumber.'_'.str_replace(' ', '', $value->Id).'.jpg';
@@ -708,14 +710,12 @@ class OfficetrackController extends \BaseController
             }
             $formulario->imagenes()->saveMany($imagenes);
         }
-        if (isset($form->Form->Fields->Field) ) {
+        if (isset($form->Form->Fields->Field) )
         {
             Log::info( "foreach");
 
             foreach ($form->Form->Fields->Field as $key => $value)
             {
-                //if ( $value->Id=='5' && isset($value->Value) && is_string($value->Value))    $fichaNro = $value->Value;
-
                 //1 IDENTIFICACIÓN DEL PROPIETARIO
                 if ( $value->Id=='parte01' && isset($value->Rows->Row)) {
                     foreach ($value->Rows->Row as $k => $v) {
@@ -998,10 +998,10 @@ class OfficetrackController extends \BaseController
                // Log::info( [ $key ] );
             }
 
-            Log::info( ["pre"]);        
+            Log::info("pre");        
         }
 
-        Log::info( ["fin"]);
+        Log::info( "fin");
     }
 
 }
