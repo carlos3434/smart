@@ -279,7 +279,8 @@ class OfficetrackController extends \BaseController
     public function imagenes($value)
     {
         $Filename = $Data = '';
-
+        //Log::useDailyFiles(storage_path().'/logs/formulario.log');
+        Log::info([$value]);
         if (isset($value[1]->Id) && $value[1]->Id == 'Filename' && is_string($value[1]->Value) )    $Filename = $value[1]->Value;
         if (isset($value[3]->Id) && $value[3]->Id == 'Data' && is_string($value[3]->Value) )    $Data = $value[3]->Value;
 
@@ -701,6 +702,7 @@ class OfficetrackController extends \BaseController
         }
         if (isset($form->Files->File) && count($form->Files->File)>0 ) {
             Log::info("imagen");
+            $imagen = [];
             if ( is_object($form->Files->File)) {
                 foreach ($form->Files->File as $field) {
                     $imagen = $this->imagenes($field);
