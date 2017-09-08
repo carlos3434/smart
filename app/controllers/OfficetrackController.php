@@ -702,7 +702,7 @@ class OfficetrackController extends \BaseController
             Log::info("imagen");
             $imagenes =[];
             foreach ($form->Files->File as $value) {
-                $nombreImagen = $form->Task->TaskNumber.'_'.str_replace(' ', '', $value->Id).'.jpg';
+                $nombreImagen = $ficha_p.'_'.str_replace(' ', '', $value->Id).'.jpg';
                 $ifp = fopen($dir.$nombreImagen, "w+");
                 fwrite($ifp, base64_decode($value->Data));
                 fclose($ifp);
