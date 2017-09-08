@@ -8,21 +8,21 @@
                 
                 <ul class="nav nav-pills head nav-justified" id='nav_modal'>
                   <li class="active"><a data-toggle="tab" href="#tab_informacion">Info</a></li>
-                  <li><a data-toggle="tab" href="#tab_construcciones">construcciones</a></li>
+                  <li><a data-toggle="tab" href="#tab_construcciones">construccion</a></li>
                   <li><a data-toggle="tab" href="#tab_datos">datos</a></li>
-                  <li><a data-toggle="tab" href="#tab_domicilios">domicilios</a></li>
-                  <li><a data-toggle="tab" href="#tab_instalaciones">instalaciones</a></li>
-                  <li><a data-toggle="tab" href="#tab_propietarios">propietarios</a></li>
-                  <li><a data-toggle="tab" href="#tab_ubicaciones">ubicaciones</a></li>
+                  <li><a data-toggle="tab" href="#tab_domicilios">domicilio</a></li>
+                  <li><a data-toggle="tab" href="#tab_instalaciones">instalacion</a></li>
+                  <li><a data-toggle="tab" href="#tab_propietarios">propietario</a></li>
+                  <li><a data-toggle="tab" href="#tab_ubicaciones">ubicacion</a></li>
 
-                  <li><a data-toggle="tab" href="#tab_a_anuncios">anuncios</a></li>
-                  <li><a data-toggle="tab" href="#tab_a_autorizaciones">autorizaciones</a></li>
+                  <li><a data-toggle="tab" href="#tab_a_anuncios">anuncio</a></li>
+                  <li><a data-toggle="tab" href="#tab_a_autorizaciones">autorizacion</a></li>
                   <li><a data-toggle="tab" href="#tab_a_biencomun">biencomun</a></li>
-                  <li><a data-toggle="tab" href="#tab_a_comunes">comunes</a></li>
-                  <li><a data-toggle="tab" href="#tab_a_documentos">documentos</a></li>
-                  <li><a data-toggle="tab" href="#tab_a_masdatos">masdatos</a></li>
-                  <li><a data-toggle="tab" href="#tab_a_propietarios">propietarios</a></li>
-                  <li><a data-toggle="tab" href="#tab_a_ubicaciones">ubicaciones</a></li>
+                  <li><a data-toggle="tab" href="#tab_a_comunes">comun</a></li>
+                  <li><a data-toggle="tab" href="#tab_a_documentos">documento</a></li>
+                  <li><a data-toggle="tab" href="#tab_a_masdatos">masdato</a></li>
+                  <li><a data-toggle="tab" href="#tab_a_propietarios">propietario</a></li>
+                  <li><a data-toggle="tab" href="#tab_a_ubicaciones">ubicacion</a></li>
                 </ul>
             </div>
 
@@ -35,61 +35,44 @@
                             <input type="text" class="form-control" v-model='tarea.ficha_p'>
                         </div>
                         <div class="col-md-4">
-                            <label>Personal</label>
-                            <select id='EmployeeNumber' style="width:100%" class="select2">
-                                  <template v-for="trabajador in trabajadores">
-                                      <option v-bind:value="trabajador.EmployeeNumber">
-                                        @{{ trabajador.nombres }}
-                                      </option>
-                                  </template>
-                            </select>
+                            <label>codigo</label>
+                            <input type="text" class="form-control" v-model='tarea.codigo_p'>
                         </div>
                         <div class="col-md-4">
-                            <label>Cliente</label>
-                            <input type="text" class="form-control" v-model='tarea.CustomerName'>
+                            <label>observaciones</label>
+                            <input type="text" class="form-control" v-model='tarea.observaciones'>
                         </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <label>Fecha vencimiento</label>
-                                <input type="text" placeholder="dd-mm-yyyy" class="form-control datepicker" data-dateformat="dd-mm-yy" onfocus="blur()" name='DueDate_editar' v-model='tarea.DueDate'>
-                            </div>
-                            
-                            <div class="col-md-4">
-                                <label>Tipo de Tarea</label>
-                                <select id='tipo_tarea_id' style="width:100%" class="select2">
-                                      <template v-for="tipo in tipotarea">
-                                          <option v-bind:value="tipo.id">
-                                            @{{ tipo.nombre }}
-                                          </option>
-                                      </template>
-                                </select>
+                                <label>dni_declarantes</label>
+                                <input type="text" class="form-control" v-model='tarea.dni_declarantes'>
                             </div>
                             <div class="col-md-4">
-                                <label>Estado de Tarea</label>
-
-                                <select id='estado_tarea_id' style="width:100%" class="select2">
-                                      <template v-for="estado in estadotarea">
-                                          <option v-bind:value="estado.id">
-                                            @{{ estado.nombre }}
-                                          </option>
-                                      </template>
-                                </select>
-
+                                <label>dni_fiscalizador</label>
+                                <input type="text" class="form-control" v-model='tarea.dni_fiscalizador'>
+                            </div>
+                            <div class="col-md-4">
+                                <label>dni_propietario</label>
+                                <input type="text" class="form-control" v-model='tarea.dni_propietario'>
                             </div>
                         </div>
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-md-3">
-                                <label>Direccion</label>
-                                <input type="text" class="form-control" v-model='tarea.Address'>
+                            <div class="col-md-4">
+                                <label>nombres_declarantes</label>
+                                <input type="text" class="form-control" v-model='tarea.nombres_declarantes'>
                             </div>
-                            <div class="col-md-9">
-                                <label>Observación</label>
-                                <input type="text" class="form-control" v-model='tarea.observaciones'>
+                            <div class="col-md-4">
+                                <label>nombres_fiscalizador</label>
+                                <input type="text" class="form-control" v-model='tarea.nombres_fiscalizador'>
+                            </div>
+                            <div class="col-md-4">
+                                <label>nombres_propietarios</label>
+                                <input type="text" class="form-control" v-model='tarea.nombres_propietarios'>
                             </div>
                         </div>
                     </div>

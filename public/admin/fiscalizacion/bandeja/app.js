@@ -236,30 +236,6 @@ var columns = [{
     name: "FirstName",
     searchable: false
 }, {
-    data: "nombres_declarantes",
-    name: "nombres_declarantes",
-    searchable: false
-}, {
-    data: "dni_declarantes",
-    name: "dni_declarantes",
-    searchable: false
-}, {
-    data: "nombres_propietarios",
-    name: "nombres_propietarios",
-    searchable: false
-}, {
-    data: "dni_propietario",
-    name: "dni_propietario",
-    searchable: false
-}, {
-    data: "nombres_fiscalizador",
-    name: "nombres_fiscalizador",
-    searchable: false
-}, {
-    data: "dni_fiscalizador",
-    name: "dni_fiscalizador",
-    searchable: false
-}, {
     data: "created_at",
     name: "created_at",
     searchable: false
@@ -365,6 +341,7 @@ $(document).ready(function () {
     });
     $('#' + nuevo_modal).on('hidden.bs.modal', function (event) {
         clearMapa();
+        cleanData();
     });
 });
 /**
@@ -390,7 +367,23 @@ clearMapa = function clearMapa() {
     } catch (c) {}
     removeMarkers();
 };
-
+cleanData = function cleanData() {
+    vm.tarea = [];
+    vm.construcciones = [];
+    vm.datos = [];
+    vm.domicilios = [];
+    vm.instalaciones = [];
+    vm.propietarios = [];
+    vm.ubicaciones = [];
+    vm.a_anuncios = [];
+    vm.a_autorizaciones = [];
+    vm.a_biencomun = [];
+    vm.a_comunes = [];
+    vm.a_documentos = [];
+    vm.a_masdatos = [];
+    vm.a_propietarios = [];
+    vm.a_ubicaciones = [];
+};
 iniciarMapa = function iniciarMapa(id) {
     vm.map = new gm.Map(document.getElementById(id), mapOptions);
 };
@@ -407,6 +400,12 @@ addClickMarker = function addClickMarker(id) {
 };
 
 pintarMarkers = function pintarMarkers() {
+    if (vm.tarea.x === '') {
+        vm.tarea.x = -12.1089753415548;
+    }
+    if (vm.tarea.y === '') {
+        vm.tarea.y = -77.0160367806228;
+    }
     var x = parseFloat(vm.tarea.x);
     var y = parseFloat(vm.tarea.y);
     var location = new gm.LatLng(y, x);

@@ -57,12 +57,6 @@
                                             <th>ficha</th>
                                             <th>codigo</th>
                                             <th>Usuario</th>
-                                            <th>nombres_declarantes</th>
-                                            <th>dni_declarantes</th>
-                                            <th>nombres_propietarios</th>
-                                            <th>dni_propietario</th>
-                                            <th>nombres_fiscalizador</th>
-                                            <th>dni_fiscalizador</th>
                                             <th>fecha</th>
                                             <th>observacion</th>
                                             <th>[]</th>
