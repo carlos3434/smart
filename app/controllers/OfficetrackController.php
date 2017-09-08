@@ -270,23 +270,25 @@ class OfficetrackController extends \BaseController
         $errors = libxml_get_errors();
         return empty($errors);
     }
-    public function imagenes($form)
+    /**
+     * 0: Guid
+     * 1: Filename
+     * 2: Id
+     * 3: Data
+     */
+    public function imagenes($value)
     {
+        $Filename = $Data = '';
+
+        if (isset($value[1]->Id) && $value[1]->Id == 'Filename' && is_string($value[1]->Value) )    $Filename = $value[1]->Value;
+        if (isset($value[3]->Id) && $value[3]->Id == 'Data' && is_string($value[3]->Value) )    $Data = $value[3]->Value;
+
         $dir = 'img/test/';
-        if (count($form->Files->File)>0 ) {
-            $imagenes =[];
-            foreach ($form->Files->File as $value) {
-                $nombreImagen = $form->Task->TaskNumber.'_'.str_replace(' ', '', $value->Id).'.jpg';
-                $ifp = fopen($dir.$nombreImagen, "w+");
-                fwrite($ifp, base64_decode($value->Data));
-                fclose($ifp);
-                $imagen =[
-                    'url' => 'img/test/'.$nombreImagen
-                ];
-                $imagenes[]=new Imagen($imagen);
-            }
-            $formulario->imagenes()->saveMany($imagenes);
-        }
+        
+        $ifp = fopen($dir.$Filename, "w+");
+        fwrite($ifp, base64_decode($Data));
+        fclose($ifp);
+        return ['url'=>$dir.$Filename];
     }
     //I. IDENTIFICACIÓN DEL PROPIETARIO
     private function parte01($value)
@@ -697,18 +699,22 @@ class OfficetrackController extends \BaseController
 
             $fiscalizacion->save();
         }
-        $dir = 'img/test/';
         if (isset($form->Files->File) && count($form->Files->File)>0 ) {
             Log::info("imagen");
-            $imagenes =[];
             foreach ($form->Files->File as $key => $value) {
-                $nombreImagen = $ficha_p.'_'.str_replace(' ', '', $key).'.jpg';
-                $ifp = fopen($dir.$nombreImagen, "w+");
-                fwrite($ifp, base64_decode($value->Data));
-                fclose($ifp);
-                $imagenes[]=new ImagenFiscalizacion(['url' => $dir.$nombreImagen]);
+                $imagen =[];
+                if ( is_object($value)) {
+                    foreach ($value as $field) {
+                        $imagen = $this->imagenes($field);
+                    }
+                } else {
+                    $imagen = $this->imagenes($value);
+                }
+                if (count($imagen)>0) {
+                    $ImagenFiscalizacion[]=new ImagenFiscalizacion($imagen);
+                }
             }
-            $formulario->imagenes()->saveMany($imagenes);
+            $fiscalizacion->imagenes()->saveMany($ImagenFiscalizacion);
         }
         if (isset($form->Form->Fields->Field) )
         {
