@@ -702,10 +702,8 @@ class OfficetrackController extends \BaseController
             } else {
                 foreach ($form->Files->File as $field) {
                     $imagen = $this->imagenes($ficha_p, $field);
+                    $ImagenFiscalizacion[]=new ImagenFiscalizacion($imagen);
                 }
-            }
-            if (count($imagen)>0) {
-                $ImagenFiscalizacion[]=new ImagenFiscalizacion($imagen);
             }
             $fiscalizacion->imagenes()->saveMany($ImagenFiscalizacion);
         }
