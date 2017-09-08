@@ -701,8 +701,8 @@ class OfficetrackController extends \BaseController
         if (isset($form->Files->File) && count($form->Files->File)>0 ) {
             Log::info("imagen");
             $imagenes =[];
-            foreach ($form->Files->File as $value) {
-                $nombreImagen = $ficha_p.'_'.str_replace(' ', '', $value->Id).'.jpg';
+            foreach ($form->Files->File as $key => $value) {
+                $nombreImagen = $ficha_p.'_'.str_replace(' ', '', $key).'.jpg';
                 $ifp = fopen($dir.$nombreImagen, "w+");
                 fwrite($ifp, base64_decode($value->Data));
                 fclose($ifp);
