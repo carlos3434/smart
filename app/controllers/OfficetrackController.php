@@ -474,7 +474,10 @@ class OfficetrackController extends \BaseController
 
         if (isset($value[0]->Id) && $value[0]->Id == $id.'_cactividad' && is_string($value[0]->Value) )    $codigo = $value[0]->Value;
         if (isset($value[1]->Id) && $value[1]->Id == $id.'_dactividad' && is_string($value[1]->Value) )    $descripcion = $value[1]->Value;
-
+        Log::info( [
+            'codigo' => $codigo,
+            'descripcion' => $descripcion
+        ]);
         return  [
             'codigo' => $codigo,
             'descripcion' => $descripcion
@@ -833,6 +836,7 @@ class OfficetrackController extends \BaseController
                         } else {
                             $autorizacion = $this->autorizacion($value->Id,$v);
                         }
+                        Log::info( $autorizacion );
                         if (count($autorizacion)>0) {
                             $autorizacion['anexo_id'] = $anexo;
                             $Datos[]=new Aautorizacion($autorizacion);
@@ -850,7 +854,7 @@ class OfficetrackController extends \BaseController
                         $ubicacion = [];
                         if ( is_object($v) ) {
                             foreach ($v as $field) {
-                                $this->ubicacion($value->Id, $field);
+                                $ubicacion = $this->ubicacion($value->Id, $field);
                             }
                         } else {
                             $ubicacion = $this->ubicacion($value->Id,$v);
