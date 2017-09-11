@@ -23,7 +23,31 @@ var Tareas={
             vm.instalaciones = response.data.instalaciones;
             vm.propietarios = response.data.propietarios;
             vm.ubicaciones = response.data.ubicaciones;
-
+            var i;
+            for ( i = vm.a_anuncios.length - 1; i >= 0; i--) {
+                console.log(vm.a_anuncios[i].id );
+            }
+            for ( i = vm.a_autorizaciones.length - 1; i >= 0; i--) {
+                console.log(vm.a_autorizaciones[i].id );
+            }
+            for ( i = vm.a_biencomun.length - 1; i >= 0; i--) {
+                console.log(vm.a_biencomun[i].id );
+            }
+            for ( i = vm.a_comunes.length - 1; i >= 0; i--) {
+                console.log(vm.a_comunes[i].id );
+            }
+            for ( i = vm.a_documentos.length - 1; i >= 0; i--) {
+                console.log(vm.a_documentos[i].id );
+            }
+            for ( i = vm.a_masdatos.length - 1; i >= 0; i--) {
+                console.log(vm.a_masdatos[i].id );
+            }
+            for ( i = vm.a_propietarios.length - 1; i >= 0; i--) {
+                console.log(vm.a_propietarios[i].id );
+            }
+            for ( i = vm.a_ubicaciones.length - 1; i >= 0; i--) {
+                console.log(vm.a_ubicaciones[i].id );
+            }
             vm.a_anuncios = response.data.a_anuncios;
             vm.a_autorizaciones = response.data.a_autorizaciones;
             vm.a_biencomun = response.data.a_biencomun;

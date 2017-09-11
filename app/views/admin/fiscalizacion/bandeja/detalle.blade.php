@@ -6,7 +6,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 
-                <ul class="nav nav-pills head nav-justified" id='nav_modal'>
+                <ul class="nav nav-pills head nav-justified" id='nav_modal01'>
                   <li class="active"><a data-toggle="tab" href="#tab_informacion">Info</a></li>
                   <li><a data-toggle="tab" href="#tab_construcciones">construccion</a></li>
                   <li><a data-toggle="tab" href="#tab_datos">datos</a></li>
@@ -14,15 +14,7 @@
                   <li><a data-toggle="tab" href="#tab_instalaciones">instalacion</a></li>
                   <li><a data-toggle="tab" href="#tab_propietarios">propietario</a></li>
                   <li><a data-toggle="tab" href="#tab_ubicaciones">ubicacion</a></li>
-
-                  <li><a data-toggle="tab" href="#tab_a_anuncios">anuncio</a></li>
-                  <li><a data-toggle="tab" href="#tab_a_autorizaciones">autorizacion</a></li>
-                  <li><a data-toggle="tab" href="#tab_a_biencomun">biencomun</a></li>
-                  <li><a data-toggle="tab" href="#tab_a_comunes">comun</a></li>
-                  <li><a data-toggle="tab" href="#tab_a_documentos">documento</a></li>
-                  <li><a data-toggle="tab" href="#tab_a_masdatos">masdato</a></li>
-                  <li><a data-toggle="tab" href="#tab_a_propietarios">propietario</a></li>
-                  <li><a data-toggle="tab" href="#tab_a_ubicaciones">ubicacion</a></li>
+                  <li><a data-toggle="tab" href="#tab_anexos">Anexos</a></li>
                 </ul>
             </div>
 
@@ -30,18 +22,18 @@
                 <div id="tab_informacion" class="tab-pane fade in active">
                     <div class="modal-body">
                         <div class="row">
-                        <div class="col-md-4">
-                            <label>Ficha</label>
-                            <input type="text" class="form-control" v-model='tarea.ficha_p'>
-                        </div>
-                        <div class="col-md-4">
-                            <label>codigo</label>
-                            <input type="text" class="form-control" v-model='tarea.codigo_p'>
-                        </div>
-                        <div class="col-md-4">
-                            <label>observaciones</label>
-                            <input type="text" class="form-control" v-model='tarea.observaciones'>
-                        </div>
+                            <div class="col-md-4">
+                                <label>Ficha</label>
+                                <input type="text" class="form-control" v-model='tarea.ficha_p'>
+                            </div>
+                            <div class="col-md-4">
+                                <label>codigo</label>
+                                <input type="text" class="form-control" v-model='tarea.codigo_p'>
+                            </div>
+                            <div class="col-md-4">
+                                <label>observaciones</label>
+                                <input type="text" class="form-control" v-model='tarea.observaciones'>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-body">
@@ -256,212 +248,747 @@
                         </div>
                     </div>
                 </div>
-
-                <div id="tab_a_anuncios" class="tab-pane">
+                <div id="tab_ubicaciones" class="tab-pane">
                     <div class="modal-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover" width="100%">
                                 <thead>
                                     <tr>
-                                        <th>codigo</th>
-                                        <th>descripcion</th>
-                                        <th>lados</th>
-                                        <th>autor</th>
-                                        <th>verificacion</th>
-                                        <th>expediente</th>
-                                        <th>licencia</th>
-                                        <th>expedicion</th>
-                                        <th>vencimiento</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for='index in a_anuncios'>
-                                        <td>@{{index.codigo}}</td>
-                                        <td>@{{index.descripcion}}</td>
-                                        <td>@{{index.lados}}</td>
-                                        <td>@{{index.autor}}</td>
-                                        <td>@{{index.verificacion}}</td>
-                                        <td>@{{index.expediente}}</td>
-                                        <td>@{{index.licencia}}</td>
-                                        <td>@{{index.expedicion}}</td>
-                                        <td>@{{index.vencimiento}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div id="tab_a_autorizaciones" class="tab-pane">
-                    <div class="modal-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>codigo</th>
-                                        <th>descripcion</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for='index in a_autorizaciones'>
-                                        <td>@{{index.codigo}}</td>
-                                        <td>@{{index.descripcion}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div id="tab_a_biencomun" class="tab-pane">
-                    <div class="modal-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>codigo</th>
-                                        <th>descripcion</th>
-                                        <th>titulo</th>
-                                        <th>verificada</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for='index in a_biencomun'>
-                                        <td>@{{index.codigo}}</td>
-                                        <td>@{{index.descripcion}}</td>
-                                        <td>@{{index.titulo}}</td>
-                                        <td>@{{index.verificada}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div id="tab_a_comunes" class="tab-pane">
-                    <div class="modal-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>piso</th>
-                                        <th>construccion</th>
-                                        <th>material</th>
-                                        <th>conservacion</th>
-                                        <th>estado</th>
-                                        <th>muros</th>
-                                        <th>techos</th>
-                                        <th>pisos</th>
-                                        <th>puertas</th>
-                                        <th>revestimiento</th>
-                                        <th>banios</th>
-                                        <th>electricas</th>
-                                        <th>declarada</th>
-                                        <th>verificada</th>
-                                        <th>uca</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for='index in a_comunes'>
-                                        <td>@{{index.piso}}</td>
-                                        <td>@{{index.construccion}}</td>
-                                        <td>@{{index.material}}</td>
-                                        <td>@{{index.conservacion}}</td>
-                                        <td>@{{index.estado}}</td>
-                                        <td>@{{index.muros}}</td>
-                                        <td>@{{index.techos}}</td>
-                                        <td>@{{index.pisos}}</td>
-                                        <td>@{{index.puertas}}</td>
-                                        <td>@{{index.revestimiento}}</td>
-                                        <td>@{{index.banios}}</td>
-                                        <td>@{{index.electricas}}</td>
-                                        <td>@{{index.declarada}}</td>
-                                        <td>@{{index.verificada}}</td>
-                                        <td>@{{index.uca}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div id="tab_a_documentos" class="tab-pane">
-                    <div class="modal-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
+                                        <th>codigo_uso</th>
+                                        <th>uso_propiedad</th>
+                                        <th>codigo_urbano</th>
+                                        <th>cod_centro_poblado</th>
+                                        <th>desc_centro_poblado</th>
+                                        <th>cod_via</th>
+                                        <th>via</th>
+                                        <th>nombre_via</th>
                                         <th>numero</th>
+                                        <th>block</th>
+                                        <th>departamento</th>
+                                        <th>manzana</th>
+                                        <th>lote</th>
+                                        <th>sublote</th>
+                                        <th>area_declarada</th>
+                                        <th>area_verificada</th>
+                                        <th>area_comun</th>
+                                        <th>area_propia</th>
+                                        <th>longitud_fachada</th>
+                                        <th>ubicacion</th>
+                                        <th>clasificacion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for='index in a_documentos'>
+                                    <tr v-for='index in ubicaciones'>
+                                        <td>@{{index.codigo_uso}}</td>
+                                        <td>@{{index.uso_propiedad}}</td>
+                                        <td>@{{index.codigo_urbano}}</td>
+                                        <td>@{{index.cod_centro_poblado}}</td>
+                                        <td>@{{index.desc_centro_poblado}}</td>
+                                        <td>@{{index.cod_via}}</td>
+                                        <td>@{{index.via}}</td>
+                                        <td>@{{index.nombre_via}}</td>
                                         <td>@{{index.numero}}</td>
+                                        <td>@{{index.block}}</td>
+                                        <td>@{{index.departamento}}</td>
+                                        <td>@{{index.manzana}}</td>
+                                        <td>@{{index.lote}}</td>
+                                        <td>@{{index.sublote}}</td>
+                                        <td>@{{index.area_declarada}}</td>
+                                        <td>@{{index.area_verificada}}</td>
+                                        <td>@{{index.area_comun}}</td>
+                                        <td>@{{index.area_propia}}</td>
+                                        <td>@{{index.longitud_fachada}}</td>
+                                        <td>@{{index.ubicacion}}</td>
+                                        <td>@{{index.clasificacion}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div id="tab_a_masdatos" class="tab-pane">
-                    <div class="modal-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>expediente</th>
-                                        <th>licencia</th>
-                                        <th>expedicion</th>
-                                        <th>vencimiento</th>
-                                        <th>actividad</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for='index in a_masdatos'>
-                                        <td>@{{index.expediente}}</td>
-                                        <td>@{{index.licencia}}</td>
-                                        <td>@{{index.expedicion}}</td>
-                                        <td>@{{index.vencimiento}}</td>
-                                        <td>@{{index.actividad}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <div id="tab_anexos" class="tab-pane">
+                    <div class="modal-header">
+                        <ul class="nav nav-pills head nav-justified" id='nav_modal02'>
+                          <li class="active"><a data-toggle="tab" href="#anexo01">anexo01</a></li>
+                          <li><a data-toggle="tab" href="#anexo02">anexo02</a></li>
+                          <li><a data-toggle="tab" href="#anexo03">anexo03</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content" style="min-height: 600px;">
+                        <div id="anexo01" class="tab-pane fade in active">
+                            <div class="modal-body">
+                                <div class="modal-header">
+                                    <ul class="nav nav-pills head nav-justified" id='nav_modal03'>
+                                      <li class="active"><a data-toggle="tab" href="#tab_a_anuncios01">anuncios</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_autorizaciones01">autorizaciones</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_biencomun01">biencomun</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_comunes01">comunes</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_documentos01">documentos</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_masdatos01">datos</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_propietarios01">propietarios</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_ubicaciones01">ubicaciones</a></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content" style="min-height: 600px;">
+                                    <div id="tab_a_anuncios01" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>codigo</th>
+                                                            <th>descripcion</th>
+                                                            <th>lados</th>
+                                                            <th>autor</th>
+                                                            <th>verificacion</th>
+                                                            <th>expediente</th>
+                                                            <th>licencia</th>
+                                                            <th>expedicion</th>
+                                                            <th>vencimiento</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_anuncios'>
+                                                            <td>@{{index.codigo}}</td>
+                                                            <td>@{{index.descripcion}}</td>
+                                                            <td>@{{index.lados}}</td>
+                                                            <td>@{{index.autor}}</td>
+                                                            <td>@{{index.verificacion}}</td>
+                                                            <td>@{{index.expediente}}</td>
+                                                            <td>@{{index.licencia}}</td>
+                                                            <td>@{{index.expedicion}}</td>
+                                                            <td>@{{index.vencimiento}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_autorizaciones01" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>codigo</th>
+                                                            <th>descripcion</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_autorizaciones'>
+                                                            <td>@{{index.codigo}}</td>
+                                                            <td>@{{index.descripcion}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_biencomun01" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>codigo</th>
+                                                            <th>descripcion</th>
+                                                            <th>titulo</th>
+                                                            <th>verificada</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_biencomun'>
+                                                            <td>@{{index.codigo}}</td>
+                                                            <td>@{{index.descripcion}}</td>
+                                                            <td>@{{index.titulo}}</td>
+                                                            <td>@{{index.verificada}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_comunes01" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>piso</th>
+                                                            <th>construccion</th>
+                                                            <th>material</th>
+                                                            <th>conservacion</th>
+                                                            <th>estado</th>
+                                                            <th>muros</th>
+                                                            <th>techos</th>
+                                                            <th>pisos</th>
+                                                            <th>puertas</th>
+                                                            <th>revestimiento</th>
+                                                            <th>banios</th>
+                                                            <th>electricas</th>
+                                                            <th>declarada</th>
+                                                            <th>verificada</th>
+                                                            <th>uca</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_comunes'>
+                                                            <td>@{{index.piso}}</td>
+                                                            <td>@{{index.construccion}}</td>
+                                                            <td>@{{index.material}}</td>
+                                                            <td>@{{index.conservacion}}</td>
+                                                            <td>@{{index.estado}}</td>
+                                                            <td>@{{index.muros}}</td>
+                                                            <td>@{{index.techos}}</td>
+                                                            <td>@{{index.pisos}}</td>
+                                                            <td>@{{index.puertas}}</td>
+                                                            <td>@{{index.revestimiento}}</td>
+                                                            <td>@{{index.banios}}</td>
+                                                            <td>@{{index.electricas}}</td>
+                                                            <td>@{{index.declarada}}</td>
+                                                            <td>@{{index.verificada}}</td>
+                                                            <td>@{{index.uca}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_documentos01" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>numero</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_documentos'>
+                                                            <td>@{{index.numero}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_masdatos01" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>expediente</th>
+                                                            <th>licencia</th>
+                                                            <th>expedicion</th>
+                                                            <th>vencimiento</th>
+                                                            <th>actividad</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_masdatos'>
+                                                            <td>@{{index.expediente}}</td>
+                                                            <td>@{{index.licencia}}</td>
+                                                            <td>@{{index.expedicion}}</td>
+                                                            <td>@{{index.vencimiento}}</td>
+                                                            <td>@{{index.actividad}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_propietarios01" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>tipo_documento</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_propietarios'>
+                                                            <td>@{{index.tipo_documento}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_ubicaciones01" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>autorizada</th>
+                                                            <th>verficada</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_ubicaciones'>
+                                                            <td>@{{index.autorizada}}</td>
+                                                            <td>@{{index.verficada}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="anexo02" class="tab-pane">
+                            <div class="modal-body">
+                                <div class="modal-header">
+                                    <ul class="nav nav-pills head nav-justified" id='nav_modal03'>
+                                      <li class="active"><a data-toggle="tab" href="#tab_a_anuncios02">anuncios</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_autorizaciones02">autorizaciones</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_biencomun02">biencomun</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_comunes02">comunes</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_documentos02">documentos</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_masdatos02">datos</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_propietarios02">propietarios</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_ubicaciones02">ubicaciones</a></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content" style="min-height: 600px;">
+                                    <div id="tab_a_anuncios02" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>codigo</th>
+                                                            <th>descripcion</th>
+                                                            <th>lados</th>
+                                                            <th>autor</th>
+                                                            <th>verificacion</th>
+                                                            <th>expediente</th>
+                                                            <th>licencia</th>
+                                                            <th>expedicion</th>
+                                                            <th>vencimiento</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_anuncios'>
+                                                            <td>@{{index.codigo}}</td>
+                                                            <td>@{{index.descripcion}}</td>
+                                                            <td>@{{index.lados}}</td>
+                                                            <td>@{{index.autor}}</td>
+                                                            <td>@{{index.verificacion}}</td>
+                                                            <td>@{{index.expediente}}</td>
+                                                            <td>@{{index.licencia}}</td>
+                                                            <td>@{{index.expedicion}}</td>
+                                                            <td>@{{index.vencimiento}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_autorizaciones02" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>codigo</th>
+                                                            <th>descripcion</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_autorizaciones'>
+                                                            <td>@{{index.codigo}}</td>
+                                                            <td>@{{index.descripcion}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_biencomun02" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>codigo</th>
+                                                            <th>descripcion</th>
+                                                            <th>titulo</th>
+                                                            <th>verificada</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_biencomun'>
+                                                            <td>@{{index.codigo}}</td>
+                                                            <td>@{{index.descripcion}}</td>
+                                                            <td>@{{index.titulo}}</td>
+                                                            <td>@{{index.verificada}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_comunes02" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>piso</th>
+                                                            <th>construccion</th>
+                                                            <th>material</th>
+                                                            <th>conservacion</th>
+                                                            <th>estado</th>
+                                                            <th>muros</th>
+                                                            <th>techos</th>
+                                                            <th>pisos</th>
+                                                            <th>puertas</th>
+                                                            <th>revestimiento</th>
+                                                            <th>banios</th>
+                                                            <th>electricas</th>
+                                                            <th>declarada</th>
+                                                            <th>verificada</th>
+                                                            <th>uca</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_comunes'>
+                                                            <td>@{{index.piso}}</td>
+                                                            <td>@{{index.construccion}}</td>
+                                                            <td>@{{index.material}}</td>
+                                                            <td>@{{index.conservacion}}</td>
+                                                            <td>@{{index.estado}}</td>
+                                                            <td>@{{index.muros}}</td>
+                                                            <td>@{{index.techos}}</td>
+                                                            <td>@{{index.pisos}}</td>
+                                                            <td>@{{index.puertas}}</td>
+                                                            <td>@{{index.revestimiento}}</td>
+                                                            <td>@{{index.banios}}</td>
+                                                            <td>@{{index.electricas}}</td>
+                                                            <td>@{{index.declarada}}</td>
+                                                            <td>@{{index.verificada}}</td>
+                                                            <td>@{{index.uca}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_documentos02" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>numero</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_documentos'>
+                                                            <td>@{{index.numero}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_masdatos02" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>expediente</th>
+                                                            <th>licencia</th>
+                                                            <th>expedicion</th>
+                                                            <th>vencimiento</th>
+                                                            <th>actividad</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_masdatos'>
+                                                            <td>@{{index.expediente}}</td>
+                                                            <td>@{{index.licencia}}</td>
+                                                            <td>@{{index.expedicion}}</td>
+                                                            <td>@{{index.vencimiento}}</td>
+                                                            <td>@{{index.actividad}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_propietarios02" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>tipo_documento</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_propietarios'>
+                                                            <td>@{{index.tipo_documento}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_ubicaciones02" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>autorizada</th>
+                                                            <th>verficada</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_ubicaciones'>
+                                                            <td>@{{index.autorizada}}</td>
+                                                            <td>@{{index.verficada}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="anexo03" class="tab-pane">
+                            <div class="modal-body">
+                                <div class="modal-header">
+                                    <ul class="nav nav-pills head nav-justified" id='nav_modal03'>
+                                      <li class="active"><a data-toggle="tab" href="#tab_a_anuncios03">anuncios</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_autorizaciones03">autorizaciones</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_biencomun03">biencomun</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_comunes03">comunes</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_documentos03">documentos</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_masdatos03">datos</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_propietarios03">propietarios</a></li>
+                                      <li><a data-toggle="tab" href="#tab_a_ubicaciones03">ubicaciones</a></li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content" style="min-height: 600px;">
+                                    <div id="tab_a_anuncios03" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>codigo</th>
+                                                            <th>descripcion</th>
+                                                            <th>lados</th>
+                                                            <th>autor</th>
+                                                            <th>verificacion</th>
+                                                            <th>expediente</th>
+                                                            <th>licencia</th>
+                                                            <th>expedicion</th>
+                                                            <th>vencimiento</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_anuncios'>
+                                                            <td>@{{index.codigo}}</td>
+                                                            <td>@{{index.descripcion}}</td>
+                                                            <td>@{{index.lados}}</td>
+                                                            <td>@{{index.autor}}</td>
+                                                            <td>@{{index.verificacion}}</td>
+                                                            <td>@{{index.expediente}}</td>
+                                                            <td>@{{index.licencia}}</td>
+                                                            <td>@{{index.expedicion}}</td>
+                                                            <td>@{{index.vencimiento}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_autorizaciones03" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>codigo</th>
+                                                            <th>descripcion</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_autorizaciones'>
+                                                            <td>@{{index.codigo}}</td>
+                                                            <td>@{{index.descripcion}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_biencomun03" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>codigo</th>
+                                                            <th>descripcion</th>
+                                                            <th>titulo</th>
+                                                            <th>verificada</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_biencomun'>
+                                                            <td>@{{index.codigo}}</td>
+                                                            <td>@{{index.descripcion}}</td>
+                                                            <td>@{{index.titulo}}</td>
+                                                            <td>@{{index.verificada}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_comunes03" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>piso</th>
+                                                            <th>construccion</th>
+                                                            <th>material</th>
+                                                            <th>conservacion</th>
+                                                            <th>estado</th>
+                                                            <th>muros</th>
+                                                            <th>techos</th>
+                                                            <th>pisos</th>
+                                                            <th>puertas</th>
+                                                            <th>revestimiento</th>
+                                                            <th>banios</th>
+                                                            <th>electricas</th>
+                                                            <th>declarada</th>
+                                                            <th>verificada</th>
+                                                            <th>uca</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_comunes'>
+                                                            <td>@{{index.piso}}</td>
+                                                            <td>@{{index.construccion}}</td>
+                                                            <td>@{{index.material}}</td>
+                                                            <td>@{{index.conservacion}}</td>
+                                                            <td>@{{index.estado}}</td>
+                                                            <td>@{{index.muros}}</td>
+                                                            <td>@{{index.techos}}</td>
+                                                            <td>@{{index.pisos}}</td>
+                                                            <td>@{{index.puertas}}</td>
+                                                            <td>@{{index.revestimiento}}</td>
+                                                            <td>@{{index.banios}}</td>
+                                                            <td>@{{index.electricas}}</td>
+                                                            <td>@{{index.declarada}}</td>
+                                                            <td>@{{index.verificada}}</td>
+                                                            <td>@{{index.uca}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_documentos03" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>numero</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_documentos'>
+                                                            <td>@{{index.numero}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_masdatos03" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>expediente</th>
+                                                            <th>licencia</th>
+                                                            <th>expedicion</th>
+                                                            <th>vencimiento</th>
+                                                            <th>actividad</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_masdatos'>
+                                                            <td>@{{index.expediente}}</td>
+                                                            <td>@{{index.licencia}}</td>
+                                                            <td>@{{index.expedicion}}</td>
+                                                            <td>@{{index.vencimiento}}</td>
+                                                            <td>@{{index.actividad}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_propietarios03" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>tipo_documento</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_propietarios'>
+                                                            <td>@{{index.tipo_documento}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tab_a_ubicaciones03" class="tab-pane">
+                                        <div class="modal-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" width="100%">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>autorizada</th>
+                                                            <th>verficada</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for='index in a_ubicaciones'>
+                                                            <td>@{{index.autorizada}}</td>
+                                                            <td>@{{index.verficada}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div id="tab_a_propietarios" class="tab-pane">
-                    <div class="modal-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>tipo_documento</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for='index in a_propietarios'>
-                                        <td>@{{index.tipo_documento}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div id="tab_a_ubicaciones" class="tab-pane">
-                    <div class="modal-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>tipo_documento</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for='index in a_ubicaciones'>
-                                        <td>@{{index.tipo_documento}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
 
             </div>
 

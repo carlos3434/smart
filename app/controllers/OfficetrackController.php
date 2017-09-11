@@ -696,7 +696,7 @@ class OfficetrackController extends \BaseController
         }
         if (isset($form->Files->File) && count($form->Files->File)>0 ) {
             Log::info("imagen");
-            $imagen = [];
+            $imagen = $ImagenFiscalizacion = [];
             if ( is_object($form->Files->File)) {
                 $imagen = $this->imagenes($ficha_p, $form->Files->File);
             } else {
@@ -705,7 +705,9 @@ class OfficetrackController extends \BaseController
                     $ImagenFiscalizacion[]=new ImagenFiscalizacion($imagen);
                 }
             }
-            $fiscalizacion->imagenes()->saveMany($ImagenFiscalizacion);
+            if (count($ImagenFiscalizacion)>0) {
+                $fiscalizacion->imagenes()->saveMany($ImagenFiscalizacion);
+            }
         }
         if (isset($form->Form->Fields->Field) )
         {
