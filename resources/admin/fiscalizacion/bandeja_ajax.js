@@ -104,7 +104,7 @@ var Tareas={
                     vm.a_ubicaciones_03.push( response.data.a_ubicaciones[i] );
                 }
             }
-            vm.startRotation();
+            //vm.startRotation();
             pintarMarkers();
             $EmployeeNumber.val(vm.tarea.EmployeeNumber).trigger("change");
             $tipo_tarea_id.val(vm.tarea.tipo_tarea_id).trigger("change");
