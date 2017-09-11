@@ -49,8 +49,12 @@ let vm = new Vue({
         timer: null
     },
     methods: {
-        startRotation:function(){
+        startRotation: function() {
             this.timer = setInterval(this.next, 3000);
+        },
+        stopRotation: function() {
+            clearTimeout(this.timer);
+            this.timer = null;
         },
         next: function() {
             this.currentNumber += 1;

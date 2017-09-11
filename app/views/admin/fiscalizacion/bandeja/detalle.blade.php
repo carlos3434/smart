@@ -81,10 +81,12 @@
                 <div id="tab_imagenes" class="tab-pane">
                     <div class="modal-body">
                         <div v-for="number in currentNumber" transition="fade">
-                          <img :src="'http://webpsi.puedesencontrar.com/'+imagenes[Math.abs(currentNumber) % imagenes.length].url"/>
+                            <img :src="imagenes[Math.abs(currentNumber) % imagenes.length].url" 
+                            v-on:mouseover="stopRotation" 
+                            v-on:mouseout="startRotation"/>
                         </div>
                         <p>
-                            <a @click="prev">Previous</a> || <a @click="next">Next</a>
+                          <a @click="prev">Previous</a> || <a @click="next">Next</a>
                         </p>
                     </div>
                 </div>
