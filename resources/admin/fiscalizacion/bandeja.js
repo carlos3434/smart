@@ -10,14 +10,31 @@ let vm = new Vue({
         instalaciones:[],
         propietarios:[],
         ubicaciones:[],
-        a_anuncios:[],
-        a_autorizaciones:[],
-        a_biencomun:[],
-        a_comunes:[],
-        a_documentos:[],
-        a_masdatos:[],
-        a_propietarios:[],
-        a_ubicaciones:[],
+        a_anuncios_01:[],
+        a_anuncios_02:[],
+        a_anuncios_03:[],
+        a_autorizaciones_01:[],
+        a_autorizaciones_02:[],
+        a_autorizaciones_03:[],
+        a_biencomun_01:[],
+        a_biencomun_02:[],
+        a_biencomun_03:[],
+        a_comunes_01:[],
+        a_comunes_02:[],
+        a_comunes_03:[],
+        a_documentos_01:[],
+        a_documentos_02:[],
+        a_documentos_03:[],
+        a_masdatos_01:[],
+        a_masdatos_02:[],
+        a_masdatos_03:[],
+        a_propietarios_01:[],
+        a_propietarios_02:[],
+        a_propietarios_03:[],
+        a_ubicaciones_01:[],
+        a_ubicaciones_02:[],
+        a_ubicaciones_03:[],
+
         formulario:[],
         imagenes:[],
         trabajadores:[],
@@ -28,8 +45,19 @@ let vm = new Vue({
         bounds:[],
         line:[],
         nomarkers:[],
+        currentNumber: 0,
+        timer: null
     },
     methods: {
+        startRotation:function(){
+            this.timer = setInterval(this.next, 3000);
+        },
+        next: function() {
+            this.currentNumber += 1;
+        },
+        prev: function() {
+            this.currentNumber -= 1;
+        },
         guardarNuevo:function(){
             vm.tarea.DueDate =  $('input[name=DueDate_nuevo]').val();
             vm.tarea.estado_tarea_id = $('#estado_tarea_id').val();

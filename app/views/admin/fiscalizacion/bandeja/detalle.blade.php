@@ -1,3 +1,4 @@
+
 <div class="modal fade" id="editar_modal">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -8,6 +9,7 @@
                 
                 <ul class="nav nav-pills head nav-justified" id='nav_modal01'>
                   <li class="active"><a data-toggle="tab" href="#tab_informacion">Info</a></li>
+                  <li><a data-toggle="tab" href="#tab_imagenes">Imagenes</a></li>
                   <li><a data-toggle="tab" href="#tab_construcciones">construccion</a></li>
                   <li><a data-toggle="tab" href="#tab_datos">datos</a></li>
                   <li><a data-toggle="tab" href="#tab_domicilios">domicilio</a></li>
@@ -74,6 +76,16 @@
                                 <div class="form-control" id="editar_mapa_tarea" style="height: 300px;"></div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div id="tab_imagenes" class="tab-pane">
+                    <div class="modal-body">
+                        <div v-for="number in currentNumber" transition="fade">
+                          <img :src="'http://webpsi.puedesencontrar.com/'+imagenes[Math.abs(currentNumber) % imagenes.length].url"/>
+                        </div>
+                        <p>
+                            <a @click="prev">Previous</a> || <a @click="next">Next</a>
+                        </p>
                     </div>
                 </div>
                 <div id="tab_construcciones" class="tab-pane">
@@ -348,7 +360,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_anuncios'>
+                                                        <tr v-for='index in a_anuncios_01'>
                                                             <td>@{{index.codigo}}</td>
                                                             <td>@{{index.descripcion}}</td>
                                                             <td>@{{index.lados}}</td>
@@ -375,7 +387,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_autorizaciones'>
+                                                        <tr v-for='index in a_autorizaciones_01'>
                                                             <td>@{{index.codigo}}</td>
                                                             <td>@{{index.descripcion}}</td>
                                                         </tr>
@@ -397,7 +409,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_biencomun'>
+                                                        <tr v-for='index in a_biencomun_01'>
                                                             <td>@{{index.codigo}}</td>
                                                             <td>@{{index.descripcion}}</td>
                                                             <td>@{{index.titulo}}</td>
@@ -432,7 +444,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_comunes'>
+                                                        <tr v-for='index in a_comunes_01'>
                                                             <td>@{{index.piso}}</td>
                                                             <td>@{{index.construccion}}</td>
                                                             <td>@{{index.material}}</td>
@@ -464,7 +476,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_documentos'>
+                                                        <tr v-for='index in a_documentos_01'>
                                                             <td>@{{index.numero}}</td>
                                                         </tr>
                                                     </tbody>
@@ -486,7 +498,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_masdatos'>
+                                                        <tr v-for='index in a_masdatos_01'>
                                                             <td>@{{index.expediente}}</td>
                                                             <td>@{{index.licencia}}</td>
                                                             <td>@{{index.expedicion}}</td>
@@ -508,7 +520,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_propietarios'>
+                                                        <tr v-for='index in a_propietarios_01'>
                                                             <td>@{{index.tipo_documento}}</td>
                                                         </tr>
                                                     </tbody>
@@ -527,7 +539,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_ubicaciones'>
+                                                        <tr v-for='index in a_ubicaciones_01'>
                                                             <td>@{{index.autorizada}}</td>
                                                             <td>@{{index.verficada}}</td>
                                                         </tr>
@@ -572,7 +584,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_anuncios'>
+                                                        <tr v-for='index in a_anuncios_02'>
                                                             <td>@{{index.codigo}}</td>
                                                             <td>@{{index.descripcion}}</td>
                                                             <td>@{{index.lados}}</td>
@@ -599,7 +611,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_autorizaciones'>
+                                                        <tr v-for='index in a_autorizaciones_02'>
                                                             <td>@{{index.codigo}}</td>
                                                             <td>@{{index.descripcion}}</td>
                                                         </tr>
@@ -621,7 +633,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_biencomun'>
+                                                        <tr v-for='index in a_biencomun_02'>
                                                             <td>@{{index.codigo}}</td>
                                                             <td>@{{index.descripcion}}</td>
                                                             <td>@{{index.titulo}}</td>
@@ -656,7 +668,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_comunes'>
+                                                        <tr v-for='index in a_comunes_02'>
                                                             <td>@{{index.piso}}</td>
                                                             <td>@{{index.construccion}}</td>
                                                             <td>@{{index.material}}</td>
@@ -688,7 +700,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_documentos'>
+                                                        <tr v-for='index in a_documentos_02'>
                                                             <td>@{{index.numero}}</td>
                                                         </tr>
                                                     </tbody>
@@ -710,7 +722,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_masdatos'>
+                                                        <tr v-for='index in a_masdatos_02'>
                                                             <td>@{{index.expediente}}</td>
                                                             <td>@{{index.licencia}}</td>
                                                             <td>@{{index.expedicion}}</td>
@@ -732,7 +744,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_propietarios'>
+                                                        <tr v-for='index in a_propietarios_02'>
                                                             <td>@{{index.tipo_documento}}</td>
                                                         </tr>
                                                     </tbody>
@@ -751,7 +763,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_ubicaciones'>
+                                                        <tr v-for='index in a_ubicaciones_02'>
                                                             <td>@{{index.autorizada}}</td>
                                                             <td>@{{index.verficada}}</td>
                                                         </tr>
@@ -796,7 +808,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_anuncios'>
+                                                        <tr v-for='index in a_anuncios_03'>
                                                             <td>@{{index.codigo}}</td>
                                                             <td>@{{index.descripcion}}</td>
                                                             <td>@{{index.lados}}</td>
@@ -823,7 +835,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_autorizaciones'>
+                                                        <tr v-for='index in a_autorizaciones_03'>
                                                             <td>@{{index.codigo}}</td>
                                                             <td>@{{index.descripcion}}</td>
                                                         </tr>
@@ -845,7 +857,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_biencomun'>
+                                                        <tr v-for='index in a_biencomun_03'>
                                                             <td>@{{index.codigo}}</td>
                                                             <td>@{{index.descripcion}}</td>
                                                             <td>@{{index.titulo}}</td>
@@ -880,7 +892,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_comunes'>
+                                                        <tr v-for='index in a_comunes_03'>
                                                             <td>@{{index.piso}}</td>
                                                             <td>@{{index.construccion}}</td>
                                                             <td>@{{index.material}}</td>
@@ -912,7 +924,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_documentos'>
+                                                        <tr v-for='index in a_documentos_03'>
                                                             <td>@{{index.numero}}</td>
                                                         </tr>
                                                     </tbody>
@@ -934,7 +946,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_masdatos'>
+                                                        <tr v-for='index in a_masdatos_03'>
                                                             <td>@{{index.expediente}}</td>
                                                             <td>@{{index.licencia}}</td>
                                                             <td>@{{index.expedicion}}</td>
@@ -956,7 +968,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_propietarios'>
+                                                        <tr v-for='index in a_propietarios_03'>
                                                             <td>@{{index.tipo_documento}}</td>
                                                         </tr>
                                                     </tbody>
@@ -975,7 +987,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for='index in a_ubicaciones'>
+                                                        <tr v-for='index in a_ubicaciones_03'>
                                                             <td>@{{index.autorizada}}</td>
                                                             <td>@{{index.verficada}}</td>
                                                         </tr>

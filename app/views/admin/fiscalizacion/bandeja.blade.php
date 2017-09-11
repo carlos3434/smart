@@ -2,6 +2,19 @@
 @section('includes')
     @parent
     <!-- css -->
+    <style>
+    .fade-transition {
+      transition: all 0.8s ease;
+      overflow: hidden;
+      visibility: visible;
+      opacity: 1;
+      position: absolute;
+    }
+    .fade-enter, .fade-leave {
+      opacity: 0;
+      visibility: hidden;
+    }
+    </style>
     @stop
 
 @section('main')

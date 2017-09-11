@@ -187,7 +187,7 @@ class OfficetrackController extends \BaseController
                     fwrite($ifp, base64_decode($value->Data));
                     fclose($ifp);
                     $imagen =[
-                        'url' => 'img/test/'.$nombreImagen
+                        'url' => $dir.$nombreImagen
                     ];
                     $imagenes[]=new Imagen($imagen);
                 }
@@ -279,7 +279,7 @@ class OfficetrackController extends \BaseController
     public function imagenes($ficha_p,$field)
     {
         $dir = 'img/test/';
-        $url = $dir.$ficha_p.$field->Filename;
+        $url = $dir.$ficha_p.substr($field->Filename,-5);
         $ifp = fopen($url, "w+");
         fwrite($ifp, base64_decode($field->Data));
         fclose($ifp);
@@ -699,6 +699,7 @@ Log::info( [$value]);
             $imagen = $ImagenFiscalizacion = [];
             if ( is_object($form->Files->File)) {
                 $imagen = $this->imagenes($ficha_p, $form->Files->File);
+                $ImagenFiscalizacion[]=new ImagenFiscalizacion($imagen);
             } else {
                 foreach ($form->Files->File as $field) {
                     $imagen = $this->imagenes($ficha_p, $field);

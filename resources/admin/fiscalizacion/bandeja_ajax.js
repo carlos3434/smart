@@ -23,40 +23,88 @@ var Tareas={
             vm.instalaciones = response.data.instalaciones;
             vm.propietarios = response.data.propietarios;
             vm.ubicaciones = response.data.ubicaciones;
+            vm.imagenes = response.data.imagenes;
             var i;
-            for ( i = vm.a_anuncios.length - 1; i >= 0; i--) {
-                console.log(vm.a_anuncios[i].id );
+            for ( i = response.data.a_anuncios.length - 1; i >= 0; i--) {
+                if (response.data.a_anuncios[i].anexo_id==1) {
+                    vm.a_anuncios_01.push( response.data.a_anuncios[i] );
+                } else if (response.data.a_anuncios[i].anexo_id==2) {
+                    vm.a_anuncios_02.push( response.data.a_anuncios[i] );
+                } else if (response.data.a_anuncios[i].anexo_id==3) {
+                    vm.a_anuncios_03.push( response.data.a_anuncios[i] );
+                }
             }
-            for ( i = vm.a_autorizaciones.length - 1; i >= 0; i--) {
-                console.log(vm.a_autorizaciones[i].id );
-            }
-            for ( i = vm.a_biencomun.length - 1; i >= 0; i--) {
-                console.log(vm.a_biencomun[i].id );
-            }
-            for ( i = vm.a_comunes.length - 1; i >= 0; i--) {
-                console.log(vm.a_comunes[i].id );
-            }
-            for ( i = vm.a_documentos.length - 1; i >= 0; i--) {
-                console.log(vm.a_documentos[i].id );
-            }
-            for ( i = vm.a_masdatos.length - 1; i >= 0; i--) {
-                console.log(vm.a_masdatos[i].id );
-            }
-            for ( i = vm.a_propietarios.length - 1; i >= 0; i--) {
-                console.log(vm.a_propietarios[i].id );
-            }
-            for ( i = vm.a_ubicaciones.length - 1; i >= 0; i--) {
-                console.log(vm.a_ubicaciones[i].id );
-            }
-            vm.a_anuncios = response.data.a_anuncios;
-            vm.a_autorizaciones = response.data.a_autorizaciones;
-            vm.a_biencomun = response.data.a_biencomun;
-            vm.a_comunes = response.data.a_comunes;
-            vm.a_documentos = response.data.a_documentos;
-            vm.a_masdatos = response.data.a_masdatos;
-            vm.a_propietarios = response.data.a_propietarios;
-            vm.a_ubicaciones = response.data.a_ubicaciones;
 
+            for ( i = response.data.a_autorizaciones.length - 1; i >= 0; i--) {
+                if (response.data.a_autorizaciones[i].anexo_id==1) {
+                    vm.a_autorizaciones_01.push( response.data.a_autorizaciones[i] );
+                } else if (response.data.a_autorizaciones[i].anexo_id==2) {
+                    vm.a_autorizaciones_02.push( response.data.a_autorizaciones[i] );
+                } else if (response.data.a_autorizaciones[i].anexo_id==3) {
+                    vm.a_autorizaciones_03.push( response.data.a_autorizaciones[i] );
+                }
+            }
+
+            for ( i = response.data.a_biencomun.length - 1; i >= 0; i--) {
+                if (response.data.a_biencomun[i].anexo_id==1) {
+                    vm.a_biencomun_01.push( response.data.a_biencomun[i] );
+                } else if (response.data.a_biencomun[i].anexo_id==2) {
+                    vm.a_biencomun_02.push( response.data.a_biencomun[i] );
+                } else if (response.data.a_biencomun[i].anexo_id==3) {
+                    vm.a_biencomun_03.push( response.data.a_biencomun[i] );
+                }
+            }
+
+            for ( i = response.data.a_comunes.length - 1; i >= 0; i--) {
+                if (response.data.a_comunes[i].anexo_id==1) {
+                    vm.a_comunes_01.push( response.data.a_comunes[i] );
+                } else if (response.data.a_comunes[i].anexo_id==2) {
+                    vm.a_comunes_02.push( response.data.a_comunes[i] );
+                } else if (response.data.a_comunes[i].anexo_id==3) {
+                    vm.a_comunes_03.push( response.data.a_comunes[i] );
+                }
+            }
+            
+            for ( i = response.data.a_documentos.length - 1; i >= 0; i--) {
+                if (response.data.a_documentos[i].anexo_id==1) {
+                    vm.a_documentos_01.push( response.data.a_documentos[i] );
+                } else if (response.data.a_documentos[i].anexo_id==2) {
+                    vm.a_documentos_02.push( response.data.a_documentos[i] );
+                } else if (response.data.a_documentos[i].anexo_id==3) {
+                    vm.a_documentos_03.push( response.data.a_documentos[i] );
+                }
+            }
+
+            for ( i = response.data.a_masdatos.length - 1; i >= 0; i--) {
+                if (response.data.a_masdatos[i].anexo_id==1) {
+                    vm.a_masdatos_01.push( response.data.a_masdatos[i] );
+                } else if (response.data.a_masdatos[i].anexo_id==2) {
+                    vm.a_masdatos_02.push( response.data.a_masdatos[i] );
+                } else if (response.data.a_masdatos[i].anexo_id==3) {
+                    vm.a_masdatos_03.push( response.data.a_masdatos[i] );
+                }
+            }
+
+            for ( i = response.data.a_propietarios.length - 1; i >= 0; i--) {
+                if (response.data.a_propietarios[i].anexo_id==1) {
+                    vm.a_propietarios_01.push( response.data.a_propietarios[i] );
+                } else if (response.data.a_propietarios[i].anexo_id==2) {
+                    vm.a_propietarios_02.push( response.data.a_propietarios[i] );
+                } else if (response.data.a_propietarios[i].anexo_id==3) {
+                    vm.a_propietarios_03.push( response.data.a_propietarios[i] );
+                }
+            }
+
+            for ( i = response.data.a_ubicaciones.length - 1; i >= 0; i--) {
+                if (response.data.a_ubicaciones[i].anexo_id==1) {
+                    vm.a_ubicaciones_01.push( response.data.a_ubicaciones[i] );
+                } else if (response.data.a_ubicaciones[i].anexo_id==2) {
+                    vm.a_ubicaciones_02.push( response.data.a_ubicaciones[i] );
+                } else if (response.data.a_ubicaciones[i].anexo_id==3) {
+                    vm.a_ubicaciones_03.push( response.data.a_ubicaciones[i] );
+                }
+            }
+            vm.startRotation();
             pintarMarkers();
             $EmployeeNumber.val(vm.tarea.EmployeeNumber).trigger("change");
             $tipo_tarea_id.val(vm.tarea.tipo_tarea_id).trigger("change");
