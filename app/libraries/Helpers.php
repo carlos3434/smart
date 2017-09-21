@@ -7,8 +7,9 @@ class Helpers{
      * @param type $text string
      * @return type csv
      */
-    public static function exportArrayToExcel($reporte, $fileName,$excluir=[])
+    public static function exportArrayToExcel($reporte, $fileName, $excluir=[])
     {
+
       $table = '';
         if (count($reporte)>0) {
             $filename = Helpers::convert_to_file_excel($fileName);
@@ -20,7 +21,6 @@ class Helpers{
             );
             header("Content-Transfer-Encoding: binary");
             header('Pragma: public');
-
             $n = 1;
             foreach ($reporte as $data) {
                 //Encabezado
@@ -55,4 +55,17 @@ class Helpers{
             );
         }
     }
+
+    public static function convert_to_file_excel($text)
+    {
+      $fecha = date("d/m/Y");
+      $hora = date("h:i:s");
+      $hh = substr($hora, 0, 2);
+      $mm = substr($hora, 3, 2);
+      $ss = substr($hora, 6, 2);
+      $hora = $hh."_".$mm."_".$ss;
+
+      $filename = $text.'_'.$fecha."-".$hora.".xls";
+      return $filename;
+  }
 }

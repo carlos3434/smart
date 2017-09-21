@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -36,6 +36,11 @@ Route::group(["before" => "auth"], function() {
     });
 
 });*/
+Route::get('/hola', function(){
+  $data = array('ficha_p' => 'ficha1', 'codigo_p' => 'codigo 123', 'x' =>'123', 'y'=>'-123', 'FirstName' => 'marco', 'firma_declarante'=> 'firma_decla');
+  $bandeja = DB::table('fiscalizaciones')->insert($data);
+  return 'creado';
+});
 Route::get('colores', function () {
 /*
             $sql = "SELECT p.id, p.nombre, cp.stock, cp.precio, tp.nombre as tipo
@@ -195,6 +200,7 @@ Route::group(["before" => "auth"], function() {
         Route::controller('modulos', 'ModulosController');
         Route::controller('permissions', 'PermissionsController');
         Route::controller('formularios', 'FormularioController');
+
         Route::resource('pedido', 'PedidoController');
 
         //api's
@@ -209,5 +215,6 @@ Route::group(["before" => "auth"], function() {
 
         Route::resource('api/tareas', 'ApiTareasController');
         Route::resource('api/fiscalizaciones', 'ApiFiscalizacionesController');
+        Route::post('api/fiscalizaciones/descargar-excel', 'ApiFiscalizacionesController@descargarExcel');
     });
 });

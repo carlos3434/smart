@@ -83,4 +83,11 @@ class ApiFiscalizacionesController extends Controller
     {
         Tarea::findOrFail($id)->delete();
     }
+
+    public function descargarExcel(){
+      //$fiscalizaciones = Fiscalizacion::all()->toArray();
+      $fiscalizaciones= \DB::select( \DB::raw('select * from fiscalizaciones') );
+      $fiscalizaciones_array = json_decode( json_encode($fiscalizaciones), true );
+      return Helpers::exportArrayToExcel($fiscalizaciones_array, 'Tareas');
+    }
 }

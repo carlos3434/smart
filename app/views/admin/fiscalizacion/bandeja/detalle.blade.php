@@ -75,6 +75,9 @@
                             <div class="col-sm-12">
                                 <div class="form-control" id="editar_mapa_tarea" style="height: 300px;"></div>
                             </div>
+                            <div class="col-sm-12">
+                                <div class="form-control" id="editar_panorama_tarea" style="height: 300px;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

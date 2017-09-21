@@ -56,7 +56,11 @@
                     <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3" data-widget-editbutton="false">
                         <header>
                             <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                            <h2>Export to PDF / Excel</h2>
+                            <form name="form_download_excel" id="form_download_excel" method="POST" action="api/fiscalizaciones/descargar-excel">
+                                {{Form::token() }}
+
+                                <h2 onclick="document.getElementById('form_download_excel').submit();">Export to PDF / Excel</h2>
+                            </form>
                         </header>
 
                         <div>
@@ -100,6 +104,13 @@
 
 @push('scripts_custom')
     <!-- PAGE RELATED PLUGIN(S) -->
+    <script>
+        $(document).on('click',  'a', function(ev) {
+            ev.preventDefault();
+            console.log('qwmeoqwje');
+            $('#form_download_excel').submit();
+        })
+    </script>
     <script src="js/plugin/datatables/jquery.dataTables.min.js"></script>
     <script src="js/plugin/datatables/dataTables.colVis.min.js"></script>
     <script src="js/plugin/datatables/dataTables.tableTools.min.js"></script>

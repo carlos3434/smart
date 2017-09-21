@@ -112,6 +112,15 @@ var mapOptions = {
     zoom: config.zoom,
     mapTypeId: config.type
 };
+
+var panoramaOptions = {
+    position: new gm.LatLng(config.lat, config.lon),
+    pov: {
+      heading: 34,
+      pitch: 10
+    }
+};
+
 var markerSpiderfier;
 var infoWindows = [];
 removeMarkers = function() {
@@ -244,8 +253,8 @@ var dataTable={
     },
     "columns":columns,
     "sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-6 hidden-xs'T>r>"+
-            "t"+
-            "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
+    "t"+
+    "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-sm-6 col-xs-12'p>>",
     "oLanguage": {
         "sSearch": '<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>'
     },
@@ -276,12 +285,14 @@ $(document).ready(function() {
     $('#'+editar_modal).on('shown.bs.modal', function (event) {
         clearMapa();
         iniciarMapa('editar_mapa_tarea');
+        iniciarPanorama('editar_panorama_tarea');
         addClickMarker();
         Tareas.get(vm.tarea.id);
     });
     $('#'+nuevo_modal).on('shown.bs.modal', function (event) {
         clearMapa();
         iniciarMapa('nuevo_mapa_tarea');
+        iniciarPanorama('editar_panorama_tarea');
         addClickMarker();
     });
     $('#nav_modal a').on('shown.bs.tab', function(e){
@@ -299,8 +310,8 @@ $(document).ready(function() {
     });
 });
 /**
-   
-*/
+
+ */
 editar=function(id){
     vm.tarea.id=id;
     vm.accion='editar';
@@ -340,15 +351,25 @@ iniciarMapa=function (id) {
     vm.map = new gm.Map(
         document.getElementById(id),
         mapOptions
+
     );
+    vm.map.setStreetView(vm.panorama);
 };
+iniciarPanorama = function (id) {
+    vm.panorama = new gm.StreetViewPanorama(
+        document.getElementById(id),
+        panoramaOptions
+    );
+
+};
+
 addClickMarker=function (id) {
     vm.map.addListener('click',function(event) {
         icon = "/img/icons/tap.png";
         vm.tarea.y = event.latLng.lat();
         vm.tarea.x = event.latLng.lng();
-        removeMarkers();
-        addMarker(event.latLng, 'Click Generated Marker',icon, true);
+        //removeMarkers();
+        //addMarker(event.latLng, 'Click Generated Marker',icon, true);
     });
     vm.bounds = new gm.LatLngBounds();
     markerSpiderfier = new OverlappingMarkerSpiderfier(vm.map, spiderConfig);
