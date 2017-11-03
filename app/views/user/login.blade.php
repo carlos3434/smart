@@ -116,17 +116,17 @@
 
                                     <section>
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <label class="label">Username</label>
+                                        <label class="label">Usuario</label>
                                         <label class="input"> <i class="icon-append fa fa-user"></i>
                                             <input type="text" name="username">
-                                            <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Please enter email address/username</b></label>
+                                            <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Por favor ingrese su dirección de correo electrónico</b></label>
                                     </section>
 
                                     <section>
-                                        <label class="label">Password</label>
+                                        <label class="label">Contraseña</label>
                                         <label class="input"> <i class="icon-append fa fa-lock"></i>
                                             <input type="password" name="password">
-                                            <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Enter your password</b> </label>
+                                            <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Ingrese su contraseña</b> </label>
                                         <div class="note">
                                             <a href="password/remind">Forgot password?</a>
                                         </div>
