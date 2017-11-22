@@ -128,7 +128,7 @@
                                             <input type="password" name="password">
                                             <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Ingrese su contraseña</b> </label>
                                         <div class="note">
-                                            <a href="password/remind">Forgot password?</a>
+                                            <a href="password/remind">Se te olvidó tu contraseña?</a>
                                         </div>
                                     </section>
 
